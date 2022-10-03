@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
-import { myDataSource } from "./datasource";
+import { myDataSource } from "./data-source";
 
 dotenv.config();
 const app = express();
