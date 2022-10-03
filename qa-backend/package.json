@@ -1,0 +1,9 @@
+{
+  "name": "qa-backend",
+  "version": "1.0.0",
+  "description": "a rest api server using node.js and express.js",
+  "main": "server.js",
+  "repository": "git@github.com:Paiman-Rasoli/quality-assurance-herat-university.git",
+  "author": "paimanrasoli002@gmail.com",
+  "license": "MIT"
+}
