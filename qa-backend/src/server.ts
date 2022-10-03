@@ -2,11 +2,14 @@ import dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import { myDataSource } from "./data-source";
+import { authRoutes } from "./routes";
 
 dotenv.config();
 const app = express();
 app.use(cors());
 
+// auth route
+app.use("/api/auth", authRoutes);
 const PORT = process.env.PORT || 1111;
 myDataSource
   .initialize()
