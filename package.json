@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "concurrently": "^7.4.0",
     "cors": "^2.8.5"
+  },
+  "scripts": {
+    "server": "cd qa-backend & yarn run dev",
+    "client": "cd qa-frontend & yarn start",
+    "start": "concurrently --kill-others \"yarn run server\" \"yarn run client\"",
+    "install-server": "cd qa-backend & yarn",
+    "install-client": "cd qa-frontend & yarn",
+    "install-all": "concurrently --kill-others \"yarn add concurrently\" \" yarn run install-server\" \" yarn run install-client\""
   }
 }

@@ -1,5 +1,12 @@
 <h2> Quality Assurance System </h2>
 <br />
+
+### `yarn start`
+
+use for running on the root `dir`
+
+### `yarn install-all`
+
 <h3>Server Configuration:</h3>
 <p>1. For running backend navigate to qa-backend and install dependencies using <code>yarn add --frozen-lockfile</code></p>
 <p style="margin-top : 4px;">1.1 For starting server <code>yarn start</code></p>
