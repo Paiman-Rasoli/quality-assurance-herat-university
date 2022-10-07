@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { LoginService } from "../services/login.service";
+import { loginService } from "../services/login.service";
+import { authGuard } from "../middlewares/passport";
 
 export const routes = Router();
-const loginService = new LoginService();
 routes.get("/login", loginService.login);
+routes.post("/register", authGuard);
