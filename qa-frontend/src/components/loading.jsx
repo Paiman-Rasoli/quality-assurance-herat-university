@@ -1,7 +1,17 @@
-const Loading = ({ className }) => {
+import { Vortex } from "react-loader-spinner";
+const Loading = () => {
   return (
-    <div className={className}>
-      <svg
+    <div className="fixed z-30 bg-slate-600 bg-opacity-25 inset-0 w-full h-full grid place-content-center">
+      <Vortex
+        visible={true}
+        height="80"
+        width="80"
+        ariaLabel="vortex-loading"
+        wrapperStyle={{}}
+        wrapperClass="vortex-wrapper"
+        colors={["red", "green", "blue", "yellow", "orange", "purple"]}
+      />
+      {/* <svg
         xmlns="http://www.w3.org/2000/svg"
         width="3em"
         height="3em"
@@ -26,7 +36,7 @@ const Loading = ({ className }) => {
             type="rotate"
           />
         </path>
-      </svg>
+      </svg> */}
     </div>
   );
 };
