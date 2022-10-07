@@ -7,13 +7,8 @@ import FormBorder from "../components/form/formBorder";
 import Select from "../components/form/Select";
 import Loading from "../components/loading";
 
-import {
-  departments,
-  facoltes,
-  semester_number,
-  semester_type,
-  teachers,
-} from "../services/list";
+import { facoltes, semester_type, teachers } from "../services/list";
+import Questions from "./questions";
 
 const schema = yup.object({
   facolte: yup.string().required("لطفا فاکولته مورد نظرتان را انتخاب نمایید "),
@@ -31,7 +26,9 @@ const schema = yup.object({
 });
 
 const Student = () => {
+  const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
+  const [showQuestion, setShowQuestion] = useState(false);
   const [selectedFacolte, setSelectedFacolte] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const navigate = useNavigate();
@@ -51,10 +48,11 @@ const Student = () => {
 
   const onSubmit = (data) => {
     setLoading(true);
+    setFormData(data);
     console.log(data);
     setTimeout(() => {
       setLoading(false);
-      navigate("question");
+      setShowQuestion(true);
     }, 2000);
   };
 
@@ -121,6 +119,7 @@ const Student = () => {
             {loading && <Loading />}
           </div>
         </form>
+        {showQuestion && <Questions formData={formData} />}
       </FormBorder>
     </div>
   );
