@@ -1,8 +1,22 @@
 export const facoltes = [
-  { name: "طب", departments: ["معالجوی", "ستوماتولوژی"] },
-  { name: "انجنیری", departments: ["سیول", "مهندسی"] },
-  { name: "کمپیوتر ساینس", departments: ["دیتابیس", "شبکه"] },
-  { name: "حقوق", departments: ["علوم سیاسی", "حقوق عمومی"] },
+  { name: "طب", number_of_sem: 14, departments: ["معالجوی", "ستوماتولوژی"] },
+  { name: "انجنیری", number_of_sem: 8, departments: ["سیول", "مهندسی"] },
+  { name: "کمپیوتر ساینس", number_of_sem: 8, departments: ["دیتابیس", "شبکه"] },
+  {
+    name: "حقوق",
+    number_of_sem: 18,
+    departments: ["علوم سیاسی", "حقوق عمومی"],
+  },
+];
+export const departments = [
+  "علوم سیاسی",
+  "حقوق عمومی",
+  "دیتابیس",
+  "شبکه",
+  "سیول",
+  "مهندسی",
+  "معالجوی",
+  "ستوماتولوژی",
 ];
 export const teachers = ["علی", "احمد", "محمود", "حمید", "حسین"];
 
