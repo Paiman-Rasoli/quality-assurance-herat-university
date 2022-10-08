@@ -1,6 +1,13 @@
 import { Router } from "express";
 import { LoginService } from "../services/login.service";
+import { authGuard } from "../middlewares/passport";
+import { check } from "express-validator";
 
-export const routes = Router();
 const loginService = new LoginService();
-routes.get("/login", loginService.login);
+export const routes = Router();
+routes.post(
+  "/login",
+  [check("username").not().isEmpty(), check("password").not().isEmpty()],
+  loginService.login
+);
+routes.post("/register", authGuard);

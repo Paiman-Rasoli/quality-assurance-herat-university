@@ -1,4 +1,4 @@
-import { DataSource } from "typeorm";
+import { DataSource, Entity, Repository } from "typeorm";
 import { User } from "./entities";
 
 export const myDataSource = new DataSource({
@@ -12,3 +12,8 @@ export const myDataSource = new DataSource({
   logging: false,
   synchronize: true,
 });
+
+export const getMyRepository = (model: any): Repository<any> => {
+  const repo = myDataSource.getRepository(model);
+  return repo;
+};
