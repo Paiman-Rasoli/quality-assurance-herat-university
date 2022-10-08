@@ -20,7 +20,7 @@ export class User {
   @Column()
   en_fullName: string;
 
-  @Column()
+  @Column({ default: false })
   is_super_admin: boolean;
 
   @Column()
@@ -29,7 +29,7 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
   phone: string;
 
   @Column({
