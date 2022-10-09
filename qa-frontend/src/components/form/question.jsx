@@ -1,6 +1,5 @@
 const Question = ({ register, errors, name, question }) => {
   return (
-<<<<<<< HEAD
     <div className="my-3 grid w-full">
       <label htmlFor={name}>{question}</label>
       <article className="flex flex-wrap gap-5 justify-around w-full m-2">
@@ -10,17 +9,6 @@ const Question = ({ register, errors, name, question }) => {
             {...register(`${name}`)}
             type="radio"
             id={`${name}a1`}
-=======
-    <div className="my-3">
-      <label htmlFor="q1">{question}</label>
-      <article className="flex flex-wrap gap-5">
-        <div className="flex gap-1">
-          <label htmlFor="a1">خیلی زیاد</label>
-          <input
-            {...register(`${name}`)}
-            type="radio"
-            id="q1"
->>>>>>> 5d6c109 (question form validated)
             value="خیلی زیاد"
           />
         </div>
