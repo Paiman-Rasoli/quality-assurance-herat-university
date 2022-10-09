@@ -31,7 +31,6 @@ const Student = () => {
   const [showQuestion, setShowQuestion] = useState(false);
   const [selectedFacolte, setSelectedFacolte] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
-  const navigate = useNavigate();
 
   function semesterNumbers(number) {
     const arr = [];
