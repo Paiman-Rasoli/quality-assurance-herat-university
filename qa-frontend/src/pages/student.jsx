@@ -7,14 +7,8 @@ import FormBorder from "../components/form/formBorder";
 import Select from "../components/form/Select";
 import Loading from "../components/loading";
 
-import {
-  departments,
-  facoltes,
-  semester_number,
-  semester_type,
-  teachers,
-} from "../services/list";
-import { API_URl } from "../constants";
+import { facoltes, semester_type, teachers } from "../services/list";
+import Questions from "./questions";
 
 const schema = yup.object({
   facolte: yup.string().required("لطفا فاکولته مورد نظرتان را انتخاب نمایید "),
@@ -32,7 +26,9 @@ const schema = yup.object({
 });
 
 const Student = () => {
+  const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
+  const [showQuestion, setShowQuestion] = useState(false);
   const [selectedFacolte, setSelectedFacolte] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const navigate = useNavigate();
@@ -52,30 +48,22 @@ const Student = () => {
 
   const onSubmit = (data) => {
     setLoading(true);
+    setFormData(data);
     console.log(data);
     setTimeout(() => {
       setLoading(false);
-      navigate("question");
+      setShowQuestion(true);
     }, 2000);
-    fetch(`${API_URl}/api/auth/login`, {
-      method: "POST",
-      body: JSON.stringify({
-        username: "paiman12",
-        password: "Asdf1234",
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(async (res) => {
-      console.log("Response => ", await res.json());
-    });
   };
 
   return (
-    <div className="p-10 grid justify-center font-vazirBold">
+    <div className="p-10 grid justify-center w-full font-vazirBold">
       <h1 className="text-center text-5xl">دانشگاه هرات - کمیته تضمین کیفیت</h1>
       <FormBorder label={"فورم ارزیابی اصلاح تدریس"}>
-        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-3">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="grid min-w-full gap-3"
+        >
           <Select
             name="facolte"
             errors={errors}
@@ -134,6 +122,7 @@ const Student = () => {
             {loading && <Loading />}
           </div>
         </form>
+        {showQuestion && <Questions formData={formData} />}
       </FormBorder>
     </div>
   );
