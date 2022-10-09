@@ -9,3 +9,7 @@
 <hr />
 <h3>Frontend Configuration:</h3>
 <p style="margin-top : 4px;">1. For running frontend navigate to qa-frontend and install dependencies using the command <code>npm install</code></p>
+
+<br />
+<h3>Previous Database </h3>
+<img src="https://user-images.githubusercontent.com/83835010/194774740-e36cf9ed-61fd-486e-91e4-27332d6e3485.PNG" alt="dbText" />
