@@ -2,7 +2,7 @@ import React from "react";
 
 const FormBorder = ({ children, label }) => {
   return (
-    <div className="relative z-0 border border-gray-500 m-10 lg:min-w-[50rem] md:w-full rounded">
+    <div className="relative z-0 border border-gray-500 m-10 rounded-xl">
       <div className="absolute -top-5 right-7 bg-white px-5">
         <h1 className="text-3xl font-bold text-[#1E408E]">{label}</h1>
       </div>

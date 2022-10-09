@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import AddFacolte from "./pages/addFacolte";
 import Dashboard from "./pages/dashboard";
 import Login from "./pages/login";
 import Questions from "./pages/questions";
@@ -16,7 +17,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/dashboard">
           <Route index element={<Dashboard />} />
-          <Route path="profile" element={<Student />} />
+          <Route path="addfacolte" element={<AddFacolte />} />
         </Route>
       </Routes>
     </BrowserRouter>
