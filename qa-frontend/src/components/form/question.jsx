@@ -1,39 +1,54 @@
 const Question = ({ register, errors, name, question }) => {
   return (
-    <div className="my-3">
-      <label htmlFor="q1">{question}</label>
-      <article className="flex flex-wrap gap-5">
+    <div className="my-3 grid w-full">
+      <label htmlFor={name}>{question}</label>
+      <article className="flex flex-wrap gap-5 justify-around w-full m-2">
         <div className="flex gap-1">
-          <label htmlFor="a1">خیلی زیاد</label>
+          <label htmlFor={`${name}a1`}>خیلی زیاد</label>
           <input
             {...register(`${name}`)}
             type="radio"
-            id="q1"
+            id={`${name}a1`}
             value="خیلی زیاد"
           />
         </div>
 
         <div className="flex gap-1">
-          <label htmlFor="a1"> زیاد</label>
-          <input {...register(`${name}`)} type="radio" id="q1" value="زیاد" />
-        </div>
-
-        <div className="flex gap-1">
-          <label htmlFor="a1">متوسط</label>
-          <input {...register(`${name}`)} type="radio" id="q1" value="متوسط" />
-        </div>
-
-        <div className="flex gap-1">
-          <label htmlFor="a1">کم</label>
-          <input {...register(`${name}`)} type="radio" id="q1" value="کم" />
-        </div>
-
-        <div className="flex gap-1">
-          <label htmlFor="a1">خیلی کم</label>
+          <label htmlFor={`${name}a2`}> زیاد</label>
           <input
             {...register(`${name}`)}
             type="radio"
-            id="q1"
+            id={`${name}a2`}
+            value="زیاد"
+          />
+        </div>
+
+        <div className="flex gap-1">
+          <label htmlFor={`${name}a3`}>متوسط</label>
+          <input
+            {...register(`${name}`)}
+            type="radio"
+            id={`${name}a3`}
+            value="متوسط"
+          />
+        </div>
+
+        <div className="flex gap-1">
+          <label htmlFor={`${name}a4`}>کم</label>
+          <input
+            {...register(`${name}`)}
+            type="radio"
+            id={`${name}a4`}
+            value="کم"
+          />
+        </div>
+
+        <div className="flex gap-1">
+          <label htmlFor={`${name}a5`}>خیلی کم</label>
+          <input
+            {...register(`${name}`)}
+            type="radio"
+            id={`${name}a5`}
             value="خیلی کم"
           />
         </div>

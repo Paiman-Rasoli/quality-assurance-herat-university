@@ -57,10 +57,13 @@ const Student = () => {
   };
 
   return (
-    <div className="p-10 grid justify-center font-vazirBold">
+    <div className="p-10 grid justify-center w-full font-vazirBold">
       <h1 className="text-center text-5xl">دانشگاه هرات - کمیته تضمین کیفیت</h1>
       <FormBorder label={"فورم ارزیابی اصلاح تدریس"}>
-        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-3">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="grid min-w-full gap-3"
+        >
           <Select
             name="facolte"
             errors={errors}

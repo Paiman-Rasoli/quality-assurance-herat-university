@@ -47,8 +47,12 @@ const Questions = ({ formData }) => {
   };
 
   return (
-    <section className="grid justify-center font-vazirBold">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <section className="grid justify-center font-vazirBold mt-10">
+      <hr />
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="lg:w-[45rem] w-full grid justify-items-center mt-10"
+      >
         {questions.map((question) => (
           <Question
             name={question.number}
