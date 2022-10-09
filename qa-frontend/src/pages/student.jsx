@@ -14,7 +14,6 @@ import {
   semester_type,
   teachers,
 } from "../services/list";
-import { API_URl } from "../constants";
 
 const schema = yup.object({
   facolte: yup.string().required("لطفا فاکولته مورد نظرتان را انتخاب نمایید "),
@@ -57,18 +56,6 @@ const Student = () => {
       setLoading(false);
       navigate("question");
     }, 2000);
-    fetch(`${API_URl}/api/auth/login`, {
-      method: "POST",
-      body: JSON.stringify({
-        username: "paiman12",
-        password: "Asdf1234",
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(async (res) => {
-      console.log("Response => ", await res.json());
-    });
   };
 
   return (
