@@ -10,9 +10,9 @@ import Input from "../components/form/input";
 import InputDate from "../components/form/InputDate";
 
 const schema = yup.object({
-  facolteNameFr: yup.string().required(),
-  facolteNameEng: yup.string().required(),
-  createDate: yup.date().required(),
+  facolteNameFr: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
+  facolteNameEng: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
+  createDate: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
 
 const AddFacolte = () => {
@@ -65,18 +65,21 @@ const AddFacolte = () => {
           >
             <Input
               register={register}
+              errors={errors}
               label="نام فاکولته (فارسی)"
               name="facolteNameFr"
               type="text"
             />
             <Input
               register={register}
+              errors={errors}
               label="نام فاکولته(انگلیسی)"
               name="facolteNameEng"
               type="text"
             />
             <InputDate
               register={register}
+              errors={errors}
               label="تاریخ"
               name="createDate"
               type="Date"
@@ -100,10 +103,10 @@ const AddFacolte = () => {
       <table className="border rounded-3xl lg:min-w-[50rem] md:w-full table-auto border-separate md:border-spacing-5 border-spacing-1">
         <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
           <tr className="divide-x-2 divide-y-2 bg-stone-300">
-            <th className="font-normal text-start">شماره</th>
-            <th className="font-normal text-start">نام فارسی</th>
-            <th className="font-normal text-start">نام انگلیسی</th>
-            <th className="font-normal text-start">تاریخ ثبت</th>
+            <th className="font-normal text-center">شماره</th>
+            <th className="font-normal text-center">نام فارسی</th>
+            <th className="font-normal text-center">نام انگلیسی</th>
+            <th className="font-normal text-center">تاریخ ثبت</th>
           </tr>
         </thead>
         <tbody className="font-vazirBold text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
@@ -114,14 +117,13 @@ const AddFacolte = () => {
                 ndx % 2 === 0 ? "bg-stone-100" : "bg-zinc-200"
               }`}
             >
-              <td>{ndx + 1}</td>
-              <td>{item.facolteNameFr}</td>
-              <td>{item.facolteNameEng}</td>
-              <td>
-                {item.createDate.toDateString()}
-                {/* {moment(item.createDate, "YYYY/MM/DD")
+              <td className="text-center">{ndx + 1}</td>
+              <td className="text-center">{item.facolteNameFr}</td>
+              <td className="text-center">{item.facolteNameEng}</td>
+              <td className="text-center">
+                {moment(item.createDate, "YYYY/MM/DD")
                   .locale("fa")
-                  .format("YYYY/MM/DD")} */}
+                  .format("YYYY/MM/DD")}
               </td>
             </tr>
           ))}

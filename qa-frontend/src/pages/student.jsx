@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormBorder from "../components/form/formBorder";
@@ -21,6 +21,7 @@ const schema = yup.object({
     .required("لطفا نوعیت سمستر مورد نظرتان را انتخاب نمایید "),
   semesterNumber: yup
     .number()
+    .nullable()
     .required("لطفا سمستر مورد نظرتان را انتخاب نمایید ")
     .min(1),
 });
@@ -42,6 +43,7 @@ const Student = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
@@ -76,16 +78,20 @@ const Student = () => {
           >
             <Select
               name="facolte"
+              Type={"string"}
+              Controller={Controller}
+              control={control}
               errors={errors}
-              register={register}
               options={facoltes.map((item) => item.name)}
               placeholder="فاکولته"
               setSelectedOptions={setSelectedFacolte}
             />
             <Select
               name="department"
+              Type={"string"}
               errors={errors}
-              register={register}
+              Controller={Controller}
+              control={control}
               options={
                 facoltes
                   .filter((fc) => fc.name === selectedFacolte)
@@ -97,23 +103,29 @@ const Student = () => {
             />
             <Select
               name="teacher"
+              Type={"string"}
               errors={errors}
-              register={register}
+              Controller={Controller}
+              control={control}
               options={teachers}
               placeholder="استاد"
               className={!selectedDepartment && "disabled"}
             />
             <Select
               name="semesterType"
+              Type={"string"}
               errors={errors}
-              register={register}
+              Controller={Controller}
+              control={control}
               options={semester_type}
               placeholder="نوعیت سمستر"
             />
             <Select
               name="semesterNumber"
+              Type={"number"}
               errors={errors}
-              register={register}
+              Controller={Controller}
+              control={control}
               options={semesterNumbers(
                 ...facoltes
                   .filter((fc) => fc.name === selectedFacolte)
@@ -125,7 +137,7 @@ const Student = () => {
             <div className="flex justify-end px-20">
               <button
                 type={"submit"}
-                className="px-5 py-2 rounded-full text-white bg-[#1E408E]"
+                className="rounded-md py-3 px-3 flex items-center justify-center text-sm font-medium sm:flex-1 text-white bg-cyan-600 hover:bg-cyan-700"
               >
                 تایید
               </button>

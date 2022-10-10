@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import Question from "../components/form/question";
 import { questions } from "../services/list";
 import Loading from "../components/loading";
@@ -33,7 +33,7 @@ const Questions = ({ formData }) => {
   const [loading, setLoading] = useState(false);
 
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
@@ -55,17 +55,18 @@ const Questions = ({ formData }) => {
       >
         {questions.map((question) => (
           <Question
+            Controller={Controller}
+            control={control}
             name={question.number}
             key={question.number}
-            register={register}
             question={question.text}
             errors={errors}
           />
         ))}
-        <div className="flex justify-end px-20">
+        <div className="flex justify-end px-20 w-full">
           <button
             type={"submit"}
-            className="px-5 py-2 rounded-full text-white bg-[#1E408E]"
+            className="rounded-md py-3 px-3 flex items-center justify-center text-sm font-medium sm:flex-1 text-white bg-cyan-600 hover:bg-cyan-700"
           >
             تایید
           </button>
