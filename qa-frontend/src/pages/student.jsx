@@ -9,6 +9,7 @@ import { Transition } from "@headlessui/react";
 
 import { facoltes, semester_type, teachers } from "../services/list";
 import Questions from "./questions";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object({
   facolte: yup.string().required("لطفا فاکولته مورد نظرتان را انتخاب نمایید "),
@@ -33,6 +34,8 @@ const Student = () => {
   const [selectedFacolte, setSelectedFacolte] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
 
+  const navigate = useNavigate();
+
   function semesterNumbers(number) {
     const arr = [];
     for (let i = 1; i <= number; i++) {
@@ -41,7 +44,6 @@ const Student = () => {
     return arr;
   }
   const {
-    register,
     handleSubmit,
     control,
     formState: { errors },
@@ -52,6 +54,7 @@ const Student = () => {
     setFormData(data);
     console.log(data);
     setTimeout(() => {
+      navigate("./questions");
       setLoading(false);
       setShowQuestion(true);
     }, 2000);
@@ -68,8 +71,11 @@ const Student = () => {
       leaveTo="opacity-0"
     >
       <div className="p-10 grid justify-center w-full font-vazirBold">
-        <h1 className="text-center text-5xl">
-          دانشگاه هرات - کمیته تضمین کیفیت
+        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+          <span className="block xl:inline">دانشگاه هرات</span>{" "}
+          <span className="block text-cyan-600 xl:inline">
+            کمیته تضمین کفییت{" "}
+          </span>
         </h1>
         <FormBorder label={"فورم ارزیابی اصلاح تدریس"}>
           <form

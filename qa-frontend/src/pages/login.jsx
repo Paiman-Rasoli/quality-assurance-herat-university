@@ -25,7 +25,7 @@ const Login = () => {
     console.log(data);
     setTimeout(() => {
       setLoading(false);
-      navigate("dashboard");
+      navigate("/dashboard");
     }, 1000);
   };
 

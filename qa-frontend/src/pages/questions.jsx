@@ -4,7 +4,8 @@ import { useForm, Controller } from "react-hook-form";
 import Question from "../components/form/question";
 import { questions } from "../services/list";
 import Loading from "../components/loading";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Navbar from "../components/layout/navbar";
 
 const schema = yup.object({
   q1: yup
@@ -31,6 +32,19 @@ const schema = yup.object({
 
 const Questions = ({ formData }) => {
   const [loading, setLoading] = useState(false);
+  const [teacherProperties, setTeacherPr] = useState({
+    facolte: "انجنیری",
+    department: "سیول",
+    teacher: "علی",
+    semesterType: "بهاری",
+    semesterNumber: 2,
+  });
+
+  // useEffect(() => {
+  //   (async function () {
+  //     setTeacherPr(formData);
+  //   })();
+  // }, []);
 
   const {
     control,
@@ -39,7 +53,6 @@ const Questions = ({ formData }) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = (data) => {
-    console.log(data, formData);
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -48,10 +61,18 @@ const Questions = ({ formData }) => {
 
   return (
     <section className="grid justify-center font-vazirBold mt-10">
+      <div>
+        <h1 className="text-xl text-cyan-500">مشخصات استاد</h1>
+        <ul className="flex gap-10">
+          {Object.keys(teacherProperties).map((item, ndx) => (
+            <li key={ndx}>{teacherProperties[item]}</li>
+          ))}
+        </ul>
+      </div>
       <hr />
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="lg:w-[45rem] w-full grid justify-items-center mt-10"
+        className="lg:w-[45rem] w-full grid justify-items-center m-10"
       >
         {questions.map((question) => (
           <Question
