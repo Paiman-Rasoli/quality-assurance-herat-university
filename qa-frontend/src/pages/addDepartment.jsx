@@ -10,12 +10,12 @@ import Input from "../components/form/input";
 import InputDate from "../components/form/InputDate";
 
 const schema = yup.object({
-  facolteNameFr: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
-  facolteNameEng: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
+  DepartmentNameFr: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
+  DepartmentNameEng: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
   createDate: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
 
-const AddFacolte = () => {
+const AddDepartment = () => {
   const [loading, setLoading] = useState(false);
 
   const {
@@ -30,23 +30,23 @@ const AddFacolte = () => {
     console.log(data);
     setTimeout(() => {
       setLoading(false);
-      faclotes.push(data);
-      setFacoltes([...faclotes]);
-      console.log(data, faclotes);
+      departments.push(data);
+      setDepartments([...departments]);
+      console.log(data, departments);
     }, 2000);
   };
 
-  const [faclotes, setFacoltes] = useState([
+  const [departments, setDepartments] = useState([
     {
-      facolteNameFr: "طب",
-      facolteNameEng: "Phs",
+      DepartmentNameFr: "طب",
+      DepartmentNameEng: "Phs",
       number_of_sem: 14,
       departments: ["معالجوی", "ستوماتولوژی"],
       createDate: new Date(),
     },
     {
-      facolteNameFr: "انجنیری",
-      facolteNameEng: "Eng",
+      DepartmentNameFr: "انجنیری",
+      DepartmentNameEng: "Eng",
       number_of_sem: 8,
       departments: ["سیول", "مهندسی"],
       createDate: new Date(),
@@ -58,7 +58,7 @@ const AddFacolte = () => {
   return (
     <section className="w-full p-1 md:p-5 lg:p-10 grid font-vazirBold">
       <article className="w-full">
-        <FormBorder label={"ایجاد فاکولته"}>
+        <FormBorder label={"ایجاد دیپارتمنت"}>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="grid min-w-full gap-3"
@@ -66,15 +66,15 @@ const AddFacolte = () => {
             <Input
               register={register}
               errors={errors}
-              label="نام فاکولته (فارسی)"
-              name="facolteNameFr"
+              label="نام دیپارتمنت (فارسی)"
+              name="DepartmentNameFr"
               type="text"
             />
             <Input
               register={register}
               errors={errors}
-              label="نام فاکولته(انگلیسی)"
-              name="facolteNameEng"
+              label="نام دیپارتمنت(انگلیسی)"
+              name="DepartmentNameEng"
               type="text"
             />
             <InputDate
@@ -110,16 +110,16 @@ const AddFacolte = () => {
           </tr>
         </thead>
         <tbody className="font-vazirBold text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
-          {faclotes.map((item, ndx) => (
+          {departments.map((item, ndx) => (
             <tr
-              key={item.facolteNameEng}
+              key={item.DepartmentNameEng}
               className={`divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse ${
                 ndx % 2 === 0 ? "bg-stone-100" : "bg-zinc-200"
               }`}
             >
               <td className="text-center">{ndx + 1}</td>
-              <td className="text-center">{item.facolteNameFr}</td>
-              <td className="text-center">{item.facolteNameEng}</td>
+              <td className="text-center">{item.DepartmentNameFr}</td>
+              <td className="text-center">{item.DepartmentNameEng}</td>
               <td className="text-center">
                 {moment(item.createDate, "YYYY/MM/DD")
                   .locale("fa")
@@ -133,4 +133,4 @@ const AddFacolte = () => {
   );
 };
 
-export default AddFacolte;
+export default AddDepartment;
