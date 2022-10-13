@@ -9,6 +9,7 @@ import {
   HomeIcon,
   InboxIcon,
   UsersIcon,
+  Cog8ToothIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
@@ -16,7 +17,16 @@ import { NavLink, Outlet } from "react-router-dom";
 
 const navigation = [
   { name: "صفحه اصلی", href: "/", icon: HomeIcon, current: true },
-  { name: "کاربران", href: "/users", icon: UsersIcon, current: false },
+  {
+    name: "کاربران",
+    href: "/users",
+    icon: UsersIcon,
+    current: false,
+    children: [
+      { name: "لیست کاربران", href: "addfacolte" },
+      { name: "ایجاد کاربر جدید", href: "addDepartment" },
+    ],
+  },
   {
     name: "ثبت و تعریف",
     icon: FolderIcon,
@@ -28,7 +38,18 @@ const navigation = [
       { name: "سوال", href: "#" },
     ],
   },
-  { name: "گزارشات", href: "reports", icon: CalendarIcon, current: false },
+  {
+    name: "گزارشات",
+    href: "reports",
+    icon: CalendarIcon,
+    current: false,
+    children: [
+      { name: "لیست کامل گزارشات", href: "addfacolte" },
+      { name: "نمودار گزارشات", href: "addDepartment" },
+      { name: "گزارش امروز", href: "#" },
+    ],
+  },
+  { name: "مدیریت سیستم", href: "/", icon: Cog8ToothIcon, current: true },
 ];
 
 const userNavigation = [
@@ -126,7 +147,7 @@ export default function Layout() {
                                   item.current
                                     ? "text-gray-500"
                                     : "text-gray-400 group-hover:text-gray-500",
-                                  "mr-3 flex-shrink-0 h-6 w-6"
+                                  "ml-3 flex-shrink-0 h-6 w-6"
                                 )}
                                 aria-hidden="true"
                               />
@@ -159,7 +180,7 @@ export default function Layout() {
                                       open
                                         ? "text-gray-400 rotate-90"
                                         : "text-gray-300 rotate-180",
-                                      "mr-3 h-5 w-5 flex-shrink-0 transform transition-all duration-300 ease-in-out group-hover:text-gray-400"
+                                      "ml-3 h-5 w-5 flex-shrink-0 transform transition-all duration-300 ease-in-out group-hover:text-gray-400"
                                     )}
                                     viewBox="0 0 20 20"
                                     aria-hidden="true"
@@ -220,7 +241,7 @@ export default function Layout() {
                             item.current
                               ? "text-gray-500"
                               : "text-gray-400 group-hover:text-gray-500",
-                            "mr-3 flex-shrink-0 h-6 w-6"
+                            "ml-3 flex-shrink-0 h-6 w-6"
                           )}
                           aria-hidden="true"
                         />
@@ -366,7 +387,7 @@ export default function Layout() {
               </div>
             </div>
           </div>
-          <main>
+          <main className="mt-16">
             <Outlet />
           </main>
         </div>
