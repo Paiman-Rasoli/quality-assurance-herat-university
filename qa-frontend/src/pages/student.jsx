@@ -74,7 +74,7 @@ const Student = () => {
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
           <span className="block xl:inline">دانشگاه هرات</span>{" "}
           <span className="block text-cyan-600 xl:inline">
-            کمیته تضمین کفییت{" "}
+            کمیته تضمین کیفیت{" "}
           </span>
         </h1>
         <FormBorder label={"فورم ارزیابی اصلاح تدریس"}>
