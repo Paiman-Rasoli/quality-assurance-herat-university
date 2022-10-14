@@ -5,7 +5,7 @@ import { check } from "express-validator";
 
 const loginService = new LoginService();
 export const routes = Router();
-routes.post(
+routes.get(
   "/login",
   [check("username").not().isEmpty(), check("password").not().isEmpty()],
   loginService.login
