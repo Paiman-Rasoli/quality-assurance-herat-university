@@ -6,10 +6,10 @@ export class FacultyEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   fa_name: string;
 
-  @Column()
+  @Column({ unique: true })
   en_name: string;
 
   @Column({ type: "date" })

@@ -30,9 +30,12 @@ export class FacultyService {
       data = await facultyModel.find({
         skip: skip,
         take: skip === 0 ? +req?.query?.pageSize : skip,
+        relations: ["departments"],
       });
     } else {
-      data = await facultyModel.find();
+      data = await facultyModel.find({
+        relations: ["departments"],
+      });
     }
     return res.status(200).json(data);
   }
