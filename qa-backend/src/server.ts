@@ -19,6 +19,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/faculty", facultyRoutes);
 app.use("/api/department", departmentRoutes);
 app.use("/api/teacher", teacherRoutes);
+app.use("/api/subject", teacherRoutes);
 
 const PORT = process.env.PORT || 1111;
 myDataSource
