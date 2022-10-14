@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { User } from "../entities";
+import { UserEntity } from "../entities";
 import { getMyRepository } from "../data-source";
 import { isHashValid, generateToken } from "../helpers";
 const { validationResult } = require("express-validator");
@@ -12,8 +12,8 @@ export class LoginService {
     }
     const { username, password } = req.body;
     // find the user from db
-    const userModel = getMyRepository(User);
-    const findUser: User = await userModel.findOne({
+    const userModel = getMyRepository(UserEntity);
+    const findUser: UserEntity = await userModel.findOne({
       where: {
         userName: username,
       },

@@ -1,14 +1,71 @@
 import { Router } from "express";
 import { FacultyService } from "../services";
 import { authGuard } from "../middlewares/passport";
-import { check } from "express-validator";
+import { check, query } from "express-validator";
 
 const facultyService = new FacultyService();
 
-export const routes = Router();
+const routes = Router();
 routes.post(
-  "/add",
-  [check("username").not().isEmpty(), check("password").not().isEmpty()],
+  "/",
+  [
+    check("fa_name").isString().not().isEmpty(),
+    check("en_name").isString().not().isEmpty(),
+    check("date").isDate(),
+  ],
   authGuard,
   facultyService.addFaculty
 );
+
+routes.get("/", authGuard, facultyService.allFaculty);
+
+routes.put(
+  "/",
+  authGuard,
+  [
+    check("id").notEmpty().withMessage("id is required!"),
+    check("fa_name").isString().not().isEmpty(),
+    check("en_name").isString().not().isEmpty(),
+    check("date").isDate(),
+  ],
+  facultyService.updateFaculty
+);
+
+routes.delete(
+  "/",
+  authGuard,
+  [check("id").notEmpty().withMessage("id is required!")],
+  facultyService.deleteFaculty
+);
+
+routes.get(
+  "/find-one",
+  authGuard,
+  [query("id").notEmpty().withMessage("id is required!")],
+  facultyService.findOne
+);
+
+export { routes };
+/**
+ *🛒 /api/faculty
+ * GET [protected] => returns all faculty
+ *
+ * GET [protected]
+ *    query {page : number , pageSize : number}
+ *    returns paginated data.
+ *
+ * POST [protected]
+ *   body {fa_name : string , en_name : string , date : date}
+ *
+ * PUT [protected]
+ *   body {id : number , fa_name : string , en_name : string , date : date}
+ *   returns {updated : boolean}
+ *
+ * DELETE [protected]
+ *   body {id : number}
+ *   returns { deleted : boolean }
+ *
+ * 🛒/api/faculty/find-one
+ *    query {id : number}
+ *    returns one faculty.
+ */

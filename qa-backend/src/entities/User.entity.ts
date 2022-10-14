@@ -5,7 +5,7 @@ enum GENDER {
   FEMALE = "female",
 }
 @Entity()
-export class User {
+export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

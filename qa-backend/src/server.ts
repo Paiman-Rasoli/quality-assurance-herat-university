@@ -33,7 +33,7 @@ myDataSource
   .then(() => {
     // start application after connection with database!
     app.listen(PORT, () => {
-      logger.info(`app is running on PORT => ${PORT}`);
+      logger.info(`🚀 app is running on PORT => ${PORT}`);
     });
   })
   .catch((err) => {
