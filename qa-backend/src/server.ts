@@ -2,7 +2,7 @@ require("dotenv").config();
 import express from "express";
 import cors from "cors";
 import { myDataSource } from "./data-source";
-import { authRoutes } from "./routes";
+import { authRoutes, facultyRoutes } from "./routes";
 import { logger } from "./lib";
 
 const app = express();
@@ -11,6 +11,7 @@ app.use(express.json());
 
 // auth route
 app.use("/api/auth", authRoutes);
+app.use("/api/faculty", facultyRoutes);
 const PORT = process.env.PORT || 1111;
 myDataSource
   .initialize()

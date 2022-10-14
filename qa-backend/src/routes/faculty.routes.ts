@@ -1,13 +1,14 @@
 import { Router } from "express";
-import { LoginService } from "../services/login.service";
+import { FacultyService } from "../services";
 import { authGuard } from "../middlewares/passport";
 import { check } from "express-validator";
 
-const loginService = new LoginService();
+const facultyService = new FacultyService();
+
 export const routes = Router();
 routes.post(
-  "/login",
+  "/add",
   [check("username").not().isEmpty(), check("password").not().isEmpty()],
-  loginService.login
+  authGuard,
+  facultyService.addFaculty
 );
-routes.post("/register", authGuard);
