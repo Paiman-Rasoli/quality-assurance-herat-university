@@ -2,25 +2,10 @@ import { Response, Request } from "express";
 import { validationResult } from "express-validator";
 import { getMyRepository } from "../data-source";
 import { FacultyEntity } from "../entities";
+import { logger } from "../lib";
 
 export class FacultyService {
-  async addFaculty(req: Request, res: Response) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    // create a faculty
-    const { fa_name, en_name, date } = req.body;
-    const facultyModel = getMyRepository(FacultyEntity);
-    const create: FacultyEntity = await facultyModel.save({
-      fa_name: fa_name,
-      en_name,
-      date: date,
-      createdAt: new Date(),
-    });
-    return res.status(200).json(create);
-  }
-  async allFaculty(req: Request, res: Response) {
+  async all(req: Request, res: Response) {
     const facultyModel = getMyRepository(FacultyEntity);
     let data;
     // check if request wants paginated data
@@ -38,6 +23,38 @@ export class FacultyService {
       });
     }
     return res.status(200).json(data);
+  }
+
+  async create(req: Request, res: Response) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    // create a faculty
+    const { fa_name, en_name, date } = req.body;
+    const facultyModel = getMyRepository(FacultyEntity);
+    try {
+      const findOne = await facultyModel.find({
+        where: [{ en_name: en_name }, { fa_name: fa_name }],
+      });
+      if (findOne.length > 0) {
+        return res
+          .status(400)
+          .json({ msg: `Duplicate name for faculty ${en_name}` });
+      }
+      const create: FacultyEntity = await facultyModel.save({
+        fa_name: fa_name,
+        en_name,
+        date: date,
+        createdAt: new Date(),
+      });
+      return res.status(200).json(create);
+    } catch (err) {
+      logger.error("Error while creating faculty", err);
+      return res
+        .status(500)
+        .json({ msg: "Server Error occurred see your log." });
+    }
   }
 
   async findOne(req: Request, res: Response) {

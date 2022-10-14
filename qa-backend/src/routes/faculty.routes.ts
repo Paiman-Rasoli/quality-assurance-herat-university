@@ -7,7 +7,7 @@ const facultyService = new FacultyService();
 
 const routes = Router();
 
-routes.get("/", authGuard, facultyService.allFaculty);
+routes.get("/", authGuard, facultyService.all);
 
 routes.post(
   "/",
@@ -17,7 +17,7 @@ routes.post(
     check("date").isDate(),
   ],
   authGuard,
-  facultyService.addFaculty
+  facultyService.create
 );
 
 routes.put(
