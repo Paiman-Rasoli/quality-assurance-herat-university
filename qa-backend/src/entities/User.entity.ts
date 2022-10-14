@@ -4,6 +4,11 @@ enum GENDER {
   MALE = "male",
   FEMALE = "female",
 }
+
+enum STATUS {
+  ACTIVE = "active",
+  BLOCK = "block",
+}
 @Entity()
 export class UserEntity {
   @PrimaryGeneratedColumn()
@@ -15,15 +20,12 @@ export class UserEntity {
   }
 
   @Column()
-  fullName: string;
-
-  @Column()
-  en_fullName: string;
+  name: string;
 
   @Column({ default: false })
   is_super_admin: boolean;
 
-  @Column()
+  @Column({ unique: true, nullable: false })
   userName: string;
 
   @Column()
@@ -34,13 +36,17 @@ export class UserEntity {
 
   @Column({
     type: "simple-enum",
+    enum: STATUS,
+    default: STATUS.ACTIVE,
+  })
+  status;
+
+  @Column({
+    type: "simple-enum",
     enum: GENDER,
     default: GENDER.MALE,
   })
   gender;
-
-  @Column()
-  code: string;
 
   @Column({ type: "date" })
   createdAt;

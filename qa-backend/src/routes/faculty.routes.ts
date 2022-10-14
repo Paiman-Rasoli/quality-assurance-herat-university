@@ -6,6 +6,8 @@ import { check, query } from "express-validator";
 const facultyService = new FacultyService();
 
 const routes = Router();
+routes.get("/", authGuard, facultyService.allFaculty);
+
 routes.post(
   "/",
   [
@@ -16,8 +18,6 @@ routes.post(
   authGuard,
   facultyService.addFaculty
 );
-
-routes.get("/", authGuard, facultyService.allFaculty);
 
 routes.put(
   "/",
