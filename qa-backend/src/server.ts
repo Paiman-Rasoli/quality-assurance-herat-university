@@ -5,8 +5,11 @@ import { myDataSource } from "./data-source";
 import {
   authRoutes,
   departmentRoutes,
+  evaluationRoutes,
   facultyRoutes,
   teacherRoutes,
+  questionRoutes,
+  AnswerRoutes,
 } from "./routes";
 import { logger } from "./lib";
 
@@ -20,6 +23,9 @@ app.use("/api/faculty", facultyRoutes);
 app.use("/api/department", departmentRoutes);
 app.use("/api/teacher", teacherRoutes);
 app.use("/api/subject", teacherRoutes);
+app.use("/api/evaluation", evaluationRoutes);
+app.use("/api/question", questionRoutes);
+app.use("/api/answer", AnswerRoutes);
 
 const PORT = process.env.PORT || 1111;
 myDataSource
