@@ -33,7 +33,7 @@ const Login = () => {
     <section className="grid place-content-center font-vazirBold h-screen">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid justify-items-center gap-5 border-2 hover:shadow-inner hover:-translate-y-5 hover:scale-125 shadow-xl transition-all duration-200 ease-out rounded-xl p-5"
+        className="grid justify-items-center gap-5 border-2 hover:shadow-2xl hover:-translate-y-5 hover:scale-105 shadow-xl transition-all duration-200 ease-out rounded-xl p-5"
       >
         <div>ورود به حساب کاربری</div>
         <div className="grid gap-2">
