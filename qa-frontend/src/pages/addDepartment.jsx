@@ -73,6 +73,7 @@ const AddDepartment = () => {
             <Input
               register={register}
               errors={errors}
+              dir="ltr"
               label="نام دیپارتمنت(انگلیسی)"
               name="DepartmentNameEng"
               type="text"

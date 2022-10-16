@@ -73,6 +73,7 @@ const AddFacolte = () => {
             <Input
               register={register}
               errors={errors}
+              dir={"ltr"}
               label="نام فاکولته(انگلیسی)"
               name="facolteNameEng"
               type="text"
