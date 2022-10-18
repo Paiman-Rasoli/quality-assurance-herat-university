@@ -22,7 +22,9 @@ const Login = () => {
 
   const onSubmit = (data) => {
     setLoading(true);
-    console.log(data);
+
+    console.log(data, process.env.REACT_APP_API_URL, "API");
+
     setTimeout(() => {
       setLoading(false);
       navigate("/dashboard");
@@ -30,27 +32,39 @@ const Login = () => {
   };
 
   return (
-    <section className="grid place-content-center font-vazirBold h-screen">
+    <section className="relative grid place-content-center font-vazirBold h-screen">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid justify-items-center gap-5 border-2 hover:shadow-2xl hover:-translate-y-5 hover:scale-105 shadow-xl transition-all duration-200 ease-out rounded-xl p-5"
+        className="grid justify-items-center gap-5 border-2 hover:shadow-2xl hover:-translate-y-2 hover:scale-105 transition-all duration-200 ease-out rounded-xl p-5"
       >
         <div>ورود به حساب کاربری</div>
         <div className="grid gap-2">
           <label htmlFor="username">نام کاربری</label>
-          <input
-            type="text"
-            {...register("username")}
-            className="border-2 border-[#1E408E] p-1 rounded"
-          />
+          <div>
+            <input
+              type="text"
+              {...register("username")}
+              className="border-2 border-[#1E408E] p-1 rounded"
+            />
+            {errors?.["username"] ? (
+              <p className="text-red-500">{errors?.["username"].message}</p>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
         <div className="grid gap-2">
           <label htmlFor="password">رمز عبور</label>
-          <input
-            type="password"
-            {...register("password")}
-            className="border-2 border-[#1E408E] p-1 rounded"
-          />
+          <div>
+            <input
+              type="password"
+              {...register("password")}
+              className="border-2 border-[#1E408E] p-1 rounded"
+            />
+            {errors?.["password"] && (
+              <p className="text-red-500">{errors?.["password"].message}</p>
+            )}
+          </div>
         </div>
         <div className="flex justify-end px-20">
           <button
@@ -59,9 +73,9 @@ const Login = () => {
           >
             تایید
           </button>
-          {loading && <Loading />}
         </div>
       </form>
+      {loading && <Loading />}
     </section>
   );
 };
