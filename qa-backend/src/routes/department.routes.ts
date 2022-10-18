@@ -5,10 +5,18 @@ import { check } from "express-validator";
 
 const departmentService = new DepartmentService();
 
-export const routes = Router();
+const routes = Router();
+
+routes.get("/", authGuard, departmentService.find);
 routes.post(
-  "/add",
-  [check("username").not().isEmpty(), check("password").not().isEmpty()],
+  "/",
+  [
+    check("fa_name").isString().notEmpty(),
+    check("en_name").isString().notEmpty(),
+    check("date").isDate(),
+    check("facultyId").notEmpty(),
+  ],
   authGuard,
-  departmentService.addDepartment
+  departmentService.create
 );
+export { routes };
