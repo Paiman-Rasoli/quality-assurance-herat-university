@@ -1,12 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/layout";
 import LandingPage from "./pages";
-import AddDepartment from "./pages/addDepartment";
-import AddFacolte from "./pages/addFacolte";
+import Department from "./pages/addDepartment";
 import Dashboard from "./pages/dashboard";
+import Facolte from "./pages/Facolte";
 import Login from "./pages/login";
 import Questions from "./pages/questions";
 import Student from "./pages/student";
+import Users from "./pages/users";
 
 function App() {
   return (
@@ -19,8 +20,9 @@ function App() {
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Layout />}>
-          <Route path="addfacolte" element={<AddFacolte />} />
-          <Route path="addDepartment" element={<AddDepartment />} />
+          <Route path="users" element={<Users />} />
+          <Route path="facolte" element={<Facolte />} />
+          <Route path="department" element={<Department />} />
           <Route index element={<Dashboard />} />
         </Route>
       </Routes>

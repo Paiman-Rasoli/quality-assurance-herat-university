@@ -19,12 +19,11 @@ const navigation = [
   { name: "صفحه اصلی", href: "/", icon: HomeIcon, current: true },
   {
     name: "کاربران",
-    href: "/users",
     icon: UsersIcon,
     current: false,
     children: [
-      { name: "لیست کاربران", href: "addfacolte" },
-      { name: "ایجاد کاربر جدید", href: "addDepartment" },
+      { name: "لیست کاربران", href: "users" },
+      { name: "افزودن کاربر جدید", href: "users" },
     ],
   },
   {
@@ -32,10 +31,21 @@ const navigation = [
     icon: FolderIcon,
     current: false,
     children: [
-      { name: "فاکولته", href: "addfacolte" },
-      { name: "دیپارتمنت", href: "addDepartment" },
+      { name: "فاکولته", href: "facolte" },
+      { name: "دیپارتمنت", href: "department" },
       { name: "استاد", href: "#" },
       { name: "سوال", href: "#" },
+    ],
+  },
+  {
+    name: "اطلاعات ثبت شده",
+    icon: FolderIcon,
+    current: false,
+    children: [
+      { name: "لیست فاکولته ها", href: "facolte" },
+      { name: "لیست دیپارتمنت ها", href: "department" },
+      { name: "لیست اساتید", href: "#" },
+      { name: "لیست سوالات", href: "#" },
     ],
   },
   {
@@ -44,8 +54,8 @@ const navigation = [
     icon: CalendarIcon,
     current: false,
     children: [
-      { name: "لیست کامل گزارشات", href: "addfacolte" },
-      { name: "نمودار گزارشات", href: "addDepartment" },
+      { name: "لیست کامل گزارشات", href: "facolte" },
+      { name: "نمودار گزارشات", href: "department" },
       { name: "گزارش امروز", href: "#" },
     ],
   },
