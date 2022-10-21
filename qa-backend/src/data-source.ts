@@ -4,6 +4,7 @@ import {
   FacultyEntity,
   DepartmentEntity,
   TeacherEntity,
+  SubjectEntity,
 } from "./entities";
 
 export const myDataSource = new DataSource({
@@ -13,7 +14,13 @@ export const myDataSource = new DataSource({
   username: process.env.DB_USER || "root",
   password: process.env.DB_PASSWORD || "",
   database: process.env.DB_DATABASE || "qa_db",
-  entities: [UserEntity, FacultyEntity, DepartmentEntity, TeacherEntity],
+  entities: [
+    UserEntity,
+    FacultyEntity,
+    DepartmentEntity,
+    TeacherEntity,
+    SubjectEntity,
+  ],
   logging: false,
   synchronize: true,
 });

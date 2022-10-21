@@ -6,6 +6,7 @@ import {
   OneToMany,
 } from "typeorm";
 import { FacultyEntity } from "./faculty.entity";
+import { SubjectEntity } from "./subject.entity";
 import { TeacherEntity } from "./teacher.entity";
 
 @Entity()
@@ -38,4 +39,10 @@ export class DepartmentEntity {
     nullable: true,
   })
   teachers: TeacherEntity[];
+
+  //one department has many subjects
+  @OneToMany(() => SubjectEntity, (subject) => subject.department, {
+    nullable: true,
+  })
+  subjects: SubjectEntity[];
 }
