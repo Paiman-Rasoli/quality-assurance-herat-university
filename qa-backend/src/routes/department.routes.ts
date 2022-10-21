@@ -23,12 +23,7 @@ routes.post(
 routes.put(
   "/",
   authGuard,
-  [
-    check("id").notEmpty().withMessage("id is required!"),
-    check("fa_name").isString().not().isEmpty(),
-    check("en_name").isString().not().isEmpty(),
-    check("date").isDate(),
-  ],
+  [check("id").notEmpty().withMessage("id is required!")],
   departmentService.update
 );
 

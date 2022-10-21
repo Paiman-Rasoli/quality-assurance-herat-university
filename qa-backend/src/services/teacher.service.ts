@@ -90,7 +90,10 @@ export class TeacherService {
         {
           id: +req.body.id,
         },
-        req.body
+        {
+          ...req.body,
+          createdAt: new Date(),
+        }
       );
       return res.status(200).json({ updated: update.affected > 0 });
     } catch (err) {
