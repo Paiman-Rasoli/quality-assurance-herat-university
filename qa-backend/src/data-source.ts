@@ -1,5 +1,10 @@
 import { DataSource, EntityTarget, Repository, ObjectLiteral } from "typeorm";
-import { UserEntity, FacultyEntity, DepartmentEntity } from "./entities";
+import {
+  UserEntity,
+  FacultyEntity,
+  DepartmentEntity,
+  TeacherEntity,
+} from "./entities";
 
 export const myDataSource = new DataSource({
   type: "mysql",
@@ -8,7 +13,7 @@ export const myDataSource = new DataSource({
   username: process.env.DB_USER || "root",
   password: process.env.DB_PASSWORD || "",
   database: process.env.DB_DATABASE || "qa_db",
-  entities: [UserEntity, FacultyEntity, DepartmentEntity],
+  entities: [UserEntity, FacultyEntity, DepartmentEntity, TeacherEntity],
   logging: false,
   synchronize: true,
 });
