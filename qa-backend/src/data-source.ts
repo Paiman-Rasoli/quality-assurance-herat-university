@@ -5,6 +5,7 @@ import {
   DepartmentEntity,
   TeacherEntity,
   SubjectEntity,
+  EvaluationFormEntity,
 } from "./entities";
 
 export const myDataSource = new DataSource({
@@ -20,6 +21,7 @@ export const myDataSource = new DataSource({
     DepartmentEntity,
     TeacherEntity,
     SubjectEntity,
+    EvaluationFormEntity,
   ],
   logging: false,
   synchronize: true,
