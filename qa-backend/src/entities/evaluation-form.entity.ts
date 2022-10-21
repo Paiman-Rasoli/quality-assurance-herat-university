@@ -4,7 +4,9 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from "typeorm";
+import { AnswerEntity } from "./answer.entity";
 import { SubjectEntity } from "./subject.entity";
 import { TeacherEntity } from "./teacher.entity";
 
@@ -39,4 +41,7 @@ export class EvaluationFormEntity {
   })
   @JoinColumn()
   subject: SubjectEntity;
+
+  @OneToMany(() => AnswerEntity, (answer) => answer.evaluationForm)
+  answers: AnswerEntity[];
 }

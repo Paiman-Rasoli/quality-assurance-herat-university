@@ -1,4 +1,5 @@
 import { DataSource, EntityTarget, Repository, ObjectLiteral } from "typeorm";
+import { QuestionEntity } from "./entities/question.entity";
 import {
   UserEntity,
   FacultyEntity,
@@ -6,6 +7,7 @@ import {
   TeacherEntity,
   SubjectEntity,
   EvaluationFormEntity,
+  AnswerEntity,
 } from "./entities";
 
 export const myDataSource = new DataSource({
@@ -22,6 +24,8 @@ export const myDataSource = new DataSource({
     TeacherEntity,
     SubjectEntity,
     EvaluationFormEntity,
+    QuestionEntity,
+    AnswerEntity,
   ],
   logging: false,
   synchronize: true,
