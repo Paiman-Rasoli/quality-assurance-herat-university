@@ -1,13 +1,13 @@
 import { Router } from "express";
 import { DepartmentService } from "../services";
 import { authGuard } from "../middlewares/passport";
-import { check } from "express-validator";
+import { check, query } from "express-validator";
 
 const departmentService = new DepartmentService();
 
 const routes = Router();
 
-routes.get("/", authGuard, departmentService.find);
+routes.get("/", authGuard, departmentService.all);
 routes.post(
   "/",
   [
@@ -19,4 +19,26 @@ routes.post(
   authGuard,
   departmentService.create
 );
+
+routes.put(
+  "/",
+  authGuard,
+  [check("id").notEmpty().withMessage("id is required!")],
+  departmentService.update
+);
+
+routes.delete(
+  "/",
+  authGuard,
+  [check("id").notEmpty().withMessage("id is required!")],
+  departmentService.delete
+);
+
+routes.get(
+  "/find-one",
+  authGuard,
+  [query("id").notEmpty().withMessage("id is required!")],
+  departmentService.findOne
+);
+
 export { routes };

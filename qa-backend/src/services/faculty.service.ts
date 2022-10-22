@@ -63,8 +63,11 @@ export class FacultyService {
       return res.status(400).json({ errors: errors.array() });
     }
     const facultyModel = getMyRepository(FacultyEntity);
-    const findOne = await facultyModel.findOneBy({
-      id: +req.query.id,
+    const findOne = await facultyModel.findOne({
+      where: {
+        id: +req.query.id,
+      },
+      relations: ["departments"],
     });
     return res.status(200).json(findOne);
   }
@@ -99,7 +102,7 @@ export class FacultyService {
       id: +req.body.id,
     });
     return res
-      .status(deleteOne.affected > 0 ? 200 : 500)
+      .status(deleteOne.affected > 0 ? 200 : 400)
       .json({ deleted: deleteOne.affected > 0 });
   }
 }

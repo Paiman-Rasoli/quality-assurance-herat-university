@@ -1,5 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToMany,
+} from "typeorm";
 import { FacultyEntity } from "./faculty.entity";
+import { SubjectEntity } from "./subject.entity";
+import { TeacherEntity } from "./teacher.entity";
 
 @Entity()
 export class DepartmentEntity {
@@ -25,4 +33,16 @@ export class DepartmentEntity {
 
   @Column()
   facultyId: string;
+
+  //one department has many teachers
+  @OneToMany(() => TeacherEntity, (teacher) => teacher.department, {
+    nullable: true,
+  })
+  teachers: TeacherEntity[];
+
+  //one department has many subjects
+  @OneToMany(() => SubjectEntity, (subject) => subject.department, {
+    nullable: true,
+  })
+  subjects: SubjectEntity[];
 }

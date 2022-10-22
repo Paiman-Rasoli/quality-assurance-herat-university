@@ -1,14 +1,38 @@
 import { Router } from "express";
 import { SubjectService } from "../services";
 import { authGuard } from "../middlewares/passport";
-import { check } from "express-validator";
+import { check, body, query } from "express-validator";
 
 const subjectService = new SubjectService();
 
-export const routes = Router();
+const routes = Router();
+
+routes.get("/", authGuard, subjectService.all);
 routes.post(
-  "/add",
-  [check("username").not().isEmpty(), check("password").not().isEmpty()],
+  "/",
+  [check("name").isString().notEmpty(), check("departmentId").notEmpty()],
   authGuard,
-  subjectService.addSubject
+  subjectService.create
 );
+
+routes.put(
+  "/",
+  [body("id").notEmpty().withMessage("id is required!")],
+  authGuard,
+  subjectService.update
+);
+
+routes.get(
+  "/find-one",
+  [query("id").notEmpty().withMessage("id is required!")],
+  authGuard,
+  subjectService.findOne
+);
+routes.delete(
+  "/",
+  [body("id").notEmpty().withMessage("id is required!")],
+  authGuard,
+  subjectService.delete
+);
+
+export { routes };
