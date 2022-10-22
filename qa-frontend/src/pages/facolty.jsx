@@ -8,14 +8,23 @@ import moment from "jalali-moment";
 import Loading from "../components/loading";
 import Input from "../components/form/input";
 import InputDate from "../components/form/InputDate";
+import useFetch from "../hooks/useFetch";
+import { httpPostFaculties } from "../services/requests";
 
 const schema = yup.object({
-  facolteNameFr: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
-  facolteNameEng: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
-  createDate: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
+  fa_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
+  en_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
+  date: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
 
-const Facolte = () => {
+const Facolty = () => {
+  const {
+    loading: laodingdata,
+    data: faculties,
+    error,
+    refetch,
+  } = useFetch("faculty");
+
   const [loading, setLoading] = useState(false);
   const [addNew, setAddNew] = useState(false);
 
@@ -27,38 +36,38 @@ const Facolte = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     setLoading(true);
     console.log(data);
-    setTimeout(() => {
+
+    const res = await httpPostFaculties({
+      ...data,
+      date: data.date.toJSON().slice(0, 10),
+    });
+    console.log(res);
+    if (res) {
+      refetch();
       setLoading(false);
-      faclotes.push(data);
-      setFacoltes([...faclotes]);
       setAddNew(false);
-      console.log(data, faclotes);
-    }, 2000);
+    }
   };
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
     reset();
   }, [addNew, reset]);
 
-  const [faclotes, setFacoltes] = useState([
-    {
-      facolteNameFr: "طب",
-      facolteNameEng: "Phs",
-      number_of_sem: 14,
-      departments: ["معالجوی", "ستوماتولوژی"],
-      createDate: new Date(),
-    },
-    {
-      facolteNameFr: "انجنیری",
-      facolteNameEng: "Eng",
-      number_of_sem: 8,
-      departments: ["سیول", "مهندسی"],
-      createDate: new Date(),
-    },
-  ]);
+  if (laodingdata) return <Loading />;
+
+  if (error)
+    return (
+      <div className="grid place-content-center">
+        somthing went wrong with connection to database
+      </div>
+    );
+
+  console.log("data00", faculties);
 
   return (
     <section className="font-vazirBold p-10">
@@ -82,7 +91,7 @@ const Facolte = () => {
                 register={register}
                 errors={errors}
                 label="نام فاکولته (فارسی)"
-                name="facolteNameFr"
+                name="fa_name"
                 type="text"
               />
               <Input
@@ -90,14 +99,14 @@ const Facolte = () => {
                 errors={errors}
                 dir={"ltr"}
                 label="نام فاکولته(انگلیسی)"
-                name="facolteNameEng"
+                name="en_name"
                 type="text"
               />
               <InputDate
                 register={register}
                 errors={errors}
                 label="تاریخ"
-                name="createDate"
+                name="date"
                 type="Date"
                 useForm={useForm}
                 Controller={Controller}
@@ -123,7 +132,7 @@ const Facolte = () => {
         </article>
       )}
       <div className="py-10">
-        <table className="border rounded-3xl w-full table-auto border-separate md:border-spacing-5 border-spacing-1">
+        <table className="border rounded-3xl w-full table-auto border-separate p-5 md:p-0 md:border-spacing-5 border-spacing-1">
           <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
             <tr className="divide-x-2 divide-y-2 bg-stone-300">
               <th className="font-normal text-center">شماره</th>
@@ -133,18 +142,18 @@ const Facolte = () => {
             </tr>
           </thead>
           <tbody className="font-vazirBold text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
-            {faclotes.map((item, ndx) => (
+            {faculties?.map((item, ndx) => (
               <tr
-                key={item.facolteNameEng}
+                key={item.en_name}
                 className={`divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse ${
                   ndx % 2 === 0 ? "bg-stone-100" : "bg-zinc-200"
                 }`}
               >
                 <td className="text-center">{ndx + 1}</td>
-                <td className="text-center">{item.facolteNameFr}</td>
-                <td className="text-center">{item.facolteNameEng}</td>
+                <td className="text-center">{item.fa_name}</td>
+                <td className="text-center">{item.en_name}</td>
                 <td className="text-center">
-                  {moment(item.createDate, "YYYY/MM/DD")
+                  {moment(item.date, "YYYY/MM/DD")
                     .locale("fa")
                     .format("YYYY/MM/DD")}
                 </td>
@@ -157,4 +166,4 @@ const Facolte = () => {
   );
 };
 
-export default Facolte;
+export default Facolty;

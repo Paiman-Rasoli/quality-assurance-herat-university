@@ -3,7 +3,7 @@ import Layout from "./components/layout/layout";
 import LandingPage from "./pages";
 import Department from "./pages/addDepartment";
 import Dashboard from "./pages/dashboard";
-import Facolte from "./pages/Facolte";
+import Facolty from "./pages/facolty";
 import Login from "./pages/login";
 import Questions from "./pages/questions";
 import Student from "./pages/student";
@@ -21,7 +21,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Layout />}>
           <Route path="users" element={<Users />} />
-          <Route path="facolte" element={<Facolte />} />
+          <Route path="facolte" element={<Facolty />} />
           <Route path="department" element={<Department />} />
           <Route index element={<Dashboard />} />
         </Route>
