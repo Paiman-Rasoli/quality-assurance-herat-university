@@ -52,13 +52,11 @@ const Facolty = () => {
     }
   };
 
-  useEffect(() => {}, []);
-
   useEffect(() => {
     reset();
   }, [addNew, reset]);
 
-  if (laodingdata) return <Loading />;
+  if (laodingdata || loading) return <Loading />;
 
   if (error)
     return (
@@ -66,8 +64,6 @@ const Facolty = () => {
         somthing went wrong with connection to database
       </div>
     );
-
-  console.log("data00", faculties);
 
   return (
     <section className="font-vazirBold p-10">
@@ -125,7 +121,6 @@ const Facolty = () => {
                 >
                   تایید
                 </button>
-                {loading && <Loading />}
               </div>
             </form>
           </FormBorder>
