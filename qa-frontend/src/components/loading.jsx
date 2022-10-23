@@ -1,7 +1,7 @@
 import { Vortex } from "react-loader-spinner";
 const Loading = () => {
   return (
-    <div className="fixed z-30 bg-slate-600 bg-opacity-25 inset-0 w-full h-full grid place-content-center">
+    <div className="fixed z-50 bg-slate-600 bg-opacity-25 inset-0 w-full h-full grid place-content-center">
       <Vortex
         visible={true}
         height="80"

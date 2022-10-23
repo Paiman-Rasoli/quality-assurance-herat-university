@@ -19,12 +19,11 @@ const navigation = [
   { name: "صفحه اصلی", href: "/", icon: HomeIcon, current: true },
   {
     name: "کاربران",
-    href: "/users",
     icon: UsersIcon,
     current: false,
     children: [
-      { name: "لیست کاربران", href: "addfacolte" },
-      { name: "ایجاد کاربر جدید", href: "addDepartment" },
+      { name: "لیست کاربران", href: "users" },
+      { name: "افزودن کاربر جدید", href: "users" },
     ],
   },
   {
@@ -32,10 +31,21 @@ const navigation = [
     icon: FolderIcon,
     current: false,
     children: [
-      { name: "فاکولته", href: "addfacolte" },
-      { name: "دیپارتمنت", href: "addDepartment" },
+      { name: "فاکولته", href: "facolte" },
+      { name: "دیپارتمنت", href: "department" },
       { name: "استاد", href: "#" },
       { name: "سوال", href: "#" },
+    ],
+  },
+  {
+    name: "اطلاعات ثبت شده",
+    icon: FolderIcon,
+    current: false,
+    children: [
+      { name: "لیست فاکولته ها", href: "facolte" },
+      { name: "لیست دیپارتمنت ها", href: "department" },
+      { name: "لیست اساتید", href: "#" },
+      { name: "لیست سوالات", href: "#" },
     ],
   },
   {
@@ -44,8 +54,8 @@ const navigation = [
     icon: CalendarIcon,
     current: false,
     children: [
-      { name: "لیست کامل گزارشات", href: "addfacolte" },
-      { name: "نمودار گزارشات", href: "addDepartment" },
+      { name: "لیست کامل گزارشات", href: "facolte" },
+      { name: "نمودار گزارشات", href: "department" },
       { name: "گزارش امروز", href: "#" },
     ],
   },
@@ -67,7 +77,7 @@ export default function Layout() {
 
   return (
     <>
-      <div className="font-vazirBold">
+      <div className="font-vazirBold" dir="rtl">
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
@@ -128,8 +138,8 @@ export default function Layout() {
                       alt="Herat Uni"
                     />
                   </div>
-                  <div className="mt-5 h-0 flex-1 overflow-y-auto">
-                    <nav className="space-y-1 px-2">
+                  <div className="mt-5 h-0 flex-1 overflow-y-auto" dir="rtl">
+                    <nav className="space-y-1 px-2 overflow-y-hidden" dir="rtl">
                       {navigation.map((item) =>
                         !item.children ? (
                           <div key={item.name}>
@@ -218,12 +228,15 @@ export default function Layout() {
         {/* Static sidebar for desktop */}
         <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex flex-grow flex-col overflow-y-auto border-l shadow border-gray-200 bg-white pt-5 pb-4">
+          <div
+            className="flex flex-grow flex-col overflow-y-auto border-l shadow border-gray-200 bg-white pt-5 pb-4"
+            dir="rtl"
+          >
             <div className="flex flex-shrink-0 items-center px-4">
               <img className="h-8 w-auto" src="/logo.png" alt="Your Company" />
             </div>
             <div className="mt-5 flex flex-1 flex-col">
-              <nav className="flex-1 space-y-1 px-2 pb-4">
+              <nav className="flex-1 space-y-1 px-2 pb-4" dir="rtl">
                 {navigation.map((item) =>
                   !item.children ? (
                     <div key={item.name}>
@@ -386,7 +399,7 @@ export default function Layout() {
               </div>
             </div>
           </div>
-          <main className="mt-16">
+          <main className="">
             <Outlet />
           </main>
         </div>

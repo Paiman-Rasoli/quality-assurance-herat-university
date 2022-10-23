@@ -1,11 +1,13 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Helmet } from "react-helmet";
 import { NavLink } from "react-router-dom";
-import { navigation } from "../components/layout/navbar";
 
 export default function LandingPage() {
+  useEffect(() => {
+    sessionStorage.clear();
+  }, []);
   return (
     <div className="relative overflow-hidden min-h-screen bg-gray-50 font-vazirBold">
       <Helmet>
@@ -108,7 +110,7 @@ export default function LandingPage() {
                   </div>
                 </div>
               </div>
-              <div className="hidden md:flex gap-10 justify-end">
+              {/* <div className="hidden md:flex gap-10 justify-end">
                 {navigation.map((item) => (
                   <a
                     key={item.name}
@@ -118,7 +120,7 @@ export default function LandingPage() {
                     {item.name}
                   </a>
                 ))}
-              </div>
+              </div> */}
               <div className="hidden md:absolute md:inset-y-0 md:right-0 md:flex md:items-center md:justify-end">
                 <span className="inline-flex rounded-md shadow">
                   <NavLink
@@ -159,7 +161,7 @@ export default function LandingPage() {
                     </Popover.Button>
                   </div>
                 </div>
-                <div className="px-2 pt-2 pb-3">
+                {/* <div className="px-2 pt-2 pb-3">
                   {navigation.map((item) => (
                     <NavLink
                       key={item.name}
@@ -169,7 +171,7 @@ export default function LandingPage() {
                       {item.name}
                     </NavLink>
                   ))}
-                </div>
+                </div> */}
                 <NavLink
                   to={"/login"}
                   className="block w-full bg-gray-50 px-5 py-3 text-center font-medium text-cyan-600 hover:bg-gray-100"
@@ -186,11 +188,11 @@ export default function LandingPage() {
             <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
               <span className="block xl:inline">دانشگاه هرات</span>{" "}
               <span className="block text-cyan-600 xl:inline">
-                کمیته تضمین کیفیت{" "}
+                کمیته تضمین کیفیت
               </span>
             </h1>
             <p className="mx-auto mt-3 max-w-md text-base text-gray-500 sm:text-lg md:mt-5 md:max-w-3xl md:text-xl">
-              کاربر گرامی به سیستم تضمین کفییت خوش آمدید.
+              کاربر گرامی به سیستم تضمین کیفیت خوش آمدید.
             </p>
             <div className="mx-auto mt-5 gap-10 max-w-md sm:flex sm:justify-center md:mt-8">
               <div className="rounded-md shadow">
@@ -198,7 +200,7 @@ export default function LandingPage() {
                   to={"/login"}
                   className="flex w-full items-center justify-center rounded-md border border-transparent bg-cyan-600 px-8 py-3 text-base font-medium text-white hover:bg-cyan-700 md:py-4 md:px-10 md:text-lg"
                 >
-                  استاد
+                  کاربر
                 </NavLink>
               </div>
               <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
