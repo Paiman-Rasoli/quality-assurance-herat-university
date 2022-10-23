@@ -1,11 +1,13 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Helmet } from "react-helmet";
 import { NavLink } from "react-router-dom";
-import { navigation } from "../components/layout/navbar";
 
 export default function LandingPage() {
+  useEffect(() => {
+    sessionStorage.clear();
+  }, []);
   return (
     <div className="relative overflow-hidden min-h-screen bg-gray-50 font-vazirBold">
       <Helmet>

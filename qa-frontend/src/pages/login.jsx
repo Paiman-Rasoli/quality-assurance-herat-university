@@ -1,9 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+
 import Loading from "../components/loading";
-import { useNavigate } from "react-router-dom";
+import { login } from "../services/auth";
+import { useForm } from "react-hook-form";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const schema = yup.object({
   username: yup.string().required("نام کاربری تان را وارد نمایید"),
@@ -20,15 +25,21 @@ const Login = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     setLoading(true);
-
-    console.log(data, process.env.REACT_APP_API_URL, "API");
-
-    setTimeout(() => {
+    const res = await login(data);
+    if (res) {
+      if (res.ok) {
+        const data = await res.json();
+        sessionStorage.setItem("token", data.accessToken);
+        sessionStorage.setItem("username", data.name);
+        sessionStorage.setItem("data", data);
+        navigate("/dashboard");
+      } else {
+        toast.error("نام کاربری و یا رمز عبور اشتباه است");
+      }
       setLoading(false);
-      navigate("/dashboard");
-    }, 1000);
+    }
   };
 
   return (
