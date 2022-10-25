@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
+} from "typeorm";
+import { FacultyEntity } from "./faculty.entity";
 
 enum GENDER {
   MALE = "male",
@@ -13,11 +20,6 @@ enum STATUS {
 export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @BeforeInsert()
-  setCreated() {
-    this.createdAt = new Date();
-  }
 
   @Column()
   name: string;
@@ -50,4 +52,8 @@ export class UserEntity {
 
   @Column({ type: "date" })
   createdAt;
+
+  @OneToOne(() => FacultyEntity, { nullable: true })
+  @JoinColumn()
+  faculty;
 }

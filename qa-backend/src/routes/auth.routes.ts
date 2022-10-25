@@ -1,13 +1,29 @@
 import { Router } from "express";
-import { LoginService } from "../services";
+import { UserService } from "../services";
 import { authGuard } from "../middlewares/passport";
-import { check } from "express-validator";
+import { body, check } from "express-validator";
 
-const loginService = new LoginService();
-export const routes = Router();
+const userService = new UserService();
+const routes = Router();
 routes.post(
   "/login",
   [check("username").not().isEmpty(), check("password").not().isEmpty()],
-  loginService.login
+  userService.login
 );
-routes.post("/add", authGuard);
+
+routes.post(
+  "/register",
+  [
+    body("name").notEmpty(),
+    body("username").notEmpty(),
+    body("password")
+      .notEmpty({ ignore_whitespace: true })
+      .isLength({ max: 60, min: 6 })
+      .withMessage("Password must be at least 6 characters."),
+    body("faculty").notEmpty().withMessage("faculty is required!"),
+  ],
+  authGuard,
+  userService.register
+);
+
+export { routes };
