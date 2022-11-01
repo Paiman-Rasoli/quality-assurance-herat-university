@@ -1,20 +1,24 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import SelectInput from "../faculty/select";
 import FormBorder from "../form/formBorder";
 import Input from "../form/input";
 import useFetch from "../../hooks/useFetch";
+import { toast } from "react-toastify";
+import { registerUser } from "../../services/auth";
+import Loading from "../loading";
 
 const schema = yup.object({
   name: yup.string().required("نام تان را بنویسید"),
   username: yup.string().required("نام کاربری تان را بنویسید"),
   password: yup.string().required("رمز عبور تان را بنویسید"),
-  facultyId: yup.string().nullable().required("فاکولته تان را انتخاب نمایید"),
+  faculty: yup.string().nullable().required("فاکولته تان را انتخاب نمایید"),
 });
 
 const AddUser = () => {
+  const [loading, setLoading] = useState(false);
   const { data: faculties } = useFetch("faculty");
 
   const {
@@ -24,8 +28,29 @@ const AddUser = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = (e) => {
-    console.log("register", e);
+  const onSubmit = async (data) => {
+    console.log("register", data);
+    setLoading(true);
+    try {
+      const res = await registerUser(data);
+      console.log(res, "res");
+
+      setLoading(false);
+      if (res?.ok) {
+        toast.success("حساب کاربری موفقانه ایجاد شد");
+        const data = await res.json();
+        sessionStorage.setItem("token", data.accessToken);
+        sessionStorage.setItem("username", data.name);
+        sessionStorage.setItem("data", data);
+        // navigate("/dashboard");
+      } else {
+        toast.error("اوپس..  متاسفانه حساب کاربری مورد نظر ایجاد نشد");
+      }
+    } catch (error) {
+      toast.error("لطفا ارتباط با سرور را چک نمایید");
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <main>
@@ -60,7 +85,7 @@ const AddUser = () => {
               dir="ltr"
             />
             <SelectInput
-              name="facultyId"
+              name="faculty"
               Type={"number"}
               Controller={Controller}
               control={control}
@@ -79,6 +104,7 @@ const AddUser = () => {
           </form>
         </FormBorder>
       </section>
+      {loading && <Loading />}
     </main>
   );
 };
