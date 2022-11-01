@@ -1,14 +1,13 @@
 import React from "react";
 
-const Input = ({ register, errors, label, type, name, dir = "rtl" }) => {
+const Input = ({ register, errors, label, name, ...props }) => {
   return (
-    <div className="grid md:grid-cols-2 grid-cols-1">
+    <div className="grid md:grid-cols-2 grid-cols-1 items-center">
       <label htmlFor="name">{label}</label>
       <div className="w-full">
         <input
-          dir={dir}
-          type={type}
           {...register(name)}
+          {...props}
           className="w-full border-2 border-[#1E408E] p-1 rounded"
         />
         {errors[name] && (

@@ -9,6 +9,7 @@ import { login } from "../services/auth";
 import { useForm } from "react-hook-form";
 
 import "react-toastify/dist/ReactToastify.css";
+import Input from "../components/form/input";
 
 const schema = yup.object({
   username: yup.string().required("نام کاربری تان را وارد نمایید"),
@@ -28,8 +29,10 @@ const Login = () => {
   const onSubmit = async (data) => {
     setLoading(true);
     const res = await login(data);
+    // console.log(res, "res");
     if (res) {
-      if (res.ok) {
+      setLoading(false);
+      if (res?.ok) {
         const data = await res.json();
         sessionStorage.setItem("token", data.accessToken);
         sessionStorage.setItem("username", data.name);
@@ -38,8 +41,8 @@ const Login = () => {
       } else {
         toast.error("نام کاربری و یا رمز عبور اشتباه است");
       }
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   return (
@@ -49,7 +52,23 @@ const Login = () => {
         className="grid justify-items-center gap-5 border-2 transition-all duration-200 ease-out rounded-xl p-5 shadow-inner"
       >
         <div>ورود به حساب کاربری</div>
-        <div className="grid gap-2">
+        <Input
+          register={register}
+          errors={errors}
+          label=" نام کاربری (ایمیل)"
+          name="username"
+          type="text"
+          dir="ltr"
+        />
+        <Input
+          register={register}
+          errors={errors}
+          label="رمز عبور"
+          name="password"
+          type="passwrod"
+          dir="ltr"
+        />
+        {/* <div className="grid gap-2">
           <label htmlFor="username">نام کاربری</label>
           <div>
             <input
@@ -76,7 +95,7 @@ const Login = () => {
               <p className="text-red-500">{errors?.["password"].message}</p>
             )}
           </div>
-        </div>
+        </div> */}
         <div className="flex justify-end px-20">
           <button
             type={"submit"}

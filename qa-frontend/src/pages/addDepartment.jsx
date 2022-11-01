@@ -108,7 +108,7 @@ const Department = () => {
                 errors={errors}
                 options={faculties?.map((item) => [item.fa_name, item.id])}
                 placeholder="فاکولته"
-              />{" "}
+              />
               <InputDate
                 register={register}
                 errors={errors}

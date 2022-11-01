@@ -23,7 +23,7 @@ const navigation = [
     current: false,
     children: [
       { name: "لیست کاربران", href: "users" },
-      { name: "افزودن کاربر جدید", href: "users" },
+      { name: "افزودن کاربر جدید", href: "add-users" },
     ],
   },
   {
@@ -34,6 +34,7 @@ const navigation = [
       { name: "فاکولته", href: "facolte" },
       { name: "دیپارتمنت", href: "department" },
       { name: "استاد", href: "#" },
+      { name: "فورم", href: "form" },
       { name: "سوال", href: "#" },
     ],
   },
