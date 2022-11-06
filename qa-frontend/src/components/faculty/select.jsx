@@ -31,12 +31,12 @@ const SelectInput = ({
           }}
           as={"div"}
           value={selectedItem}
-          className="relative grid md:grid-cols-2 grid-cols-1"
+          className="relative grid md:grid-cols-2 grid-cols-1 items-center"
           disabled={className}
         >
           {({ open }) => (
             <>
-              <Listbox.Label className="block text-sm font-medium text-gray-700">
+              <Listbox.Label className="block text-sm font-medium">
                 {placeholder}
               </Listbox.Label>
               <div className="relative mt-1">

@@ -68,7 +68,7 @@ const Department = () => {
     );
 
   return (
-    <section className="font-vazirBold p-10">
+    <section className="font-vazirBold p-10 w-full">
       {!addNew ? (
         <div className="">
           <button
@@ -108,7 +108,7 @@ const Department = () => {
                 errors={errors}
                 options={faculties?.map((item) => [item.fa_name, item.id])}
                 placeholder="فاکولته"
-              />{" "}
+              />
               <InputDate
                 register={register}
                 errors={errors}

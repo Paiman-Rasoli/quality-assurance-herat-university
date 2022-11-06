@@ -16,14 +16,14 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { NavLink, Outlet } from "react-router-dom";
 
 const navigation = [
-  { name: "صفحه اصلی", href: "/", icon: HomeIcon, current: true },
+  { name: "خانه", href: "/dashboard", icon: HomeIcon, current: true },
   {
     name: "کاربران",
     icon: UsersIcon,
     current: false,
     children: [
       { name: "لیست کاربران", href: "users" },
-      { name: "افزودن کاربر جدید", href: "users" },
+      { name: "افزودن کاربر جدید", href: "add-users" },
     ],
   },
   {
@@ -31,9 +31,10 @@ const navigation = [
     icon: FolderIcon,
     current: false,
     children: [
-      { name: "فاکولته", href: "facolte" },
+      { name: "فاکولته", href: "faculty" },
       { name: "دیپارتمنت", href: "department" },
-      { name: "استاد", href: "#" },
+      { name: "استاد", href: "teacher" },
+      { name: "فورم", href: "form" },
       { name: "سوال", href: "#" },
     ],
   },
@@ -42,7 +43,7 @@ const navigation = [
   //   icon: FolderIcon,
   //   current: false,
   //   children: [
-  //     { name: "لیست فاکولته ها", href: "facolte" },
+  //     { name: "لیست فاکولته ها", href: "faculty" },
   //     { name: "لیست دیپارتمنت ها", href: "department" },
   //     { name: "لیست اساتید", href: "#" },
   //     { name: "لیست سوالات", href: "#" },
@@ -54,7 +55,7 @@ const navigation = [
     icon: CalendarIcon,
     current: false,
     children: [
-      { name: "لیست کامل گزارشات", href: "facolte" },
+      { name: "لیست کامل گزارشات", href: "faculty" },
       { name: "نمودار گزارشات", href: "department" },
       { name: "گزارش امروز", href: "#" },
     ],
@@ -399,7 +400,7 @@ export default function Layout() {
               </div>
             </div>
           </div>
-          <main className="">
+          <main className="flex justify-center w-full">
             <Outlet />
           </main>
         </div>

@@ -10,6 +10,11 @@ import { AnswerEntity } from "./answer.entity";
 import { SubjectEntity } from "./subject.entity";
 import { TeacherEntity } from "./teacher.entity";
 
+export enum semesterType {
+  بهاری = "بهاری",
+  خزانی = "خزانی",
+}
+
 @Entity()
 export class EvaluationFormEntity {
   @PrimaryGeneratedColumn()
@@ -21,8 +26,12 @@ export class EvaluationFormEntity {
   @Column()
   semester: number;
 
-  @Column()
-  semester_type: string;
+  @Column({
+    type: "simple-enum",
+    nullable: false,
+    enum: semesterType,
+  })
+  semester_type: semesterType;
 
   @Column({ type: "date" })
   start_date: Date;

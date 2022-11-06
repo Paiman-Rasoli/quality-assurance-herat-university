@@ -1,159 +1,61 @@
-import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import FormBorder from "../components/form/formBorder";
-import Select from "../components/form/Select";
-import Loading from "../components/loading";
-import { Transition } from "@headlessui/react";
-
-import { facoltes, semester_type, teachers } from "../services/list";
-import Questions from "./questions";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
 
 const schema = yup.object({
-  facolte: yup.string().required("لطفا فاکولته مورد نظرتان را انتخاب نمایید "),
-  department: yup
-    .string()
-    .required("لطفا دیپارتمنت مورد نظرتان را انتخاب نمایید "),
-  teacher: yup.string().required("لطفا استاد مورد نظرتان را انتخاب نمایید "),
-  semesterType: yup
-    .string()
-    .required("لطفا نوعیت سمستر مورد نظرتان را انتخاب نمایید "),
-  semesterNumber: yup
-    .number()
-    .nullable()
-    .required("لطفا سمستر مورد نظرتان را انتخاب نمایید ")
-    .min(1),
+  id: yup.string().required("لطفا آی دی را وارد نمایید"),
 });
 
 const Student = () => {
-  const [formData, setFormData] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [showQuestion, setShowQuestion] = useState(false);
-  const [selectedFacolte, setSelectedFacolte] = useState("");
-  const [selectedDepartment, setSelectedDepartment] = useState("");
-
-  const navigate = useNavigate();
-
-  function semesterNumbers(number) {
-    const arr = [];
-    for (let i = 1; i <= number; i++) {
-      arr.push(i);
-    }
-    return arr;
-  }
   const {
+    register,
     handleSubmit,
-    control,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const onSubmit = (data) => {
-    setLoading(true);
-    setFormData(data);
-    console.log(data);
-    setTimeout(() => {
-      navigate("./questions");
-      setLoading(false);
-      setShowQuestion(true);
-    }, 2000);
+  const onSubmit = (e) => {
+    console.log("id", e);
   };
 
   return (
-    <Transition
-      show={true}
-      enter="transition-opacity duration-75"
-      enterFrom="opacity-0"
-      enterTo="opacity-100"
-      leave="transition-opacity duration-150"
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0"
-    >
-      <div className="p-10 grid justify-center w-full font-vazirBold">
-        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
-          <span className="block xl:inline">دانشگاه هرات</span>{" "}
-          <span className="block text-cyan-600 xl:inline">
-            کمیته تضمین کیفیت{" "}
-          </span>
-        </h1>
-        <FormBorder label={"فورم ارزیابی اصلاح تدریس"}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="grid min-w-full gap-3"
-          >
-            <Select
-              name="facolte"
-              Type={"string"}
-              Controller={Controller}
-              control={control}
-              errors={errors}
-              options={facoltes.map((item) => item.name)}
-              placeholder="فاکولته"
-              setSelectedOptions={setSelectedFacolte}
+    <main className="font-vazirBold my-10 px-5">
+      <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl text-center mb-5 leading-10">
+        <span className="block xl:inline">دانشگاه هرات</span>{" "}
+        <span className="block text-cyan-600 xl:inline">
+          کمیته تضمین کیفیت{" "}
+        </span>
+      </h1>
+      <section className="flex justify-center px-10">
+        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-2">
+          <label htmlFor="id">
+            <h5>لطفا آیدی فورم مورد نظرتان را وارد نمایید</h5>
+          </label>
+          <div>
+            <input
+              type="text"
+              dir="ltr"
+              lang="en"
+              autoFocus
+              {...register("id")}
+              className="w-full font-bold uppercase font-sans border-2 border-[#1E408E] text-[#1E408E] p-1 rounded"
+              placeholder="ID"
             />
-            <Select
-              name="department"
-              Type={"string"}
-              errors={errors}
-              Controller={Controller}
-              control={control}
-              options={
-                facoltes
-                  .filter((fc) => fc.name === selectedFacolte)
-                  .map((e) => e.departments)[0]
-              }
-              placeholder="دیپارتمنت"
-              className={!selectedFacolte && "disabled"}
-              setSelectedOptions={setSelectedDepartment}
-            />
-            <Select
-              name="teacher"
-              Type={"string"}
-              errors={errors}
-              Controller={Controller}
-              control={control}
-              options={teachers}
-              placeholder="استاد"
-              className={!selectedDepartment && "disabled"}
-            />
-            <Select
-              name="semesterType"
-              Type={"string"}
-              errors={errors}
-              Controller={Controller}
-              control={control}
-              options={semester_type}
-              placeholder="نوعیت سمستر"
-            />
-            <Select
-              name="semesterNumber"
-              Type={"number"}
-              errors={errors}
-              Controller={Controller}
-              control={control}
-              options={semesterNumbers(
-                ...facoltes
-                  .filter((fc) => fc.name === selectedFacolte)
-                  .map((e) => e.number_of_sem)
-              )}
-              placeholder="انتخاب سمستر"
-              className={!selectedFacolte && "disabled"}
-            />
-            <div className="flex justify-end px-20">
-              <button
-                type={"submit"}
-                className="rounded-md py-3 px-3 flex items-center justify-center text-sm font-medium sm:flex-1 text-white bg-cyan-600 hover:bg-cyan-700"
-              >
-                تایید
-              </button>
-              {loading && <Loading />}
-            </div>
-          </form>
-          {showQuestion && <Questions formData={formData} />}
-        </FormBorder>
-      </div>
-    </Transition>
+            {errors?.["id"] && (
+              <p className="text-red-500">{errors?.["id"].message}</p>
+            )}
+          </div>
+          <div className="flex justify-end px-20">
+            <button
+              type={"submit"}
+              className="px-5 py-2 rounded-sm text-white bg-[#1E408E] hover:bg-[#3672ff]"
+            >
+              تایید
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
   );
 };
 

@@ -16,6 +16,7 @@ const Select = ({
   errors,
   setSelectedOptions,
   className,
+  reset,
 }) => {
   const [selectedItem, setSelectedItem] = useState(placeholder);
 
@@ -33,7 +34,7 @@ const Select = ({
           }}
           as={"div"}
           value={selectedItem}
-          className="relative grid md:grid-cols-2 grid-cols-1"
+          className="relative grid items-center md:grid-cols-2 grid-cols-1"
           disabled={className}
         >
           {({ open }) => (
