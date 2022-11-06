@@ -5,13 +5,21 @@ import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 
-const InputDate = ({ control, Controller, label, name, errors }) => {
+const InputDate = ({
+  control,
+  Controller,
+  label,
+  name,
+  errors,
+  defaultValue,
+}) => {
   return (
     <div className="grid md:grid-cols-2 grid-cols-1">
       <label htmlFor={name}>{label}</label>
       <Controller
         control={control}
         name={name}
+        defaultValue={defaultValue}
         rules={{ required: true }}
         render={({ field: { onChange, name, value } }) => (
           <div className="grid">

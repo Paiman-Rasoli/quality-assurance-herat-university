@@ -26,7 +26,7 @@ const Users = () => {
   ]);
 
   return (
-    <section className="font-vazirBold p-10">
+    <section className="font-vazirBold p-10 w-full">
       <div className="py-10">
         <table className="border rounded w-full border-separate md:border-spacing-5 border-spacing-1">
           <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">

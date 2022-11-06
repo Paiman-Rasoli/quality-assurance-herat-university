@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:1111/api";
+export const API_URL = "http://localhost:1111/api";
 
 // Load faculties and return as JSON.
 async function httpPostFaculties(data) {

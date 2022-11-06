@@ -68,7 +68,7 @@ const Department = () => {
     );
 
   return (
-    <section className="font-vazirBold p-10">
+    <section className="font-vazirBold p-10 w-full">
       {!addNew ? (
         <div className="">
           <button

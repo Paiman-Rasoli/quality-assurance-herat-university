@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 
 import "react-toastify/dist/ReactToastify.css";
 import Input from "../components/form/input";
+import FormBorder from "../components/form/formBorder";
 
 const schema = yup.object({
   username: yup.string().required("نام کاربری تان را وارد نمایید"),
@@ -47,28 +48,28 @@ const Login = () => {
 
   return (
     <section className="relative grid place-content-center font-vazirBold h-screen">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="grid justify-items-center gap-5 border-2 transition-all duration-200 ease-out rounded-xl p-5 shadow-inner"
-      >
-        <div>ورود به حساب کاربری</div>
-        <Input
-          register={register}
-          errors={errors}
-          label=" نام کاربری (ایمیل)"
-          name="username"
-          type="text"
-          dir="ltr"
-        />
-        <Input
-          register={register}
-          errors={errors}
-          label="رمز عبور"
-          name="password"
-          type="passwrod"
-          dir="ltr"
-        />
-        {/* <div className="grid gap-2">
+      <FormBorder label={"ورود به حساب کاربری"}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="grid min-w-full gap-3"
+        >
+          <Input
+            register={register}
+            errors={errors}
+            label=" نام کاربری (ایمیل)"
+            name="username"
+            type="text"
+            dir="ltr"
+          />
+          <Input
+            register={register}
+            errors={errors}
+            label="رمز عبور"
+            name="password"
+            type="password"
+            dir="ltr"
+          />
+          {/* <div className="grid gap-2">
           <label htmlFor="username">نام کاربری</label>
           <div>
             <input
@@ -96,15 +97,16 @@ const Login = () => {
             )}
           </div>
         </div> */}
-        <div className="flex justify-end px-20">
-          <button
-            type={"submit"}
-            className="px-5 py-2 rounded-sm text-white bg-[#1E408E] hover:bg-[#3672ff]"
-          >
-            تایید
-          </button>
-        </div>
-      </form>
+          <div className="flex justify-end px-20">
+            <button
+              type={"submit"}
+              className="px-5 py-2 rounded-sm text-white bg-[#1E408E] hover:bg-[#3672ff]"
+            >
+              تایید
+            </button>
+          </div>
+        </form>
+      </FormBorder>
       {loading && <Loading />}
     </section>
   );
