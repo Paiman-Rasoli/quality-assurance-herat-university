@@ -7,4 +7,10 @@ export class QuestionEntity {
 
   @Column()
   text: string;
+
+  @Column({
+    type : 'boolean',
+    default : true
+  })
+  status : boolean
 }
