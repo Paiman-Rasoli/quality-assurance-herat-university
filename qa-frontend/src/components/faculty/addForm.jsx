@@ -7,13 +7,8 @@ import FormBorder from "../form/formBorder";
 import Input from "../form/input";
 import InputDate from "../form/InputDate";
 
-const AddingForm = ({ schema, setLoading, addNew, setAddNew }) => {
-  const {
-    loading: laodingdata,
-    data: faculties,
-    error,
-    refetch,
-  } = useFetch("faculty");
+const AddingForm = ({ schema, setLoading, addNew, setAddNew, refetch }) => {
+  const { loading: laodingdata, data: faculties, error } = useFetch("faculty");
 
   const {
     register,
@@ -78,14 +73,14 @@ const AddingForm = ({ schema, setLoading, addNew, setAddNew }) => {
 
           <div className="flex gap-5 justify-end w-full">
             <button
-              className="btnS1 px-5 py-2 rounded-sm text-white shadow-md transition-all bg-[#1E408E] ring-offset-2 focus:ring-cyan-300 focus:ring-2"
+              className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               onClick={() => setAddNew(false)}
             >
               لغو
             </button>
             <button
               type={"submit"}
-              className="btnS1 px-5 py-2 rounded-sm text-white shadow-md transition-all bg-[#1E408E] ring-offset-2 focus:ring-cyan-300 focus:ring-2"
+              className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             >
               تایید
             </button>

@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { toast } from "react-toastify";
 import useFetch from "../../hooks/useFetch";
-import { httpPostFaculties } from "../../services/requests";
+import { httpPutFaculties } from "../../services/requests";
 import Input from "../form/input";
 import InputDate from "../form/InputDate";
 
@@ -21,10 +21,6 @@ export default function UpdateModal({
 }) {
   const [data, setData] = useState("");
 
-  useEffect(() => {
-    setData(faculty);
-  }, [faculty, isOpen, setIsOpen]);
-
   function closeModal() {
     setIsOpen(false);
   }
@@ -39,15 +35,17 @@ export default function UpdateModal({
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
+  useEffect(() => {
+    setData(faculty);
+    reset();
+  }, [faculty, isOpen, reset, setIsOpen]);
+
   const onSubmit = async (data) => {
     setLoading(true);
-    console.log(data);
-
-    const res = await httpPostFaculties({
+    const res = await httpPutFaculties({
       ...data,
-      date: data.date.toJSON().slice(0, 10),
     });
-    console.log(res);
+    console.log("put", res);
     if (res) {
       refetch();
       setLoading(false);
@@ -55,7 +53,8 @@ export default function UpdateModal({
   };
 
   async function confirmUpdate(data) {
-    console.log("data", data);
+    console.log("submit", data);
+    onSubmit(data);
     // const result = await deleteFaculty({ data });
     // if (result.ok) {
     //   toast.success("فاکولته موفقانه حذف شد");
@@ -85,7 +84,7 @@ export default function UpdateModal({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -102,7 +101,7 @@ export default function UpdateModal({
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-xl font-medium leading-6 text-gray-900 mb-3"
                   >
                     {title}
                   </Dialog.Title>

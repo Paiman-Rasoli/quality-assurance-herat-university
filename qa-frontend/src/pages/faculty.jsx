@@ -1,21 +1,14 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useEffect, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import FormBorder from "../components/form/formBorder";
+import React, { useState } from "react";
 import * as yup from "yup";
 import moment from "jalali-moment";
 
 import Loading from "../components/loading";
-import Input from "../components/form/input";
-import InputDate from "../components/form/InputDate";
 import useFetch from "../hooks/useFetch";
-import { httpPostFaculties } from "../services/requests";
 import { ArrowPathIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { deleteFaculty } from "../services/facultyService";
-import { toast } from "react-toastify";
 import DeleteModal from "../components/faculty/deleteModal";
 import UpdateModal from "../components/faculty/updateModal";
 import AddingForm from "../components/faculty/addForm";
+import Modal from "../components/modal";
 
 const schema = yup.object({
   fa_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
@@ -31,19 +24,20 @@ const Faculty = () => {
     refetch,
   } = useFetch("faculty");
 
-  const [isOpenDModal, setIsOpenDModal] = useState(false);
-  const [isOpenUModal, setIsOpenUModal] = useState(false);
-  const [selecteFaculty, setSelectedFaculty] = useState(false);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+  const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [selectedFaculty, setSelectedFaculty] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [addNew, setAddNew] = useState(false);
 
   const deleteF = async (data) => {
-    setIsOpenDModal(!isOpenDModal);
     setSelectedFaculty(data);
+    setIsOpenDeleteModal(!isOpenDeleteModal);
   };
   const updateF = async (data) => {
-    setIsOpenUModal(!isOpenUModal);
+    console.log("update f", data);
     setSelectedFaculty(data);
+    setIsOpenUpdateModal(!isOpenUpdateModal);
   };
 
   if (laodingdata || loading) return <Loading />;
@@ -58,31 +52,31 @@ const Faculty = () => {
   return (
     <section className="font-vazirBold p-10 w-full">
       <DeleteModal
-        isOpen={isOpenDModal}
-        setIsOpen={setIsOpenDModal}
+        isOpen={isOpenDeleteModal}
+        setIsOpen={setIsOpenDeleteModal}
         title={"حذف فاکولته"}
         refetch={refetch}
         text={
-          <p className="font-vazirBold">
+          <span className="font-vazirBold">
             آیا مطمین هستید که میخواهید فاکولته{" "}
-            <span className="text-red-400">{selecteFaculty.fa_name}</span> را
+            <span className="text-red-400">{selectedFaculty.fa_name}</span> را
             حذف کنید
-          </p>
+          </span>
         }
         confirmText={"تایید"}
         denyText={"لغو"}
-        faculty={selecteFaculty}
+        faculty={selectedFaculty}
       />
       <UpdateModal
         schema={schema}
         setLoading={setLoading}
-        isOpen={isOpenUModal}
-        setIsOpen={setIsOpenUModal}
+        isOpen={isOpenUpdateModal}
+        setIsOpen={setIsOpenUpdateModal}
         title={"ویرایش فاکولته"}
         refetch={refetch}
         confirmText={"تایید"}
         denyText={"لغو"}
-        faculty={selecteFaculty}
+        faculty={selectedFaculty}
       />
       <div className="py-10">
         <table className="border rounded-3xl w-full table-auto border-separate p-5 md:p-0 md:border-spacing-5 border-spacing-1">
@@ -124,23 +118,29 @@ const Faculty = () => {
           </tbody>
         </table>
       </div>
-      {!addNew ? (
-        <div className="">
-          <button
-            className="btnS1 px-5 py-2 rounded-sm text-white shadow-md transition-all bg-[#1E408E] ring-offset-2 focus:ring-cyan-300 focus:ring-2"
-            onClick={() => setAddNew(true)}
-          >
-            اضافه کردن فاکولته{" "}
-          </button>
-        </div>
-      ) : (
-        <AddingForm
-          schema={schema}
-          setLoading={setLoading}
-          addNew={addNew}
-          setAddNew={setAddNew}
-        />
-      )}
+
+      <div className="">
+        <button
+          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          onClick={() => setIsOpenModal(true)}
+        >
+          اضافه کردن فاکولته{" "}
+        </button>
+      </div>
+      <Modal
+        isOpen={isOpenModal}
+        setIsOpen={setIsOpenModal}
+        title="modal"
+        body={
+          <AddingForm
+            schema={schema}
+            setLoading={setLoading}
+            addNew={isOpenModal}
+            setAddNew={setIsOpenModal}
+            refetch={refetch}
+          />
+        }
+      />
     </section>
   );
 };

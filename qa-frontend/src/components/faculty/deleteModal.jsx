@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { toast } from "react-toastify";
 import { deleteFaculty } from "../../services/facultyService";
 
@@ -20,7 +20,7 @@ export default function DeleteModal({
   async function confirmDelete(data) {
     const result = await deleteFaculty({ id: data.id });
     if (result.ok) {
-      toast.success("فاکولته موفقانه حذف شد");
+      toast.success(faculty.fa_name + " موفقانه حذف شد");
       refetch();
     } else {
       toast.warning("متاسفانه تغییرات اعمال نشد");
@@ -57,7 +57,7 @@ export default function DeleteModal({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
