@@ -5,7 +5,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import FormBorder from "../components/form/formBorder";
 import Select from "../components/form/Select";
 import Loading from "../components/loading";
-import { Transition } from "@headlessui/react";
 
 import { facoltes, semester_type, teachers } from "../services/list";
 import Questions from "./questions";
@@ -63,21 +62,10 @@ const Form = () => {
   };
 
   return (
-    <Transition
-      show={true}
-      enter="transition-opacity duration-75"
-      enterFrom="opacity-0"
-      enterTo="opacity-100"
-      leave="transition-opacity duration-150"
-      leaveFrom="opacity-100"
-      leaveTo="opacity-0"
-    >
-      <div className="grid w-full font-vazirBold ">
+    <section className="font-vazirBold p-10 w-full">
+      <div className="grid w-full font-vazirBold">
         <FormBorder label={"ایجاد فورم ارزیابی اصلاح تدریس"}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="grid min-w-[40rem] gap-3"
-          >
+          <form onSubmit={handleSubmit(onSubmit)} className="grid w-full gap-3">
             <Select
               name="facolte"
               Type={"string"}
@@ -140,7 +128,7 @@ const Form = () => {
             <div className="flex justify-end px-20">
               <button
                 type={"submit"}
-                className="rounded-md py-3 px-3 flex items-center justify-center text-sm font-medium sm:flex-1 text-white bg-cyan-600 hover:bg-cyan-700 max-w-xs"
+                className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               >
                 تایید
               </button>
@@ -150,7 +138,7 @@ const Form = () => {
           {showQuestion && <Questions formData={formData} />}
         </FormBorder>
       </div>
-    </Transition>
+    </section>
   );
 };
 
