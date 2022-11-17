@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/layout";
 import LandingPage from "./pages";
-import Department from "./pages/addDepartment";
+import Department from "./pages/department";
 import Dashboard from "./pages/dashboard";
 import Faculty from "./pages/faculty";
 import Login from "./pages/login";
@@ -28,7 +28,6 @@ function App() {
             <Route path="add-users" element={<AddUser />} />
             <Route path="users" element={<Users />} />
             <Route path="faculty" element={<Faculty />} />
-            <Route path="department" element={<Department />} />
             <Route path="department" element={<Department />} />
             <Route index element={<Dashboard />} />
           </Route>
