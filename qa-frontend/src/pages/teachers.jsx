@@ -20,7 +20,7 @@ const schema = yup.object({
   date: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
 
-const Department = () => {
+const Teachers = () => {
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -29,10 +29,10 @@ const Department = () => {
 
   const {
     loading: laodingdata,
-    data: departments,
+    data: teachers,
     error,
     refetch,
-  } = useFetch("department");
+  } = useFetch("teacher");
 
   const { data: faculties } = useFetch("faculty");
 
@@ -76,6 +76,8 @@ const Department = () => {
         somthing went wrong with connection to database
       </div>
     );
+
+  console.log("teachers, ", teachers);
 
   return (
     <section className="font-vazirBold p-10 w-full">
@@ -131,51 +133,64 @@ const Department = () => {
         <table className="border rounded-xl w-full table-auto border-separate p-5 md:p-0 md:border-spacing-5 border-spacing-1">
           <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
             <tr className="divide-x-2 divide-y-2 bg-stone-300">
-              <th className="font-normal text-center">شماره</th>
+              <th className="font-normal text-center">آیدی</th>
               <th className="font-normal text-center">نام فارسی</th>
               <th className="font-normal text-center hidden lg:block">
                 نام انگلیسی
               </th>
               <th className="font-normal text-center">فاکولته</th>
-              <th className="font-normal text-center">تاریخ ثبت</th>
-              <th className="font-normal text-center">ویرایش/حذف</th>
+              <th className="font-normal text-center">دیپارتمنت</th>
+              <th className="font-normal text-center hidden lg:block">
+                تاریخ ثبت
+              </th>
+              <th className="font-normal text-center hidden lg:block">
+                ویرایش/حذف
+              </th>
             </tr>
           </thead>
           <tbody className="font-vazirBold text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
-            {departments.map((item, ndx) => (
-              <tr
-                key={ndx}
-                className={`divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse ${
-                  ndx % 2 === 0 ? "bg-stone-100" : "bg-zinc-200"
-                }`}
-              >
-                <td className="text-center">{ndx + 1}</td>
-                <td className="text-center">{item.fa_name}</td>
-                <td className="text-center hidden lg:block">{item.en_name}</td>
-                <td className="text-center">{item.faculty.fa_name}</td>
-                <td className="text-center">
-                  {moment(item.date, "YYYY/MM/DD")
-                    .locale("fa")
-                    .format("YYYY/MM/DD")}
-                </td>
-                <td className="text-center">
-                  <div className="flex justify-around">
-                    <button
-                      onClick={() => updateF(item)}
-                      className="h-full flex items-center"
-                    >
-                      <PencilSquareIcon className="h-6 w-6" />
-                    </button>
-                    <button
-                      onClick={() => deleteF(item)}
-                      className="h-full flex items-center"
-                    >
-                      <TrashIcon className="h-6 w-6" />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            {teachers.map(
+              (item, ndx) => (
+                <tr
+                  key={ndx}
+                  className={`divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse ${
+                    ndx % 2 === 0 ? "bg-stone-100" : "bg-zinc-200"
+                  }`}
+                >
+                  <td className="text-center">{item.id}</td>
+                  <td className="text-center">{item?.fa_name}</td>
+                  <td className="text-center hidden lg:flex h-full items-center">
+                    <div className="w-full h-full">{item.en_name}</div>
+                  </td>
+                  <td className="text-center">
+                    {item.department.faculty.fa_name}
+                  </td>
+                  <td className="text-center">{item.department.fa_name}</td>
+                  <td className="text-center hidden lg:block">
+                    {moment(item.date, "YYYY/MM/DD")
+                      .locale("fa")
+                      .format("YYYY/MM/DD")}
+                  </td>
+                  <td className="text-center hidden lg:block">
+                    <div className="flex justify-around">
+                      <button
+                        onClick={() => updateF(item)}
+                        className="h-full flex items-center"
+                      >
+                        <PencilSquareIcon className="h-6 w-6" />
+                      </button>
+                      <button
+                        onClick={() => deleteF(item)}
+                        className="h-full flex items-center"
+                      >
+                        <TrashIcon className="h-6 w-6" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              )
+              //   console.log(item)
+            )}
           </tbody>
         </table>
       </div>
@@ -191,4 +206,4 @@ const Department = () => {
   );
 };
 
-export default Department;
+export default Teachers;

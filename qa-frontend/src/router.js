@@ -11,6 +11,7 @@ import Form from "./pages/form";
 import Users from "./pages/users";
 import Student from "./pages/student";
 import AddUser from "./components/users/add-user";
+import Teachers from "./pages/teachers";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="users" element={<Users />} />
             <Route path="faculty" element={<Faculty />} />
             <Route path="department" element={<Department />} />
+            <Route path="teacher" element={<Teachers />} />
             <Route index element={<Dashboard />} />
           </Route>
         </Route>

@@ -2,9 +2,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Fragment, useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { toast } from "react-toastify";
-import useFetch from "../../hooks/useFetch";
 import { httpPutFaculties } from "../../services/requests";
+import SelectInput from "../faculty/select";
 import Input from "../form/input";
 import InputDate from "../form/InputDate";
 
@@ -16,16 +15,15 @@ export default function UpdateModal({
   confirmText,
   denyText,
   refetch,
-  faculty,
+  department,
   setLoading,
+  faculties,
 }) {
   const [data, setData] = useState("");
 
   function closeModal() {
     setIsOpen(false);
   }
-
-  const { loading: laodingdata, data: faculties, error } = useFetch("faculty");
 
   const {
     register,
@@ -36,9 +34,9 @@ export default function UpdateModal({
   } = useForm({ resolver: yupResolver(schema) });
 
   useEffect(() => {
-    setData(faculty);
+    setData(department);
     reset();
-  }, [faculty, isOpen, reset, setIsOpen]);
+  }, [department, isOpen, reset, setIsOpen]);
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -112,7 +110,7 @@ export default function UpdateModal({
                     <Input
                       register={register}
                       errors={errors}
-                      label="نام فاکولته (فارسی)"
+                      label="نام دیپارتمنت (فارسی)"
                       name="fa_name"
                       type="text"
                       defaultValue={data.fa_name}
@@ -121,10 +119,23 @@ export default function UpdateModal({
                       register={register}
                       errors={errors}
                       dir={"ltr"}
-                      label="نام فاکولته(انگلیسی)"
+                      label="نام دیپارتمنت (انگلیسی)"
                       name="en_name"
                       type="text"
                       defaultValue={data.en_name}
+                    />
+                    <SelectInput
+                      name="facultyId"
+                      Type={"number"}
+                      Controller={Controller}
+                      control={control}
+                      errors={errors}
+                      options={faculties?.map((item) => [
+                        item.fa_name,
+                        item.id,
+                      ])}
+                      placeholder="فاکولته"
+                      defaultValue={"طب"}
                     />
                     <InputDate
                       register={register}
@@ -150,7 +161,7 @@ export default function UpdateModal({
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                      onClick={() => confirmUpdate(faculty)}
+                      onClick={() => confirmUpdate(department)}
                     >
                       {confirmText}
                     </button>

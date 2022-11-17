@@ -31,7 +31,7 @@ const SelectInput = ({
           }}
           as={"div"}
           value={selectedItem}
-          className="relative grid md:grid-cols-2 grid-cols-1 items-center"
+          className="relative grid md:grid-cols-2 grid-cols-1 items-center z-20"
           disabled={className}
         >
           {({ open }) => (
