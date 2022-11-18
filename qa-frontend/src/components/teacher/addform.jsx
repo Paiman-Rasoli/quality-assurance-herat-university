@@ -1,43 +1,30 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useEffect, useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-import { httpPostFaculties } from "../../services/requests";
 import FormBorder from "../form/formBorder";
 import Input from "../form/input";
 import InputDate from "../form/InputDate";
+import Select from "../teacher/Select";
 
-const AddFacultyForm = ({ schema, setLoading, addNew, setAddNew, refetch }) => {
-  const {
-    register,
-    control,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
-
-  const onSubmit = async (data) => {
-    setLoading(true);
-    console.log(data);
-
-    const res = await httpPostFaculties({
-      ...data,
-      date: data.date.toJSON().slice(0, 10),
-    });
-    console.log(res);
-    if (res) {
-      refetch();
-      setLoading(false);
-      setAddNew(false);
-    }
-  };
+const AddTeacherForm = ({
+  handleSubmit,
+  onSubmit,
+  register,
+  errors,
+  Controller,
+  control,
+  faculties,
+  useForm,
+  isOpenModal,
+  setIsOpenModal,
+  reset,
+}) => {
+  const [selectedFaculty, setSelectedFaculty] = useState("");
 
   useEffect(() => {
     reset();
-  }, [addNew, reset]);
-
+  }, [isOpenModal, reset]);
   return (
     <article className="w-full">
-      <FormBorder label={"ایجاد فاکولته"}>
+      <FormBorder label={"اضافه کردن استاد"}>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="grid min-w-full gap-3"
@@ -45,17 +32,43 @@ const AddFacultyForm = ({ schema, setLoading, addNew, setAddNew, refetch }) => {
           <Input
             register={register}
             errors={errors}
-            label="نام فاکولته (فارسی)"
+            label="نام استاد (فارسی)"
             name="fa_name"
             type="text"
           />
           <Input
             register={register}
             errors={errors}
-            dir={"ltr"}
-            label="نام فاکولته(انگلیسی)"
+            dir="ltr"
+            label="نام استاد (انگلیسی)"
             name="en_name"
             type="text"
+          />
+          <Select
+            name="facultyId"
+            Type={"string"}
+            Controller={Controller}
+            control={control}
+            errors={errors}
+            options={faculties.map((faculty) => [faculty.fa_name, faculty.id])}
+            placeholder="فاکولته"
+            setSelectedOptions={setSelectedFaculty}
+            reset={reset}
+          />
+          <Select
+            name="departmentId"
+            Type={"string"}
+            errors={errors}
+            Controller={Controller}
+            control={control}
+            options={faculties
+              .filter((fc) => fc.fa_name === selectedFaculty[0])[0]
+              ?.departments.map((department) => [
+                department.fa_name,
+                department.id,
+              ])}
+            placeholder="دیپارتمنت"
+            className={!selectedFaculty && "disabled"}
           />
           <InputDate
             register={register}
@@ -67,11 +80,10 @@ const AddFacultyForm = ({ schema, setLoading, addNew, setAddNew, refetch }) => {
             Controller={Controller}
             control={control}
           />
-
           <div className="flex gap-5 justify-end w-full">
             <button
               className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-              onClick={() => setAddNew(false)}
+              onClick={() => setIsOpenModal(false)}
             >
               لغو
             </button>
@@ -88,4 +100,4 @@ const AddFacultyForm = ({ schema, setLoading, addNew, setAddNew, refetch }) => {
   );
 };
 
-export default AddFacultyForm;
+export default AddTeacherForm;

@@ -18,18 +18,18 @@ const Select = ({
   className,
   reset,
 }) => {
-  console.log("opt", options);
-  const [selectedItem, setSelectedItem] = useState(placeholder);
+  // console.log("opt", options);
+  const [selectedItem, setSelectedItem] = useState([placeholder, 0]);
 
   return (
     <Controller
       control={control}
-      defaultValue={Type && Type === "number" ? null : "" || ""}
+      // defaultValue={Type && Type === "number" ? null : "" || ""}
       name={name}
       render={({ field: { onChange } }) => (
         <Listbox
           onChange={(e) => {
-            onChange(e);
+            onChange(e[1]);
             setSelectedItem(e);
             setSelectedOptions && setSelectedOptions(e);
           }}
@@ -48,7 +48,7 @@ const Select = ({
                   className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-right shadow-sm focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 sm:text-sm disabled:text-gray-300"
                   disabled={className}
                 >
-                  <span className="block truncate">{selectedItem}</span>
+                  <span className="block truncate">{selectedItem[0]}</span>
                   <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
                     <ChevronUpDownIcon
                       className="h-5 w-5 text-gray-400"
@@ -85,7 +85,7 @@ const Select = ({
                                 "block truncate"
                               )}
                             >
-                              {opt}
+                              {opt[0]}
                             </span>
 
                             {selected ? (

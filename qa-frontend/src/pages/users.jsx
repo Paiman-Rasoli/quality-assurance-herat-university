@@ -2,13 +2,13 @@ import moment from "jalali-moment";
 import React, { useState } from "react";
 
 const Users = () => {
-  const [faclotes, setFacoltes] = useState([
+  const [users, setUsers] = useState([
     {
       teacherId: 1,
       firstName: "زهرا",
       lastName: "حمیدی",
       gender: "خانم",
-      facolte: "اقتصاد",
+      faculty: "اقتصاد",
       department: "منجمنت",
       edudationLevel: "دکترا",
       date: new Date(),
@@ -18,7 +18,7 @@ const Users = () => {
       firstName: "احمد",
       lastName: "کریمی",
       gender: "آقا",
-      facolte: "طب",
+      faculty: "طب",
       department: "معالجوی",
       edudationLevel: "ماستر",
       date: new Date(),
@@ -39,7 +39,7 @@ const Users = () => {
             </tr>
           </thead>
           <tbody className="font-vazirBold text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
-            {faclotes.map((item, ndx) => (
+            {users.map((item, ndx) => (
               <tr
                 key={ndx}
                 className={`divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse ${
@@ -49,7 +49,7 @@ const Users = () => {
                 <td className="text-center">{item.teacherId}</td>
                 <td className="text-center">{item.firstName}</td>
                 <td className="text-center">{item.lastName}</td>
-                <td className="text-center">{item.facolte}</td>
+                <td className="text-center">{item.faculty}</td>
                 <td className="text-center">{item.department}</td>
               </tr>
             ))}

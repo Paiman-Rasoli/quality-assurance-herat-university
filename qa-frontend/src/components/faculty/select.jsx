@@ -26,12 +26,12 @@ const SelectInput = ({
         <Listbox
           onChange={(e) => {
             onChange(e[1]);
-            console.log(e[1]);
+            // console.log(e[1]);
             setSelectedItem(e);
           }}
           as={"div"}
           value={selectedItem}
-          className="relative grid md:grid-cols-2 grid-cols-1 items-center"
+          className="relative grid md:grid-cols-2 grid-cols-1 items-center z-20"
           disabled={className}
         >
           {({ open }) => (
