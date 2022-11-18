@@ -107,26 +107,22 @@ const Department = () => {
         department={selectedDepartment}
         faculties={faculties}
       />
-      <Modal
-        isOpen={isOpenModal}
-        setIsOpen={setIsOpenModal}
-        body={
-          <AddDepartmentForm
-            Controller={Controller}
-            control={control}
-            errors={errors}
-            faculties={faculties}
-            handleSubmit={handleSubmit}
-            onSubmit={onSubmit}
-            register={register}
-            useForm={useForm}
-            reset={reset}
-            refetch={refetch}
-            isOpenModal={isOpenModal}
-            setIsOpenModal={setIsOpenModal}
-          />
-        }
-      />
+      <Modal isOpen={isOpenModal} setIsOpen={setIsOpenModal}>
+        <AddDepartmentForm
+          Controller={Controller}
+          control={control}
+          errors={errors}
+          faculties={faculties}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+          register={register}
+          useForm={useForm}
+          reset={reset}
+          refetch={refetch}
+          isOpenModal={isOpenModal}
+          setIsOpenModal={setIsOpenModal}
+        />
+      </Modal>
       <div className="pb-10">
         <table className="border rounded-xl w-full table-auto border-separate p-5 md:p-0 md:border-spacing-5 border-spacing-1">
           <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">

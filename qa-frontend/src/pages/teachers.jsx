@@ -6,17 +6,20 @@ import moment from "jalali-moment";
 
 import Loading from "../components/loading";
 import useFetch from "../hooks/useFetch";
-import { httpPostDepartments } from "../services/requests";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
-import UpdateModal from "../components/department/updateModal";
-import DeleteModal from "../components/department/deleteModal";
+import UpdateModal from "../components/teacher/updateModal";
+import DeleteModal from "../components/teacher/deleteModal";
 import Modal from "../components/modal";
-import AddDepartmentForm from "../components/department/addform";
+import AddTeacherForm from "../components/teacher/addform";
+import TeacherModal from "../components/teacher/modal";
 
 const schema = yup.object({
   fa_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
   en_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
   facultyId: yup.number().nullable().required("لطفا این قسمت را تکمیل نمایید"),
+  departmentId: yup
+    .number()
+    .nullable()
+    .required("لطفا این قسمت را تکمیل نمایید"),
   date: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
 
@@ -24,7 +27,8 @@ const Teachers = () => {
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [selectedDepartment, setSelectedDepartment] = useState(false);
+  const [isOpenTeacherModal, setIsOpenTeacherModal] = useState(false);
+  const [selectedTeacher, setSelectedTeacher] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const {
@@ -35,6 +39,7 @@ const Teachers = () => {
   } = useFetch("teacher");
 
   const { data: faculties } = useFetch("faculty");
+  const { data: departments } = useFetch("department");
 
   const {
     register,
@@ -45,27 +50,19 @@ const Teachers = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data) => {
-    setLoading(true);
-    const res = await httpPostDepartments({
-      ...data,
-      date: data.date.toJSON().slice(0, 10),
-    });
-    console.log(res);
-    if (res) {
-      refetch();
-      setIsOpenModal(false);
-      setLoading(false);
-    }
-  };
-
-  const deleteF = async (data) => {
-    console.log("delete f", data);
-    setSelectedDepartment(data);
-    setIsOpenDeleteModal(!isOpenDeleteModal);
-  };
-  const updateF = async (data) => {
-    setSelectedDepartment(data);
-    setIsOpenUpdateModal(!isOpenUpdateModal);
+    // setLoading(true);
+    console.log("submit");
+    console.log("teacher data", data);
+    // const res = await httpPostDepartments({
+    //   ...data,
+    //   date: data.date.toJSON().slice(0, 10),
+    // });
+    // console.log(res);
+    // if (res) {
+    //   refetch();
+    //   setIsOpenModal(false);
+    //   setLoading(false);
+    // }
   };
 
   if (laodingdata || loading) return <Loading />;
@@ -77,57 +74,61 @@ const Teachers = () => {
       </div>
     );
 
-  console.log("teachers, ", teachers);
+  // console.log("departments, ", departments);
 
   return (
     <section className="font-vazirBold p-10 w-full">
       <DeleteModal
         isOpen={isOpenDeleteModal}
         setIsOpen={setIsOpenDeleteModal}
-        title={"حذف دیپارتمنت"}
+        title={"حذف استاد"}
         refetch={refetch}
         text={
           <span className="font-vazirBold">
             آیا مطمین هستید که میخواهید دیپارتمنت{" "}
-            <span className="text-red-400">{selectedDepartment.fa_name}</span>{" "}
-            را حذف کنید
+            <span className="text-red-400">{selectedTeacher.fa_name}</span> را
+            حذف کنید
           </span>
         }
         confirmText={"تایید"}
         denyText={"لغو"}
-        department={selectedDepartment}
+        department={selectedTeacher}
       />
       <UpdateModal
         schema={schema}
         setLoading={setLoading}
         isOpen={isOpenUpdateModal}
         setIsOpen={setIsOpenUpdateModal}
-        title={"ویرایش دیپارتمنت"}
+        title={"ویرایش"}
         refetch={refetch}
         confirmText={"تایید"}
         denyText={"لغو"}
-        department={selectedDepartment}
+        department={selectedTeacher}
+        departments={departments}
         faculties={faculties}
       />
-      <Modal
-        isOpen={isOpenModal}
-        setIsOpen={setIsOpenModal}
-        body={
-          <AddDepartmentForm
-            Controller={Controller}
-            control={control}
-            errors={errors}
-            faculties={faculties}
-            handleSubmit={handleSubmit}
-            onSubmit={onSubmit}
-            register={register}
-            useForm={useForm}
-            reset={reset}
-            refetch={refetch}
-            isOpenModal={isOpenModal}
-            setIsOpenModal={setIsOpenModal}
-          />
-        }
+      <Modal isOpen={isOpenModal} setIsOpen={setIsOpenModal}>
+        <AddTeacherForm
+          Controller={Controller}
+          control={control}
+          errors={errors}
+          faculties={faculties}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+          register={register}
+          useForm={useForm}
+          reset={reset}
+          refetch={refetch}
+          isOpenModal={isOpenModal}
+          setIsOpenModal={setIsOpenModal}
+        />
+      </Modal>
+      <TeacherModal
+        isOpenTeacherModal={isOpenTeacherModal}
+        setIsOpenTeacherModal={setIsOpenTeacherModal}
+        teacher={selectedTeacher}
+        setIsOpenDeleteModal={setIsOpenDeleteModal}
+        setIsOpenUpdateModal={setIsOpenUpdateModal}
       />
       <div className="pb-10">
         <table className="border rounded-xl w-full table-auto border-separate p-5 md:p-0 md:border-spacing-5 border-spacing-1">
@@ -142,9 +143,6 @@ const Teachers = () => {
               <th className="font-normal text-center">دیپارتمنت</th>
               <th className="font-normal text-center hidden lg:block">
                 تاریخ ثبت
-              </th>
-              <th className="font-normal text-center hidden lg:block">
-                ویرایش/حذف
               </th>
             </tr>
           </thead>
@@ -171,21 +169,15 @@ const Teachers = () => {
                       .locale("fa")
                       .format("YYYY/MM/DD")}
                   </td>
-                  <td className="text-center hidden lg:block">
-                    <div className="flex justify-around">
-                      <button
-                        onClick={() => updateF(item)}
-                        className="h-full flex items-center"
-                      >
-                        <PencilSquareIcon className="h-6 w-6" />
-                      </button>
-                      <button
-                        onClick={() => deleteF(item)}
-                        className="h-full flex items-center"
-                      >
-                        <TrashIcon className="h-6 w-6" />
-                      </button>
-                    </div>
+                  <td>
+                    <button
+                      onClick={() => {
+                        setSelectedTeacher(item);
+                        setIsOpenTeacherModal(true);
+                      }}
+                    >
+                      بیشتر
+                    </button>
                   </td>
                 </tr>
               )
@@ -199,7 +191,7 @@ const Teachers = () => {
           className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           onClick={() => setIsOpenModal(true)}
         >
-          اضافه کردن دیپارتمنت{" "}
+          اضافه کردن استاد
         </button>
       </div>
     </section>

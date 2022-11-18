@@ -26,7 +26,7 @@ const SelectInput = ({
         <Listbox
           onChange={(e) => {
             onChange(e[1]);
-            console.log(e[1]);
+            // console.log(e[1]);
             setSelectedItem(e);
           }}
           as={"div"}

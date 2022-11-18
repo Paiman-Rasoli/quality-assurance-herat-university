@@ -137,19 +137,15 @@ const Faculty = () => {
           اضافه کردن فاکولته{" "}
         </button>
       </div>
-      <Modal
-        isOpen={isOpenModal}
-        setIsOpen={setIsOpenModal}
-        body={
-          <AddFacultyForm
-            schema={schema}
-            setLoading={setLoading}
-            addNew={isOpenModal}
-            setAddNew={setIsOpenModal}
-            refetch={refetch}
-          />
-        }
-      />
+      <Modal isOpen={isOpenModal} setIsOpen={setIsOpenModal}>
+        <AddFacultyForm
+          schema={schema}
+          setLoading={setLoading}
+          addNew={isOpenModal}
+          setAddNew={setIsOpenModal}
+          refetch={refetch}
+        />
+      </Modal>
     </section>
   );
 };

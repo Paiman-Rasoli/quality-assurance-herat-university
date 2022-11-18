@@ -3,6 +3,7 @@ import { API_URL } from "./requests";
 
 export const deleteDepartment = async function (id) {
   let response;
+
   try {
     response = await fetch(`${API_URL}/department`, {
       method: "DELETE",

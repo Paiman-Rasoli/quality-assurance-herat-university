@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
-export default function Modal({ isOpen, setIsOpen, title, body }) {
+export default function Modal({ isOpen, setIsOpen, children }) {
   function closeModal() {
     setIsOpen(false);
   }
@@ -38,7 +38,7 @@ export default function Modal({ isOpen, setIsOpen, title, body }) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel>{body}</Dialog.Panel>
+                <Dialog.Panel>{children}</Dialog.Panel>
               </Transition.Child>
             </div>
           </div>
