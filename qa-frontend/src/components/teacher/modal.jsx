@@ -1,10 +1,7 @@
 import React from "react";
-import {
-  PencilSquareIcon,
-  TrashIcon,
-  XCircleIcon,
-} from "@heroicons/react/24/outline";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Modal from "../modal";
+import { XMarkIcon } from "@heroicons/react/20/solid";
 
 const TeacherModal = ({
   isOpenTeacherModal,
@@ -14,14 +11,16 @@ const TeacherModal = ({
   setIsOpenUpdateModal,
 }) => {
   // console.log("teacher", teacher);
-  if (!teacher) return <div>loading...</div>;
-  else
-    return (
-      <Modal isOpen={isOpenTeacherModal} setIsOpen={setIsOpenTeacherModal}>
+
+  return (
+    <Modal isOpen={isOpenTeacherModal} setIsOpen={setIsOpenTeacherModal}>
+      {!teacher ? (
+        <div>loading...</div>
+      ) : (
         <article className="w-full max-w-md transform overflow-hidden rounded-xl bg-white text-right align-middle shadow-xl transition-all">
-          <div className="w-full bg-slate-200 px-6 py-2 flex justify-between items-center">
+          <div className="w-full px-6 py-2 flex justify-between items-center border-b-2">
             <button onClick={() => setIsOpenTeacherModal(false)}>
-              <XCircleIcon className="h-6 w-6" />
+              <XMarkIcon className="text-gray-500 hover:text-black h-6 w-6" />
             </button>
             <h3>مشخصات استاد</h3>
           </div>
@@ -47,7 +46,7 @@ const TeacherModal = ({
               <li>{teacher.des}</li>
             </ul>
           </div>
-          <div className="w-full bg-slate-200 px-6 py-2 flex justify-around items-center">
+          <div className="w-full border-t-2 px-6 py-2 flex justify-around items-center">
             <button
               onClick={() => setIsOpenUpdateModal(true)}
               className="h-full flex items-center"
@@ -62,8 +61,9 @@ const TeacherModal = ({
             </button>
           </div>
         </article>
-      </Modal>
-    );
+      )}
+    </Modal>
+  );
 };
 
 export default TeacherModal;

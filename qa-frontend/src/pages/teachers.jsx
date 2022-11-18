@@ -130,6 +130,7 @@ const Teachers = () => {
         setIsOpenDeleteModal={setIsOpenDeleteModal}
         setIsOpenUpdateModal={setIsOpenUpdateModal}
       />
+
       <div className="pb-10">
         <table className="border rounded-xl w-full table-auto border-separate p-5 md:p-0 md:border-spacing-5 border-spacing-1">
           <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">

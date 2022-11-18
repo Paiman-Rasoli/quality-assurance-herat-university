@@ -4,16 +4,15 @@ import {
   Bars3BottomLeftIcon,
   BellIcon,
   CalendarIcon,
-  ChartBarIcon,
   FolderIcon,
   HomeIcon,
-  InboxIcon,
   UsersIcon,
   Cog8ToothIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { NavLink, Outlet } from "react-router-dom";
+import Breadcrumbs from "./breadcrumbs";
 
 const navigation = [
   { name: "خانه", href: "/dashboard", icon: HomeIcon, current: true },
@@ -400,6 +399,7 @@ export default function Layout() {
               </div>
             </div>
           </div>
+          <Breadcrumbs />
           <main className="flex justify-center w-full">
             <Outlet />
           </main>
