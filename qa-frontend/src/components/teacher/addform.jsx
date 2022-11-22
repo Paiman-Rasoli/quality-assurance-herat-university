@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import FormBorder from "../form/formBorder";
 import Input from "../form/input";
 import InputDate from "../form/InputDate";
-import Select from "../teacher/Select";
+import TextInput from "../form/textInput";
+import SelectDep from "../teacher/Select";
+import SelectGender from "./selectGender";
 
 const AddTeacherForm = ({
   handleSubmit,
@@ -44,7 +46,21 @@ const AddTeacherForm = ({
             name="en_name"
             type="text"
           />
-          <Select
+          <SelectDep
+            name="gender"
+            Type={"string"}
+            Controller={Controller}
+            control={control}
+            errors={errors}
+            options={[
+              ["آقا", "male"],
+              ["خانم", "female"],
+            ]}
+            placeholder="جنسیت"
+            setSelectedOptions={setSelectedFaculty}
+            reset={reset}
+          />
+          <SelectDep
             name="facultyId"
             Type={"string"}
             Controller={Controller}
@@ -55,7 +71,7 @@ const AddTeacherForm = ({
             setSelectedOptions={setSelectedFaculty}
             reset={reset}
           />
-          <Select
+          <SelectDep
             name="departmentId"
             Type={"string"}
             errors={errors}
@@ -79,6 +95,13 @@ const AddTeacherForm = ({
             useForm={useForm}
             Controller={Controller}
             control={control}
+          />
+          <TextInput
+            register={register}
+            errors={errors}
+            label="شرح حال"
+            name="des"
+            type="text"
           />
           <div className="flex gap-5 justify-end w-full">
             <button

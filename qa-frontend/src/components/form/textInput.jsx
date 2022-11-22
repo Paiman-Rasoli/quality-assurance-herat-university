@@ -1,6 +1,6 @@
 import React from "react";
 
-const Input = ({
+const TextInput = ({
   register,
   errors,
   label,
@@ -13,7 +13,7 @@ const Input = ({
     <div className="grid md:grid-cols-2 grid-cols-1 items-center">
       <label htmlFor={name}>{label}</label>
       <div className="w-full">
-        <input
+        <textarea
           {...register(name)}
           type={type}
           {...props}
@@ -29,4 +29,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default TextInput;
