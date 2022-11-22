@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { httpPostFaculties } from "../../services/requests";
 import FormBorder from "../form/formBorder";

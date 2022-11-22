@@ -10,17 +10,20 @@ import UpdateModal from "../components/teacher/updateModal";
 import DeleteModal from "../components/teacher/deleteModal";
 import Modal from "../components/modal";
 import AddTeacherForm from "../components/teacher/addform";
-import TeacherModal from "../components/teacher/modal";
+import Teacher from "../components/teacher/teacher";
+import { httpPostTeacher } from "../services/teacherServices";
 
 const schema = yup.object({
   fa_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
   en_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
+  gender: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
   facultyId: yup.number().nullable().required("لطفا این قسمت را تکمیل نمایید"),
   departmentId: yup
     .number()
     .nullable()
     .required("لطفا این قسمت را تکمیل نمایید"),
   date: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
+  des: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
 });
 
 const Teachers = () => {
@@ -53,16 +56,16 @@ const Teachers = () => {
     // setLoading(true);
     console.log("submit");
     console.log("teacher data", data);
-    // const res = await httpPostDepartments({
-    //   ...data,
-    //   date: data.date.toJSON().slice(0, 10),
-    // });
-    // console.log(res);
-    // if (res) {
-    //   refetch();
-    //   setIsOpenModal(false);
-    //   setLoading(false);
-    // }
+    const res = await httpPostTeacher({
+      ...data,
+      date: data.date.toJSON().slice(0, 10),
+    });
+    console.log(res);
+    if (res) {
+      refetch();
+      setIsOpenModal(false);
+      setLoading(false);
+    }
   };
 
   if (laodingdata || loading) return <Loading />;
@@ -123,78 +126,82 @@ const Teachers = () => {
           setIsOpenModal={setIsOpenModal}
         />
       </Modal>
-      <TeacherModal
-        isOpenTeacherModal={isOpenTeacherModal}
-        setIsOpenTeacherModal={setIsOpenTeacherModal}
-        teacher={selectedTeacher}
-        setIsOpenDeleteModal={setIsOpenDeleteModal}
-        setIsOpenUpdateModal={setIsOpenUpdateModal}
-      />
-
-      <div className="pb-10">
-        <table className="border rounded-xl w-full table-auto border-separate p-5 md:p-0 md:border-spacing-5 border-spacing-1">
-          <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
-            <tr className="divide-x-2 divide-y-2 bg-stone-300">
-              <th className="font-normal text-center">آیدی</th>
-              <th className="font-normal text-center">نام فارسی</th>
-              <th className="font-normal text-center hidden lg:block">
-                نام انگلیسی
-              </th>
-              <th className="font-normal text-center">فاکولته</th>
-              <th className="font-normal text-center">دیپارتمنت</th>
-              <th className="font-normal text-center hidden lg:block">
-                تاریخ ثبت
-              </th>
-            </tr>
-          </thead>
-          <tbody className="font-vazirBold text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
-            {teachers.map(
-              (item, ndx) => (
-                <tr
-                  key={ndx}
-                  className={`divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse ${
-                    ndx % 2 === 0 ? "bg-stone-100" : "bg-zinc-200"
-                  }`}
-                >
-                  <td className="text-center">{item.id}</td>
-                  <td className="text-center">{item?.fa_name}</td>
-                  <td className="text-center hidden lg:flex h-full items-center">
-                    <div className="w-full h-full">{item.en_name}</div>
-                  </td>
-                  <td className="text-center">
-                    {item.department.faculty.fa_name}
-                  </td>
-                  <td className="text-center">{item.department.fa_name}</td>
-                  <td className="text-center hidden lg:block">
-                    {moment(item.date, "YYYY/MM/DD")
-                      .locale("fa")
-                      .format("YYYY/MM/DD")}
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => {
-                        setSelectedTeacher(item);
-                        setIsOpenTeacherModal(true);
-                      }}
-                    >
-                      بیشتر
-                    </button>
-                  </td>
+      {isOpenTeacherModal ? (
+        <Teacher
+          isOpenTeacherModal={isOpenTeacherModal}
+          setIsOpenTeacherModal={setIsOpenTeacherModal}
+          teacher={selectedTeacher}
+          setIsOpenDeleteModal={setIsOpenDeleteModal}
+          setIsOpenUpdateModal={setIsOpenUpdateModal}
+        />
+      ) : (
+        <>
+          <div className="pb-10">
+            <table className="border rounded-xl w-full table-auto border-separate p-5 md:p-0 md:border-spacing-5 border-spacing-1">
+              <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
+                <tr className="divide-x-2 divide-y-2 bg-stone-300">
+                  <th className="font-normal text-center">آیدی</th>
+                  <th className="font-normal text-center">نام فارسی</th>
+                  <th className="font-normal text-center hidden lg:block">
+                    نام انگلیسی
+                  </th>
+                  <th className="font-normal text-center">فاکولته</th>
+                  <th className="font-normal text-center">دیپارتمنت</th>
+                  <th className="font-normal text-center hidden lg:block">
+                    تاریخ ثبت
+                  </th>
                 </tr>
-              )
-              //   console.log(item)
-            )}
-          </tbody>
-        </table>
-      </div>
-      <div className="">
-        <button
-          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-          onClick={() => setIsOpenModal(true)}
-        >
-          اضافه کردن استاد
-        </button>
-      </div>
+              </thead>
+              <tbody className="font-vazirBold text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
+                {teachers.map(
+                  (item, ndx) => (
+                    <tr
+                      key={ndx}
+                      className={`divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse ${
+                        ndx % 2 === 0 ? "bg-stone-100" : "bg-zinc-200"
+                      }`}
+                    >
+                      <td className="text-center">{item.id}</td>
+                      <td className="text-center">{item?.fa_name}</td>
+                      <td className="text-center hidden lg:flex h-full items-center">
+                        <div className="w-full h-full">{item.en_name}</div>
+                      </td>
+                      <td className="text-center">
+                        {item.department.faculty.fa_name}
+                      </td>
+                      <td className="text-center">{item.department.fa_name}</td>
+                      <td className="text-center hidden lg:block">
+                        {moment(item.date, "YYYY/MM/DD")
+                          .locale("fa")
+                          .format("YYYY/MM/DD")}
+                      </td>
+                      <td>
+                        <button
+                          onClick={() => {
+                            setSelectedTeacher(item);
+                            setIsOpenTeacherModal(true);
+                          }}
+                        >
+                          بیشتر
+                        </button>
+                      </td>
+                    </tr>
+                  )
+                  //   console.log(item)
+                )}
+              </tbody>
+            </table>
+          </div>
+          <div className="">
+            <button
+              className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              onClick={() => setIsOpenModal(true)}
+            >
+              اضافه کردن استاد
+            </button>
+          </div>
+        </>
+      )}
     </section>
   );
 };
