@@ -175,15 +175,14 @@ const Teachers = () => {
                           .locale("fa")
                           .format("YYYY/MM/DD")}
                       </td>
-                      <td className="text-center justify-center rounded-md border border-transparent bg-blue-100  text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-                        <button
-                          onClick={() => {
-                            setSelectedTeacher(item);
-                            setIsOpenTeacherModal(true);
-                          }}
-                        >
-                          جزئیات
-                        </button>
+                      <td
+                        className="text-center justify-center rounded-md border border-transparent bg-blue-100  text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 cursor-pointer"
+                        onClick={() => {
+                          setSelectedTeacher(item);
+                          setIsOpenTeacherModal(true);
+                        }}
+                      >
+                        <button>جزئیات</button>
                       </td>
                     </tr>
                   )

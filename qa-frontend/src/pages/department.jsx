@@ -6,12 +6,12 @@ import moment from "jalali-moment";
 
 import Loading from "../components/loading";
 import useFetch from "../hooks/useFetch";
-import { httpPostDepartments } from "../services/requests";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
-import UpdateModal from "../components/department/updateModal";
+import UpdateDepartment from "../components/department/updateDepartment";
 import DeleteModal from "../components/department/deleteModal";
 import Modal from "../components/modal";
 import AddDepartmentForm from "../components/department/addform";
+import { httpPostDepartment } from "../services/department";
 
 const schema = yup.object({
   fa_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
@@ -46,7 +46,7 @@ const Department = () => {
 
   const onSubmit = async (data) => {
     setLoading(true);
-    const res = await httpPostDepartments({
+    const res = await httpPostDepartment({
       ...data,
       date: data.date.toJSON().slice(0, 10),
     });
@@ -95,18 +95,20 @@ const Department = () => {
         denyText={"لغو"}
         department={selectedDepartment}
       />
-      <UpdateModal
-        schema={schema}
-        setLoading={setLoading}
-        isOpen={isOpenUpdateModal}
-        setIsOpen={setIsOpenUpdateModal}
-        title={"ویرایش دیپارتمنت"}
-        refetch={refetch}
-        confirmText={"تایید"}
-        denyText={"لغو"}
-        department={selectedDepartment}
-        faculties={faculties}
-      />
+      <Modal isOpen={isOpenUpdateModal} setIsOpen={setIsOpenUpdateModal}>
+        <UpdateDepartment
+          schema={schema}
+          setLoading={setLoading}
+          isOpen={isOpenUpdateModal}
+          setIsOpen={setIsOpenUpdateModal}
+          title={"ویرایش دیپارتمنت"}
+          refetch={refetch}
+          confirmText={"تایید"}
+          denyText={"لغو"}
+          department={selectedDepartment}
+          faculties={faculties}
+        />
+      </Modal>
       <Modal isOpen={isOpenModal} setIsOpen={setIsOpenModal}>
         <AddDepartmentForm
           Controller={Controller}
