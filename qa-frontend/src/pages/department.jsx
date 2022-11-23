@@ -126,9 +126,9 @@ const Department = () => {
         />
       </Modal>
       <div className="pb-10">
-        <table className="border rounded-xl w-full table-auto border-separate p-5 md:p-0 md:border-spacing-5 border-spacing-1">
+        <table className="border rounded-xl w-full table-auto border-separate lg:p-5 p-2 md:border-spacing-2 border-spacing-1">
           <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
-            <tr className="divide-x-2 divide-y-2 bg-stone-300">
+            <tr className="divide-x-2 divide-y-2 bg-blue-200">
               <th className="font-normal text-center">شماره</th>
               <th className="font-normal text-center">نام فارسی</th>
               <th className="font-normal text-center hidden lg:block">

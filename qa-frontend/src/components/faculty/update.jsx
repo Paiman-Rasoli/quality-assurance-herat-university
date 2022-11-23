@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { httpPutFaculties } from "../../services/requests";
+import { httpPutFaculties } from "../../services/facultyService";
 import FormBorder from "../form/formBorder";
 import Input from "../form/input";
 import InputDate from "../form/InputDate";
