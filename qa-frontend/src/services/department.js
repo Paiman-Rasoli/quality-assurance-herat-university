@@ -1,5 +1,7 @@
 import { toast } from "react-toastify";
-import { API_URL } from "./requests";
+// import { API_URL } from "./requests";
+
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const deleteDepartment = async function (id) {
   let response;

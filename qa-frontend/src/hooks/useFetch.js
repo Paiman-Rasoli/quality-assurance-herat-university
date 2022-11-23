@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const API_URL = "http://localhost:1111/api/";
+const API_URL = process.env.REACT_APP_API_URL;
 
 const useFetch = (path) => {
   const [data, setData] = useState(null);
@@ -10,7 +10,7 @@ const useFetch = (path) => {
   const fetchData = async (path) => {
     setLoading(true);
     try {
-      const data = await fetch(API_URL + path, {
+      const data = await fetch(`${API_URL}/${path}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,

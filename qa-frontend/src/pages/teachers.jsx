@@ -142,12 +142,12 @@ const Teachers = () => {
                 <tr className="divide-x-2 divide-y-2 bg-stone-300">
                   <th className="font-normal text-center">آیدی</th>
                   <th className="font-normal text-center">نام فارسی</th>
-                  <th className="font-normal text-center hidden lg:block">
+                  <th className="font-normal text-center hidden lg:grid w-full h-full place-content-center">
                     نام انگلیسی
                   </th>
                   <th className="font-normal text-center">فاکولته</th>
                   <th className="font-normal text-center">دیپارتمنت</th>
-                  <th className="font-normal text-center hidden lg:block">
+                  <th className="font-normal text-center hidden lg:grid w-full h-full place-content-center">
                     تاریخ ثبت
                   </th>
                 </tr>
@@ -163,26 +163,26 @@ const Teachers = () => {
                     >
                       <td className="text-center">{item.id}</td>
                       <td className="text-center">{item?.fa_name}</td>
-                      <td className="text-center hidden lg:flex h-full items-center">
+                      <td className="text-center hidden hidden lg:grid w-full h-full place-content-center">
                         <div className="w-full h-full">{item.en_name}</div>
                       </td>
                       <td className="text-center">
                         {item.department.faculty.fa_name}
                       </td>
                       <td className="text-center">{item.department.fa_name}</td>
-                      <td className="text-center hidden lg:block">
+                      <td className="text-center hidden lg:grid w-full h-full place-content-center">
                         {moment(item.date, "YYYY/MM/DD")
                           .locale("fa")
                           .format("YYYY/MM/DD")}
                       </td>
-                      <td>
+                      <td className="text-center justify-center rounded-md border border-transparent bg-blue-100  text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                         <button
                           onClick={() => {
                             setSelectedTeacher(item);
                             setIsOpenTeacherModal(true);
                           }}
                         >
-                          بیشتر
+                          جزئیات
                         </button>
                       </td>
                     </tr>

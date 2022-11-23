@@ -1,4 +1,5 @@
-export const API_URL = "http://localhost:1111/api";
+// export const API_URL = "http://localhost:1111/api";
+const API_URL = process.env.REACT_APP_API_URL;
 
 // Load faculties and return as JSON.
 async function httpPostFaculties(data) {

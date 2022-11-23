@@ -6,7 +6,7 @@ import Loading from "../components/loading";
 import useFetch from "../hooks/useFetch";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import DeleteModal from "../components/faculty/deleteModal";
-import UpdateModal from "../components/faculty/updateModal";
+import UpdateFaculty from "../components/faculty/update";
 import AddFacultyForm from "../components/faculty/addForm";
 import Modal from "../components/modal";
 
@@ -24,9 +24,9 @@ const Faculty = () => {
     refetch,
   } = useFetch("faculty");
 
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const [selectedFaculty, setSelectedFaculty] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -51,33 +51,6 @@ const Faculty = () => {
 
   return (
     <section className="font-vazirBold p-10 w-full">
-      <DeleteModal
-        isOpen={isOpenDeleteModal}
-        setIsOpen={setIsOpenDeleteModal}
-        title={"حذف فاکولته"}
-        refetch={refetch}
-        text={
-          <span className="font-vazirBold">
-            آیا مطمین هستید که میخواهید فاکولته{" "}
-            <span className="text-red-400">{selectedFaculty.fa_name}</span> را
-            حذف کنید
-          </span>
-        }
-        confirmText={"تایید"}
-        denyText={"لغو"}
-        faculty={selectedFaculty}
-      />
-      <UpdateModal
-        schema={schema}
-        setLoading={setLoading}
-        isOpen={isOpenUpdateModal}
-        setIsOpen={setIsOpenUpdateModal}
-        title={"ویرایش فاکولته"}
-        refetch={refetch}
-        confirmText={"تایید"}
-        denyText={"لغو"}
-        faculty={selectedFaculty}
-      />
       <div className="pb-10">
         <table className="border rounded-xl w-full table-auto border-separate p-5 md:p-0 md:border-spacing-5 border-spacing-1">
           <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
@@ -144,6 +117,35 @@ const Faculty = () => {
           addNew={isOpenModal}
           setAddNew={setIsOpenModal}
           refetch={refetch}
+        />
+      </Modal>
+      <DeleteModal
+        isOpen={isOpenDeleteModal}
+        setIsOpen={setIsOpenDeleteModal}
+        title={"حذف فاکولته"}
+        refetch={refetch}
+        text={
+          <span className="font-vazirBold">
+            آیا مطمین هستید که میخواهید فاکولته{" "}
+            <span className="text-red-400">{selectedFaculty.fa_name}</span> را
+            حذف کنید
+          </span>
+        }
+        confirmText={"تایید"}
+        denyText={"لغو"}
+        faculty={selectedFaculty}
+      />
+      <Modal isOpen={isOpenUpdateModal} setIsOpen={setIsOpenUpdateModal}>
+        <UpdateFaculty
+          isOpen={isOpenUpdateModal}
+          setIsOpen={setIsOpenUpdateModal}
+          schema={schema}
+          setLoading={setLoading}
+          title={"ویرایش فاکولته"}
+          refetch={refetch}
+          confirmText={"تایید"}
+          denyText={"لغو"}
+          faculty={selectedFaculty}
         />
       </Modal>
     </section>
