@@ -1,7 +1,7 @@
 import React from "react";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { XMarkIcon } from "@heroicons/react/20/solid";
 import Loading from "../loading";
+import moment from "jalali-moment";
 
 const Teacher = ({
   setIsOpenTeacherModal,
@@ -38,12 +38,14 @@ const Teacher = ({
         <ul className="space-y-2 col-span-5 lg:col-span-6 xl:col-span-72">
           <li>{teacher.id}</li>
           <li>{teacher.fa_name}</li>
-          <li>{teacher.gender}</li>
+          <li>{teacher.gender === "male" ? "آقا" : "خانم"}</li>
           <li>{teacher.state || "-"}</li>
           <li>{teacher.type || "-"}</li>
           <li>{teacher?.department.faculty.fa_name || "-"}</li>
           <li>{teacher?.department.fa_name || "-"}</li>
-          <li>{teacher.date || "-"}</li>
+          <li>
+            {moment(teacher.date).locale("fa").format("YYYY/MM/DD") || "-"}
+          </li>
           <li>{teacher.des || "-"}</li>
         </ul>
       </div>

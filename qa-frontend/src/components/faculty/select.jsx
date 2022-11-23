@@ -14,13 +14,17 @@ const SelectInput = ({
   placeholder,
   errors,
   className,
+  defaultValue,
 }) => {
-  const [selectedItem, setSelectedItem] = useState([placeholder, 0]);
-
+  const [selectedItem, setSelectedItem] = useState([
+    defaultValue?.[0] || placeholder,
+    0,
+  ]);
+  console.log("select", defaultValue);
   return (
     <Controller
       control={control}
-      defaultValue={null}
+      defaultValue={defaultValue?.[1] || null}
       name={name}
       render={({ field: { onChange } }) => (
         <Listbox
@@ -30,7 +34,7 @@ const SelectInput = ({
             setSelectedItem(e);
           }}
           as={"div"}
-          value={selectedItem}
+          value={defaultValue || selectedItem}
           className="relative grid md:grid-cols-2 grid-cols-1 items-center z-20"
           disabled={className}
         >

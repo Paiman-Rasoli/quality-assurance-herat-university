@@ -16,6 +16,8 @@ import { httpPostTeacher } from "../services/teacherServices";
 const schema = yup.object({
   fa_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
   en_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
+  state: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
+  type: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
   gender: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
   facultyId: yup.number().nullable().required("لطفا این قسمت را تکمیل نمایید"),
   departmentId: yup
@@ -53,14 +55,13 @@ const Teachers = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data) => {
-    // setLoading(true);
-    console.log("submit");
+    setLoading(true);
     console.log("teacher data", data);
     const res = await httpPostTeacher({
       ...data,
       date: data.date.toJSON().slice(0, 10),
     });
-    console.log(res);
+    // console.log(res);
     if (res) {
       refetch();
       setIsOpenModal(false);
@@ -84,32 +85,35 @@ const Teachers = () => {
       <DeleteModal
         isOpen={isOpenDeleteModal}
         setIsOpen={setIsOpenDeleteModal}
+        setIsOpenTeacherModal={setIsOpenTeacherModal}
         title={"حذف استاد"}
         refetch={refetch}
         text={
           <span className="font-vazirBold">
-            آیا مطمین هستید که میخواهید دیپارتمنت{" "}
+            آیا مطمین هستید که میخواهید استاد{" "}
             <span className="text-red-400">{selectedTeacher.fa_name}</span> را
             حذف کنید
           </span>
         }
         confirmText={"تایید"}
         denyText={"لغو"}
-        department={selectedTeacher}
+        teacher={selectedTeacher}
       />
-      <UpdateModal
-        schema={schema}
-        setLoading={setLoading}
-        isOpen={isOpenUpdateModal}
-        setIsOpen={setIsOpenUpdateModal}
-        title={"ویرایش"}
-        refetch={refetch}
-        confirmText={"تایید"}
-        denyText={"لغو"}
-        department={selectedTeacher}
-        departments={departments}
-        faculties={faculties}
-      />
+      <Modal setLoading={setLoading} isOpen={isOpenUpdateModal}>
+        <UpdateModal
+          schema={schema}
+          setLoading={setLoading}
+          isOpen={isOpenUpdateModal}
+          setIsOpen={setIsOpenUpdateModal}
+          title={"ویرایش"}
+          refetch={refetch}
+          confirmText={"تایید"}
+          denyText={"لغو"}
+          teacher={selectedTeacher}
+          departments={departments}
+          faculties={faculties}
+        />
+      </Modal>
       <Modal isOpen={isOpenModal} setIsOpen={setIsOpenModal}>
         <AddTeacherForm
           Controller={Controller}
@@ -137,9 +141,9 @@ const Teachers = () => {
       ) : (
         <>
           <div className="pb-10">
-            <table className="border rounded-xl w-full table-auto border-separate p-5 md:p-0 md:border-spacing-5 border-spacing-1">
+            <table className="border rounded-xl w-full table-auto border-separate lg:p-5 p-2 lg:border-spacing-2 border-spacing-1">
               <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
-                <tr className="divide-x-2 divide-y-2 bg-stone-300">
+                <tr className="divide-x-2 divide-y-2 bg-blue-200">
                   <th className="font-normal text-center">آیدی</th>
                   <th className="font-normal text-center">نام فارسی</th>
                   <th className="font-normal text-center hidden lg:grid w-full h-full place-content-center">
@@ -163,7 +167,7 @@ const Teachers = () => {
                     >
                       <td className="text-center">{item.id}</td>
                       <td className="text-center">{item?.fa_name}</td>
-                      <td className="text-center hidden hidden lg:grid w-full h-full place-content-center">
+                      <td className="text-center hidden lg:grid w-full h-full place-content-center">
                         <div className="w-full h-full">{item.en_name}</div>
                       </td>
                       <td className="text-center">
@@ -175,15 +179,14 @@ const Teachers = () => {
                           .locale("fa")
                           .format("YYYY/MM/DD")}
                       </td>
-                      <td className="text-center justify-center rounded-md border border-transparent bg-blue-100  text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
-                        <button
-                          onClick={() => {
-                            setSelectedTeacher(item);
-                            setIsOpenTeacherModal(true);
-                          }}
-                        >
-                          جزئیات
-                        </button>
+                      <td
+                        className="text-center justify-center rounded-md border border-transparent bg-blue-100  text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 cursor-pointer"
+                        onClick={() => {
+                          setSelectedTeacher(item);
+                          setIsOpenTeacherModal(true);
+                        }}
+                      >
+                        <button>جزئیات</button>
                       </td>
                     </tr>
                   )

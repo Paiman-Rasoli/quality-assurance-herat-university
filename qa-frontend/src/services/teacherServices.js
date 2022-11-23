@@ -37,7 +37,7 @@ export const deleteTeacher = async function (id) {
   return response;
 };
 
-export const updateTeacher = async function (id) {
+export const httpPutTeacher = async function (id) {
   let response;
   try {
     response = await fetch(`${API_URL}/teacher`, {

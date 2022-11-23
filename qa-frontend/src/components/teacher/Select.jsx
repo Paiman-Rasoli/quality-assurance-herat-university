@@ -6,7 +6,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const SelectDep = ({
+const Select = ({
   name,
   Type,
   Controller,
@@ -16,6 +16,7 @@ const SelectDep = ({
   errors,
   setSelectedOptions,
   className,
+  defaultValue,
   reset,
 }) => {
   // console.log("opt", options);
@@ -24,7 +25,7 @@ const SelectDep = ({
   return (
     <Controller
       control={control}
-      // defaultValue={Type && Type === "number" ? null : "" || ""}
+      // defaultValue={defaultValue}
       name={name}
       render={({ field: { onChange } }) => (
         <Listbox
@@ -121,4 +122,4 @@ const SelectDep = ({
   );
 };
 
-export default SelectDep;
+export default Select;

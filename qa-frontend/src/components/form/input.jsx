@@ -18,7 +18,6 @@ const Input = ({
           type={type}
           {...props}
           defaultValue={defaultValue}
-          placeholder=""
           className="w-full border-2 border-[#1E408E] p-1 rounded"
         />
         {errors[name] && (

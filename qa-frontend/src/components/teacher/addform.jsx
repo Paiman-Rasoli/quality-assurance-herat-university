@@ -3,8 +3,7 @@ import FormBorder from "../form/formBorder";
 import Input from "../form/input";
 import InputDate from "../form/InputDate";
 import TextInput from "../form/textInput";
-import SelectDep from "../teacher/Select";
-import SelectGender from "./selectGender";
+import Select from "../teacher/Select";
 
 const AddTeacherForm = ({
   handleSubmit,
@@ -46,7 +45,23 @@ const AddTeacherForm = ({
             name="en_name"
             type="text"
           />
-          <SelectDep
+          <Input
+            register={register}
+            errors={errors}
+            label="حالت"
+            name="state"
+            type="text"
+            placeholder="مثلا: تعلیق"
+          />
+          <Input
+            register={register}
+            errors={errors}
+            label="نوعیت"
+            name="type"
+            type="text"
+            placeholder="دایمی"
+          />
+          <Select
             name="gender"
             Type={"string"}
             Controller={Controller}
@@ -56,11 +71,10 @@ const AddTeacherForm = ({
               ["آقا", "male"],
               ["خانم", "female"],
             ]}
-            placeholder="جنسیت"
-            setSelectedOptions={setSelectedFaculty}
             reset={reset}
+            defaultValue={["آقا", "male"]}
           />
-          <SelectDep
+          <Select
             name="facultyId"
             Type={"string"}
             Controller={Controller}
@@ -71,7 +85,7 @@ const AddTeacherForm = ({
             setSelectedOptions={setSelectedFaculty}
             reset={reset}
           />
-          <SelectDep
+          <Select
             name="departmentId"
             Type={"string"}
             errors={errors}

@@ -2,27 +2,31 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { toast } from "react-toastify";
 import { deleteDepartment } from "../../services/department";
+import { deleteTeacher } from "../../services/teacherServices";
 
 export default function DeleteModal({
   isOpen,
   setIsOpen,
+  setIsOpenTeacherModal,
   title,
   text,
   confirmText,
   denyText,
   refetch,
-  department,
+  teacher,
 }) {
   function closeModal() {
     setIsOpen(false);
   }
 
   async function confirmDelete(data) {
-    console.log("id depart", department);
-    const result = await deleteDepartment({ id: data.id });
+    console.log("id teacher", teacher);
+    const result = await deleteTeacher({ id: data.id });
+    console.log("result delete", result);
     if (result.ok) {
-      toast.success(department.fa_name + " موفقانه حذف شد");
+      toast.success(teacher.fa_name + " موفقانه حذف شد");
       refetch();
+      setIsOpenTeacherModal(false);
     } else {
       toast.warning("متاسفانه تغییرات اعمال نشد");
       console.log(result.statusText);
@@ -84,7 +88,7 @@ export default function DeleteModal({
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                      onClick={() => confirmDelete(department)}
+                      onClick={() => confirmDelete(teacher)}
                     >
                       {confirmText}
                     </button>
