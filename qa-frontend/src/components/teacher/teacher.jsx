@@ -14,8 +14,12 @@ const Teacher = ({
   return (
     <article className="w-full transform overflow-hidden rounded-xl bg-white text-right align-middle shadow-xl transition-all">
       <div className="w-full px-6 py-2 flex justify-between items-center border-b-2">
-        <button onClick={() => setIsOpenTeacherModal(false)}>
-          <XMarkIcon className="text-gray-500 hover:text-black h-6 w-6" />
+        <button
+          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 group"
+          onClick={() => setIsOpenTeacherModal(false)}
+        >
+          {/* <XMarkIcon className="text-gray-500 group-hover:text-black h-4 w-4" /> */}
+          <span>بازگشت</span>
         </button>
         <h3>مشخصات استاد</h3>
       </div>
@@ -28,6 +32,7 @@ const Teacher = ({
           <li>نوعیت</li>
           <li>فاکولته</li>
           <li>دیپارتمنت</li>
+          <li>تاریخ ثبت</li>
           <li>شرح حال</li>
         </ul>
         <ul className="space-y-2 col-span-5 lg:col-span-6 xl:col-span-72">
@@ -38,6 +43,7 @@ const Teacher = ({
           <li>{teacher.type || "-"}</li>
           <li>{teacher?.department.faculty.fa_name || "-"}</li>
           <li>{teacher?.department.fa_name || "-"}</li>
+          <li>{teacher.date || "-"}</li>
           <li>{teacher.des || "-"}</li>
         </ul>
       </div>

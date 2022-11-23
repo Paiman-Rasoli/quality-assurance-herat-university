@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
-import { API_URL } from "./requests";
+
+const API_URL = process.env.REACT_APP_API_URL;
 
 export async function httpPostTeacher(data) {
   console.log("date", data);
