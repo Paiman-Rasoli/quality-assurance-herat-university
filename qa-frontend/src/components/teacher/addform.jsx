@@ -17,8 +17,9 @@ const AddTeacherForm = ({
   isOpenModal,
   setIsOpenModal,
   reset,
+  resetField,
 }) => {
-  const [selectedFaculty, setSelectedFaculty] = useState("");
+  const [selectedFaculty, setSelectedFaculty] = useState([]);
 
   useEffect(() => {
     reset();
@@ -71,23 +72,24 @@ const AddTeacherForm = ({
               ["آقا", "male"],
               ["خانم", "female"],
             ]}
+            placeholder="جنسیت"
             reset={reset}
             defaultValue={["آقا", "male"]}
           />
           <Select
             name="facultyId"
-            Type={"string"}
+            Type={"number"}
             Controller={Controller}
             control={control}
             errors={errors}
             options={faculties.map((faculty) => [faculty.fa_name, faculty.id])}
             placeholder="فاکولته"
             setSelectedOptions={setSelectedFaculty}
-            reset={reset}
+            resetField={resetField}
           />
           <Select
             name="departmentId"
-            Type={"string"}
+            Type={"number"}
             errors={errors}
             Controller={Controller}
             control={control}
