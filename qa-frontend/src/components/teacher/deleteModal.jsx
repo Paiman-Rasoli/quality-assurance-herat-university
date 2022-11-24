@@ -1,7 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { toast } from "react-toastify";
-import { deleteDepartment } from "../../services/department";
 import { deleteTeacher } from "../../services/teacherServices";
 
 export default function DeleteModal({
@@ -24,7 +23,9 @@ export default function DeleteModal({
     const result = await deleteTeacher({ id: data.id });
     console.log("result delete", result);
     if (result.ok) {
-      toast.success(teacher.fa_name + " موفقانه حذف شد");
+      toast.success(teacher.fa_name + " موفقانه حذف شد", {
+        position: "bottom-left",
+      });
       refetch();
       setIsOpenTeacherModal(false);
     } else {

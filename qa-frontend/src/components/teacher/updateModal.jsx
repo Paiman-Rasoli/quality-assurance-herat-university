@@ -1,30 +1,33 @@
-import { Dialog, Transition } from "@headlessui/react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Fragment, useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { httpPutFaculties } from "../../services/requests";
+import * as yup from "yup";
+
 import { httpPutTeacher } from "../../services/teacherServices";
-import SelectInput from "../faculty/select";
 import FormBorder from "../form/formBorder";
 import Input from "../form/input";
 import InputDate from "../form/InputDate";
 import TextInput from "../form/textInput";
 import Select from "./Select";
 
+const schema = yup.object({
+  fa_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
+  en_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
+  type: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
+  gender: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
+  date: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
+  des: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
+});
+
 export default function UpdateModal({
-  isOpen,
   setIsOpen,
-  title,
-  schema,
   confirmText,
   denyText,
   refetch,
   teacher,
   setLoading,
-  faculties,
+  setIsOpenTeacherModal,
 }) {
-  const [data, setData] = useState("");
-
   function closeModal() {
     setIsOpen(false);
   }
@@ -36,11 +39,20 @@ export default function UpdateModal({
     reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
-  console.log("teacher", teacher);
+
   const onSubmit = async (data) => {
+    // console.log("teacher", teacher, {
+    //   id: teacher.id,
+    //   fa_name: data.fa_name,
+    //   en_name: data.en_name,
+    //   des: data.des,
+    //   gender: data.gender,
+    //   state: data.type,
+    //   date: data.date,
+    // });
     setLoading(true);
     const res = await httpPutTeacher({
-      id: data.id,
+      id: teacher.id,
       fa_name: data.fa_name,
       en_name: data.en_name,
       des: data.des,
@@ -52,6 +64,7 @@ export default function UpdateModal({
     if (res) {
       refetch();
       setLoading(false);
+      setIsOpenTeacherModal(false);
     }
     closeModal();
   };
@@ -84,10 +97,10 @@ export default function UpdateModal({
             register={register}
             errors={errors}
             label="حالت"
-            name="state"
+            name="type"
             type="text"
             placeholder="مثلا: فعال"
-            defaultValue={teacher.state}
+            defaultValue={teacher.type}
           />
           <Select
             name="gender"
@@ -99,27 +112,20 @@ export default function UpdateModal({
               ["آقا", "male"],
               ["خانم", "female"],
             ]}
+            placeholder="جنسیت"
             reset={reset}
             defaultValue={
               teacher.gender === "male" ? ["آقا", "male"] : ["خانم", "female"]
             }
           />
-          <InputDate
-            register={register}
-            errors={errors}
-            label="تاریخ"
-            name="date"
-            type="Date"
-            useForm={useForm}
-            Controller={Controller}
-            control={control}
-          />
+
           <TextInput
             register={register}
             errors={errors}
             label="شرح حال"
             name="des"
             type="text"
+            defaultValue={teacher.des}
           />
           <InputDate
             register={register}

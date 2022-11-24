@@ -51,8 +51,12 @@ const Teachers = () => {
     control,
     handleSubmit,
     reset,
+    resetField,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: { facultyId: null, departmentId: null },
+  });
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -105,6 +109,7 @@ const Teachers = () => {
           setLoading={setLoading}
           isOpen={isOpenUpdateModal}
           setIsOpen={setIsOpenUpdateModal}
+          setIsOpenTeacherModal={setIsOpenTeacherModal}
           title={"ویرایش"}
           refetch={refetch}
           confirmText={"تایید"}
@@ -125,6 +130,7 @@ const Teachers = () => {
           register={register}
           useForm={useForm}
           reset={reset}
+          resetField={resetField}
           refetch={refetch}
           isOpenModal={isOpenModal}
           setIsOpenModal={setIsOpenModal}

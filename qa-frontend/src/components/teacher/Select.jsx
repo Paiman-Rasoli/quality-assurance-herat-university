@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
@@ -17,31 +17,43 @@ const Select = ({
   setSelectedOptions,
   className,
   defaultValue,
-  reset,
+  resetField,
 }) => {
-  // console.log("opt", options);
-  const [selectedItem, setSelectedItem] = useState([placeholder, 0]);
+  // console.log("def", defaultValue, "type", Type);
+  const [selectedItem, setSelectedItem] = useState([
+    defaultValue?.[0] || placeholder,
+    0,
+  ]);
+
+  useMemo(() => {
+    setSelectedOptions && setSelectedOptions(selectedItem);
+    if (name === "facultyId") {
+      resetField("departmentId");
+    }
+  }, [name, resetField, selectedItem, setSelectedOptions]);
 
   return (
     <Controller
       control={control}
-      // defaultValue={defaultValue}
+      defaultValue={
+        defaultValue ? defaultValue?.[1] : Type && Type === "number" ? null : ""
+      }
       name={name}
       render={({ field: { onChange } }) => (
         <Listbox
           onChange={(e) => {
+            // console.log(e, "onchange");
             onChange(e[1]);
             setSelectedItem(e);
-            setSelectedOptions && setSelectedOptions(e);
           }}
           as={"div"}
-          value={selectedItem}
+          value={defaultValue || selectedItem}
           className="relative grid items-center md:grid-cols-2 grid-cols-1"
           disabled={className}
         >
           {({ open }) => (
             <>
-              <Listbox.Label className="block text-sm font-medium text-gray-700">
+              <Listbox.Label className="block text-sm font-medium">
                 {placeholder}
               </Listbox.Label>
               <div className="relative mt-1">

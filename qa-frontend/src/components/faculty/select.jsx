@@ -7,6 +7,7 @@ function classNames(...classes) {
 }
 
 const SelectInput = ({
+  Type,
   name,
   Controller,
   control,
@@ -24,7 +25,9 @@ const SelectInput = ({
   return (
     <Controller
       control={control}
-      defaultValue={defaultValue?.[1] || null}
+      defaultValue={
+        defaultValue ? defaultValue?.[1] : Type && Type === "number" ? null : ""
+      }
       name={name}
       render={({ field: { onChange } }) => (
         <Listbox
