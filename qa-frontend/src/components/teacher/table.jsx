@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import moment from "jalali-moment";
 
-import "../../assets/index.less";
 import Paginate from "./paginate";
 
 const TeachersTable = ({
@@ -10,6 +9,10 @@ const TeachersTable = ({
   setSelectedTeacher,
   setIsOpenTeacherModal,
 }) => {
+  const [items, setItems] = useState([]);
+  const [itemOffset, setItemOffset] = useState(0);
+
+  //   console.log("items, ", items);
   return (
     <>
       <div className="">
@@ -37,7 +40,7 @@ const TeachersTable = ({
             </tr>
           </thead>
           <tbody className="font-vazirBold text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
-            {teachers.map(
+            {items.map(
               (item, ndx) => (
                 <tr
                   key={ndx}
@@ -76,7 +79,13 @@ const TeachersTable = ({
         </table>
       </div>
       <div className="">
-        <Paginate />
+        <Paginate
+          itemsPerPage={1}
+          items={teachers}
+          setItems={setItems}
+          itemOffset={itemOffset}
+          setItemOffset={setItemOffset}
+        />
       </div>
     </>
   );
