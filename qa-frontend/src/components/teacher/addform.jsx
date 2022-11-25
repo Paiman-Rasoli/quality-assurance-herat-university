@@ -14,8 +14,8 @@ const AddTeacherForm = ({
   control,
   faculties,
   useForm,
-  isOpenModal,
-  setIsOpenModal,
+  addNewTeacher,
+  setAddNewTeacher,
   reset,
   resetField,
 }) => {
@@ -23,9 +23,16 @@ const AddTeacherForm = ({
 
   useEffect(() => {
     reset();
-  }, [isOpenModal, reset]);
+  }, [addNewTeacher, reset]);
   return (
     <article className="w-full">
+      <button
+        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 group"
+        onClick={() => setAddNewTeacher(false)}
+      >
+        {/* <XMarkIcon className="text-gray-500 group-hover:text-black h-4 w-4" /> */}
+        <span>بازگشت</span>
+      </button>
       <FormBorder label={"اضافه کردن استاد"}>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -34,7 +41,7 @@ const AddTeacherForm = ({
           <Input
             register={register}
             errors={errors}
-            label="نام استاد (فارسی)"
+            label="نام و تخلص (فارسی)"
             name="fa_name"
             type="text"
           />
@@ -42,7 +49,7 @@ const AddTeacherForm = ({
             register={register}
             errors={errors}
             dir="ltr"
-            label="نام استاد (انگلیسی)"
+            label="نام و تخلص (انگلیسی)"
             name="en_name"
             type="text"
           />
@@ -122,7 +129,7 @@ const AddTeacherForm = ({
           <div className="flex gap-5 justify-end w-full">
             <button
               className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-              onClick={() => setIsOpenModal(false)}
+              onClick={() => setAddNewTeacher(false)}
             >
               لغو
             </button>
