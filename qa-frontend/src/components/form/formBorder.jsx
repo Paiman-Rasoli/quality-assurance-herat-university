@@ -8,7 +8,7 @@ const FormBorder = ({ children, label }) => {
           {label}
         </h1>
       </div>
-      <div className="md:p-16 sm:p-8 p-4 pt-16 mt-5">{children}</div>
+      <div className="md:p-16 sm:p-8 p-4 mt-5">{children}</div>
     </div>
   );
 };
