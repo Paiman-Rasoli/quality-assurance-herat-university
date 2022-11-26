@@ -21,7 +21,7 @@ const Teacher = ({
           {/* <XMarkIcon className="text-gray-500 group-hover:text-black h-4 w-4" /> */}
           <span>بازگشت</span>
         </button>
-        <h3 className="text-2xl">جزئیات کامل استاد {teacher.fa_name}</h3>
+        <h3 className="text-2xl">مشخصات کامل {teacher.fa_name}</h3>
       </div>
       <div className="p-6 grid grid-cols-8 w-full gap-3">
         <ul className="space-y-2 col-span-3 lg:col-span-2 xl:col-span-1">

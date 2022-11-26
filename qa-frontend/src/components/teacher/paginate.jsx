@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import ReactPaginate from "react-paginate";
 
 function Paginate({
@@ -15,20 +15,20 @@ function Paginate({
   // (This could be items from props; or items loaded in a local state
   // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + itemsPerPage;
-  console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+  // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const pageCount = Math.ceil(items.length / itemsPerPage);
 
   useEffect(() => {
-    console.log("usecallback");
+    // console.log("usecallback");
     setItems(items.slice(itemOffset, endOffset));
   }, [endOffset, itemOffset, items, setItems]);
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
     const newOffset = (event.selected * itemsPerPage) % items.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
+    // console.log(
+    //   `User requested page number ${event.selected}, which is offset ${newOffset}`
+    // );
     setItemOffset(newOffset);
   };
 
@@ -39,6 +39,7 @@ function Paginate({
         previousLabel="<"
         nextLabel=">"
         onPageChange={handlePageClick}
+        initialPage={0}
         // pageRangeDisplayed={1}
         pageCount={pageCount}
         renderOnZeroPageCount={null}

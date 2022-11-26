@@ -9,7 +9,6 @@ import UpdateModal from "../components/teacher/updateModal";
 import DeleteModal from "../components/teacher/deleteModal";
 import Modal from "../components/modal";
 import AddTeacherForm from "../components/teacher/addform";
-import Teacher from "../components/teacher/teacher";
 import { httpPostTeacher } from "../services/teacherServices";
 import TeachersTable from "../components/teacher/table";
 
@@ -135,18 +134,14 @@ const Teachers = () => {
           addNewTeacher={addNewTeacher}
           setAddNewTeacher={setAddNewTeacher}
         />
-      ) : isOpenTeacherModal ? (
-        <Teacher
-          isOpenTeacherModal={isOpenTeacherModal}
-          setIsOpenTeacherModal={setIsOpenTeacherModal}
-          teacher={selectedTeacher}
-          setIsOpenDeleteModal={setIsOpenDeleteModal}
-          setIsOpenUpdateModal={setIsOpenUpdateModal}
-        />
       ) : (
         <TeachersTable
           setAddNewTeacher={setAddNewTeacher}
           teachers={teachers}
+          isOpenTeacherModal={isOpenTeacherModal}
+          selectedTeacher={selectedTeacher}
+          setIsOpenDeleteModal={setIsOpenDeleteModal}
+          setIsOpenUpdateModal={setIsOpenUpdateModal}
           setSelectedTeacher={setSelectedTeacher}
           setIsOpenTeacherModal={setIsOpenTeacherModal}
         />
