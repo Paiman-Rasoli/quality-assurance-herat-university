@@ -46,7 +46,7 @@ function Paginate({
         className="flex gap-7 mt-10 w-full justify-center"
         pageLinkClassName="border px-2"
         activeClassName="text-blue-300 border-blue-300"
-        disabledClassName="text-gray-500 border-gray-300"
+        disabledClassName="text-gray-500 border-gray-300  cursor-not-allowed"
       />
     </>
   );

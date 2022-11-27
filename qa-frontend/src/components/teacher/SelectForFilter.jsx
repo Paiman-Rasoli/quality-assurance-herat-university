@@ -12,13 +12,14 @@ const Select = ({
   Controller,
   control,
   options,
+  label,
   placeholder,
   errors,
   setSelectedOptions,
   className,
   defaultValue,
   resetField,
-  label,
+  setSelected,
 }) => {
   // console.log("def", defaultValue, "type", Type);
   const [selectedItem, setSelectedItem] = useState([
@@ -45,11 +46,12 @@ const Select = ({
           onChange={(e) => {
             // console.log(e, "onchange");
             onChange(e[1]);
+            setSelected(e[1]);
             setSelectedItem(e);
           }}
           as={"div"}
           value={defaultValue || selectedItem}
-          className="relative grid items-center md:grid-cols-2 grid-cols-1"
+          className="relative flex items-center gap-3"
           disabled={className}
         >
           {({ open }) => (
@@ -57,13 +59,13 @@ const Select = ({
               <Listbox.Label className="block text-sm font-medium">
                 {label}
               </Listbox.Label>
-              <div className="relative mt-1">
+              <div className="relative mt-1 flex w-44">
                 <Listbox.Button
                   className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-right shadow-sm focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 sm:text-sm disabled:text-gray-300"
                   disabled={className}
                 >
                   <span className="block truncate">{selectedItem[0]}</span>
-                  <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
+                  <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-1 mr-2">
                     <ChevronUpDownIcon
                       className="h-5 w-5 text-gray-400"
                       aria-hidden="true"

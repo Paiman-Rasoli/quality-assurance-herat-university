@@ -3,6 +3,9 @@ import moment from "jalali-moment";
 
 import Paginate from "./paginate";
 import Teacher from "./teacher";
+import FilterTeacher from "./filterTeacher";
+import { useEffect } from "react";
+import { useMemo } from "react";
 
 const TeachersTable = ({
   setAddNewTeacher,
@@ -16,8 +19,28 @@ const TeachersTable = ({
 }) => {
   const [items, setItems] = useState([]);
   const [itemOffset, setItemOffset] = useState(0);
+  const [selectedDep, setSelectedDep] = useState(null);
+  const [selectedFac, setSelectedFac] = useState(null);
+  const [filteredTeachers, setFilteredTeachers] = useState(teachers);
+  console.log(selectedFac, selectedDep);
+  console.log("teachers, ", teachers);
+  useEffect(() => {
+    setFilteredTeachers(
+      selectedFac
+        ? teachers?.filter((teacher) =>
+            selectedDep
+              ? teacher.departmentId === selectedDep &&
+                teacher.department.facultyId === selectedFac
+              : teacher.department.facultyId === selectedFac
+          )
+        : teachers
+    );
+  }, [selectedDep, selectedFac, teachers]);
 
-  // console.log("items, ", items, itemOffset);
+  useMemo(() => {
+    setSelectedDep(null);
+  }, [selectedFac]);
+
   return (
     <>
       {isOpenTeacherModal && (
@@ -29,15 +52,23 @@ const TeachersTable = ({
           setIsOpenUpdateModal={setIsOpenUpdateModal}
         />
       )}
-      <div className={isOpenTeacherModal && `hidden`}>
-        <div className="">
-          <button
-            className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-            onClick={() => setAddNewTeacher(true)}
-          >
-            اضافه کردن استاد
-          </button>
-        </div>
+      <div className={isOpenTeacherModal ? `hidden` : ""}>
+        <article className="flex flex-wrap w-full justify-between">
+          <div className="">
+            <button
+              className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              onClick={() => setAddNewTeacher(true)}
+            >
+              اضافه کردن استاد
+            </button>
+          </div>
+          <div>
+            <FilterTeacher
+              setSelectedDep={setSelectedDep}
+              setSelectedFac={setSelectedFac}
+            />
+          </div>
+        </article>
         <div className="pt-10">
           <table className="border rounded-xl w-full table-auto border-separate lg:p-5 p-2 lg:border-spacing-2 border-spacing-1">
             <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
@@ -96,7 +127,7 @@ const TeachersTable = ({
         <div className="">
           <Paginate
             itemsPerPage={2}
-            items={teachers}
+            items={filteredTeachers}
             setItems={setItems}
             itemOffset={itemOffset}
             setItemOffset={setItemOffset}
