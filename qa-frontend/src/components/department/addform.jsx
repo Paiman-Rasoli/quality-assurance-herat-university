@@ -13,16 +13,23 @@ const AddDepartmentForm = ({
   control,
   faculties,
   useForm,
-  isOpenModal,
-  setIsOpenModal,
+  addNewDep,
+  setAddNewDep,
   reset,
   refetch,
 }) => {
   useEffect(() => {
     reset();
-  }, [isOpenModal, reset]);
+  }, [addNewDep, reset]);
   return (
     <article className="w-full">
+      <button
+        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 group"
+        onClick={() => setAddNewDep(false)}
+      >
+        {/* <XMarkIcon className="text-gray-500 group-hover:text-black h-4 w-4" /> */}
+        <span>بازگشت</span>
+      </button>
       <FormBorder label={"ایجاد دیپارتمنت"}>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -65,7 +72,7 @@ const AddDepartmentForm = ({
           <div className="flex gap-5 justify-end w-full">
             <button
               className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-              onClick={() => setIsOpenModal(false)}
+              onClick={() => setAddNewDep(false)}
             >
               لغو
             </button>

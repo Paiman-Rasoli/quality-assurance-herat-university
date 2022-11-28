@@ -113,6 +113,7 @@ export default function UpdateModal({
               ["خانم", "female"],
             ]}
             placeholder="جنسیت"
+            label="جنسیت"
             reset={reset}
             defaultValue={
               teacher.gender === "male" ? ["آقا", "male"] : ["خانم", "female"]

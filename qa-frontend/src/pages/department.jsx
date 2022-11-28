@@ -24,7 +24,7 @@ const schema = yup.object({
 const Department = () => {
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [addNewDep, setAddNewDep] = useState(false);
   const [selectedDepartment, setSelectedDepartment] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -54,7 +54,7 @@ const Department = () => {
     console.log(res);
     if (res) {
       refetch();
-      setIsOpenModal(false);
+      setAddNewDep(false);
       setLoading(false);
     }
   };
@@ -110,7 +110,8 @@ const Department = () => {
           faculties={faculties}
         />
       </Modal>
-      <Modal isOpen={isOpenModal} setIsOpen={setIsOpenModal}>
+
+      {addNewDep ? (
         <AddDepartmentForm
           Controller={Controller}
           control={control}
@@ -122,16 +123,17 @@ const Department = () => {
           useForm={useForm}
           reset={reset}
           refetch={refetch}
-          isOpenModal={isOpenModal}
-          setIsOpenModal={setIsOpenModal}
+          addNewDep={addNewDep}
+          setAddNewDep={setAddNewDep}
         />
-      </Modal>
-
-      <DepartmentTable
-        departments={departments}
-        updateF={updateF}
-        deleteF={deleteF}
-      />
+      ) : (
+        <DepartmentTable
+          departments={departments}
+          updateF={updateF}
+          deleteF={deleteF}
+          setAddNewDep={setAddNewDep}
+        />
+      )}
     </section>
   );
 };
