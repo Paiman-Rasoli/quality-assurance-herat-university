@@ -80,6 +80,7 @@ const AddTeacherForm = ({
               ["خانم", "female"],
             ]}
             placeholder="جنسیت"
+            label="جنسیت"
             reset={reset}
             defaultValue={["آقا", "male"]}
           />
@@ -91,6 +92,7 @@ const AddTeacherForm = ({
             errors={errors}
             options={faculties.map((faculty) => [faculty.fa_name, faculty.id])}
             placeholder="فاکولته"
+            label="فاکولته"
             setSelectedOptions={setSelectedFaculty}
             resetField={resetField}
           />
@@ -107,6 +109,7 @@ const AddTeacherForm = ({
                 department.id,
               ])}
             placeholder="دیپارتمنت"
+            label="دیپارتمنت"
             className={!selectedFaculty && "disabled"}
           />
           <InputDate
