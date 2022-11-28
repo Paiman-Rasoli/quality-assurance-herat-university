@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useState } from "react";
 import ReactPaginate from "react-paginate";
 
 function Paginate({
@@ -14,14 +13,10 @@ function Paginate({
   // Simulate fetching items from another resources.
   // (This could be items from props; or items loaded in a local state
   // from an API endpoint with useEffect and useState)
-  const [endOffset, setEndOffset] = useState(0);
+  const endOffset = itemOffset + itemsPerPage;
   // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
 
   const pageCount = Math.ceil(items.length / itemsPerPage);
-
-  useEffect(() => {
-    setEndOffset(itemOffset + itemsPerPage);
-  }, [itemOffset, itemsPerPage]);
 
   useEffect(() => {
     // console.log("usecallback");

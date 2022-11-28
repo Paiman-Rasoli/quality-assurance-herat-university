@@ -12,6 +12,7 @@ import DeleteModal from "../components/department/deleteModal";
 import Modal from "../components/modal";
 import AddDepartmentForm from "../components/department/addform";
 import { httpPostDepartment } from "../services/department";
+import DepartmentTable from "../components/department/table";
 
 const schema = yup.object({
   fa_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
@@ -125,66 +126,12 @@ const Department = () => {
           setIsOpenModal={setIsOpenModal}
         />
       </Modal>
-      <div className="pb-10">
-        <table className="border rounded-xl w-full table-auto border-separate lg:p-5 p-2 md:border-spacing-2 border-spacing-1">
-          <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
-            <tr className="divide-x-2 divide-y-2 bg-blue-200">
-              <th className="font-normal text-center">شماره</th>
-              <th className="font-normal text-center">نام فارسی</th>
-              <th className="font-normal text-center hidden lg:block">
-                نام انگلیسی
-              </th>
-              <th className="font-normal text-center">فاکولته</th>
-              <th className="font-normal text-center">تاریخ ثبت</th>
-              <th className="font-normal text-center">ویرایش/حذف</th>
-            </tr>
-          </thead>
-          <tbody className="font-vazirBold text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
-            {departments.map((item, ndx) => (
-              <tr
-                key={ndx}
-                className={`divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse ${
-                  ndx % 2 === 0 ? "bg-stone-100" : "bg-zinc-200"
-                }`}
-              >
-                <td className="text-center">{ndx + 1}</td>
-                <td className="text-center">{item.fa_name}</td>
-                <td className="text-center hidden lg:block">{item.en_name}</td>
-                <td className="text-center">{item.faculty.fa_name}</td>
-                <td className="text-center">
-                  {moment(item.date, "YYYY/MM/DD")
-                    .locale("fa")
-                    .format("YYYY/MM/DD")}
-                </td>
-                <td className="text-center">
-                  <div className="flex justify-around">
-                    <button
-                      onClick={() => updateF(item)}
-                      className="h-full flex items-center"
-                    >
-                      <PencilSquareIcon className="h-6 w-6" />
-                    </button>
-                    <button
-                      onClick={() => deleteF(item)}
-                      className="h-full flex items-center"
-                    >
-                      <TrashIcon className="h-6 w-6" />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="">
-        <button
-          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-          onClick={() => setIsOpenModal(true)}
-        >
-          اضافه کردن دیپارتمنت{" "}
-        </button>
-      </div>
+
+      <DepartmentTable
+        departments={departments}
+        updateF={updateF}
+        deleteF={deleteF}
+      />
     </section>
   );
 };
