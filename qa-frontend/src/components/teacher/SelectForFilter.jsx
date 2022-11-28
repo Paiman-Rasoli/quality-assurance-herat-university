@@ -1,6 +1,7 @@
 import React, { Fragment, useMemo, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { useEffect } from "react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -20,12 +21,10 @@ const Select = ({
   defaultValue,
   resetField,
   setSelected,
+  reset,
 }) => {
   // console.log("def", defaultValue, "type", Type);
-  const [selectedItem, setSelectedItem] = useState([
-    defaultValue?.[0] || placeholder,
-    0,
-  ]);
+  const [selectedItem, setSelectedItem] = useState([]);
 
   useMemo(() => {
     setSelectedOptions && setSelectedOptions(selectedItem);
@@ -33,6 +32,13 @@ const Select = ({
       resetField("departmentId");
     }
   }, [name, resetField, selectedItem, setSelectedOptions]);
+
+  useEffect(() => {
+    setSelectedItem([defaultValue?.[0] || placeholder, 0]);
+    // console.log("useEffect", selectedItem);
+  }, [defaultValue, placeholder, reset]);
+
+  console.log("select", selectedItem);
 
   return (
     <Controller

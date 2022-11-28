@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React, { useCallback, useState, useEffect, useMemo } from "react";
 import moment from "jalali-moment";
 
 import Paginate from "./paginate";
 import Teacher from "./teacher";
 import FilterTeacher from "./filterTeacher";
-import { useEffect } from "react";
-import { useMemo } from "react";
 
 const TeachersTable = ({
   setAddNewTeacher,
@@ -22,8 +20,8 @@ const TeachersTable = ({
   const [selectedDep, setSelectedDep] = useState(null);
   const [selectedFac, setSelectedFac] = useState(null);
   const [filteredTeachers, setFilteredTeachers] = useState(teachers);
-  console.log(selectedFac, selectedDep);
-  console.log("teachers, ", teachers);
+  // console.log(selectedFac, selectedDep);
+  // console.log("teachers, ", teachers);
   useEffect(() => {
     setFilteredTeachers(
       selectedFac
@@ -35,11 +33,16 @@ const TeachersTable = ({
           )
         : teachers
     );
+    setItemOffset(0);
   }, [selectedDep, selectedFac, teachers]);
 
-  useMemo(() => {
+  useCallback(() => {
     setSelectedDep(null);
   }, [selectedFac]);
+
+  // useMemo(() => {
+  //   setItemOffset(0);
+  // }, [filteredTeachers]);
 
   return (
     <>
@@ -53,7 +56,7 @@ const TeachersTable = ({
         />
       )}
       <div className={isOpenTeacherModal ? `hidden` : ""}>
-        <article className="flex flex-wrap w-full justify-between">
+        <article className="flex flex-wrap w-full justify-between gap-5">
           <div className="">
             <button
               className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
@@ -64,6 +67,7 @@ const TeachersTable = ({
           </div>
           <div>
             <FilterTeacher
+              selectedFac={selectedFac}
               setSelectedDep={setSelectedDep}
               setSelectedFac={setSelectedFac}
             />
