@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useState } from "react";
 import ReactPaginate from "react-paginate";
 
 function Paginate({
@@ -10,13 +11,17 @@ function Paginate({
 }) {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
-
   // Simulate fetching items from another resources.
   // (This could be items from props; or items loaded in a local state
   // from an API endpoint with useEffect and useState)
-  const endOffset = itemOffset + itemsPerPage;
+  const [endOffset, setEndOffset] = useState(0);
   // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
+
   const pageCount = Math.ceil(items.length / itemsPerPage);
+
+  useEffect(() => {
+    setEndOffset(itemOffset + itemsPerPage);
+  }, [itemOffset, itemsPerPage]);
 
   useEffect(() => {
     // console.log("usecallback");
@@ -31,7 +36,7 @@ function Paginate({
     // );
     setItemOffset(newOffset);
   };
-
+  // console.log("pageinit", itemOffset);
   return (
     <>
       <ReactPaginate
@@ -39,7 +44,8 @@ function Paginate({
         previousLabel="<"
         nextLabel=">"
         onPageChange={handlePageClick}
-        initialPage={0}
+        forcePage={0}
+        // initialPage={initialPage}
         // pageRangeDisplayed={1}
         pageCount={pageCount}
         renderOnZeroPageCount={null}
