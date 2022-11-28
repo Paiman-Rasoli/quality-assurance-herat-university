@@ -185,14 +185,15 @@ export default function LandingPage() {
 
         <main className="mx-auto mt-16 max-w-7xl px-4 sm:mt-24">
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+            <h1 className="text-4xl font-black tracking-tight text-gray-900 sm:text-5xl md:text-6xl font-vazirBlack">
               <span className="block xl:inline">دانشگاه هرات</span>{" "}
               <span className="block text-cyan-600 xl:inline">
                 کمیته تضمین کیفیت
               </span>
             </h1>
+
             <p className="mx-auto mt-3 max-w-md text-base text-gray-500 sm:text-lg md:mt-5 md:max-w-3xl md:text-xl">
-              کاربر گرامی به سیستم تضمین کیفیت خوش آمدید.
+              به سیستم تضمین کیفیت خوش آمدید لطفا موضع درست تان را انتخاب کنید .
             </p>
             <div className="mx-auto mt-5 gap-10 max-w-md sm:flex sm:justify-center md:mt-8">
               <div className="rounded-md shadow">

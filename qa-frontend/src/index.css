@@ -1,8 +1,14 @@
 @font-face {
-  font-family: "vazir bold";
+  font-family: "vazir black";
   src: url("/public/fonts/Vazir-Black.ttf") format("ttf"),
     url("/public/fonts/Vazir-Black-FD.woff") format("woff"),
     url("/public/fonts/Vazir-Black-FD.woff2") format("woff2");
+}
+@font-face {
+  font-family: "vazir bold";
+  src: url("/public/fonts/Vazir-Bold.ttf") format("ttf"),
+    url("/public/fonts/Vazir-Bold-FD.woff") format("woff"),
+    url("/public/fonts/Vazir-Bold.woff2") format("woff2");
 }
 @font-face {
   font-family: "vazir";
