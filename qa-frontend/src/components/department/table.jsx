@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import Paginate from "../teacher/paginate";
 import FilterDep from "./filteredDeps";
 
-const DepartmentTable = ({ departments, updateF, deleteF, setIsOpenModal }) => {
+const DepartmentTable = ({ departments, updateF, deleteF, setAddNewDep }) => {
   const [items, setItems] = useState(departments);
   const [itemOffset, setItemOffset] = useState(0);
   const [selectedFac, setSelectedFac] = useState(null);
@@ -26,7 +26,7 @@ const DepartmentTable = ({ departments, updateF, deleteF, setIsOpenModal }) => {
       <div className="mb-10 flex flex-wrap w-full justify-between gap-5">
         <button
           className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-          onClick={() => setIsOpenModal(true)}
+          onClick={() => setAddNewDep(true)}
         >
           اضافه کردن دیپارتمنت
         </button>
