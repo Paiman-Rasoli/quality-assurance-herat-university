@@ -32,6 +32,14 @@ routes.get(
   authGuard,
   teacherService.findOne
 );
+
+routes.get(
+  "/find-by-faculty",
+  [query("facultyId").notEmpty().withMessage("facultyId is required!")],
+  authGuard,
+  teacherService.findTeacherByFaculty
+);
+
 routes.delete(
   "/",
   [body("id").notEmpty().withMessage("id is required!")],

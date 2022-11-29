@@ -41,4 +41,11 @@ routes.get(
   departmentService.findOne
 );
 
+routes.get(
+  "/find-by-faculty",
+  authGuard,
+  [query("id").notEmpty().withMessage("id is required!")],
+  departmentService.findByFaculty
+);
+
 export { routes };
