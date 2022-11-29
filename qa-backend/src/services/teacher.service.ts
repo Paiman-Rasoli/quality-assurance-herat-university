@@ -3,6 +3,8 @@ import { TeacherEntity } from "../entities";
 import { getMyRepository } from "../data-source";
 import { validationResult } from "express-validator";
 import { logger } from "../lib";
+import { In } from "typeorm";
+import { DepartmentEntity } from "../entities/department.entity";
 
 export class TeacherService {
   async all(req: Request, res: Response) {
@@ -66,6 +68,29 @@ export class TeacherService {
     });
     return res.status(200).json(find);
   }
+
+  async findTeacherByFaculty(req: Request, res: Response) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const departmentModel = getMyRepository(DepartmentEntity);
+    const departments = await departmentModel.find({
+      where: {
+        facultyId: req.query?.facultyId,
+      },
+      select: ["id"],
+    });
+    const departmentsArray = departments.map((item) => item?.id);
+    const teacherModel = getMyRepository(TeacherEntity);
+    const find = await teacherModel.find({
+      where: {
+        departmentId: In(departmentsArray),
+      },
+    });
+    return res.status(200).json(find);
+  }
+
   async delete(req: Request, res: Response) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

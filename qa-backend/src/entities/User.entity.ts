@@ -53,7 +53,7 @@ export class UserEntity {
   @Column({ type: "date" })
   createdAt;
 
-  @OneToOne(() => FacultyEntity, { nullable: true })
+  @OneToOne(() => FacultyEntity, { nullable: true, onDelete: "SET NULL" })
   @JoinColumn()
   faculty;
 }

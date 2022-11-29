@@ -42,6 +42,7 @@ export class TeacherEntity {
   // many teachers related to one department.
   @ManyToOne(() => DepartmentEntity, (department) => department.teachers, {
     nullable: false,
+    onDelete: "CASCADE",
   })
   department: DepartmentEntity;
 

@@ -18,6 +18,7 @@ export class SubjectEntity {
   // many subjects related to one department.
   @ManyToOne(() => DepartmentEntity, (department) => department.subjects, {
     nullable: false,
+    onDelete: "CASCADE",
   })
   department: DepartmentEntity;
 

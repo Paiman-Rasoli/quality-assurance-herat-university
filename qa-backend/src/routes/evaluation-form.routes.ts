@@ -1,14 +1,29 @@
 import { Router } from "express";
 import { EvaluationForm } from "../services";
 import { authGuard } from "../middlewares/passport";
-import { check } from "express-validator";
+import { body, query } from "express-validator";
 
 const evaluationForm = new EvaluationForm();
 
-export const routes = Router();
+const routes = Router();
 routes.post(
   "/add",
-  [check("username").not().isEmpty(), check("password").not().isEmpty()],
+  [
+    body("teacherId").notEmpty(),
+    body("subjectId").notEmpty(),
+    body("year").notEmpty(),
+    body("semester_type").notEmpty(),
+    body("start_date").notEmpty(),
+    body("end_date").notEmpty(),
+  ],
   authGuard,
   evaluationForm.addForm
 );
+
+routes.get(
+  "/find",
+  [query("formId").notEmpty().withMessage("FormId is required")],
+  evaluationForm.find
+);
+
+export { routes };
