@@ -8,6 +8,7 @@ import {
   ManyToOne,
 } from "typeorm";
 import { AnswerEntity } from "./answer.entity";
+import { DepartmentEntity } from "./department.entity";
 import { SubjectEntity } from "./subject.entity";
 import { TeacherEntity } from "./teacher.entity";
 
@@ -54,4 +55,10 @@ export class EvaluationFormEntity {
 
   @OneToMany(() => AnswerEntity, (answer) => answer.evaluationForm)
   answers: AnswerEntity[];
+
+  @ManyToOne(() => DepartmentEntity, {
+    nullable: false,
+  })
+  @JoinColumn()
+  department: DepartmentEntity;
 }

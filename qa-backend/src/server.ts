@@ -11,6 +11,7 @@ import {
   questionRoutes,
   AnswerRoutes,
   subjectRoutes,
+  ReportRoutes,
 } from "./routes";
 import { logger } from "./lib";
 
@@ -27,6 +28,7 @@ app.use("/api/subject", subjectRoutes);
 app.use("/api/form", evaluationRoutes);
 app.use("/api/question", questionRoutes);
 app.use("/api/answer", AnswerRoutes);
+app.use("/api/report", ReportRoutes);
 
 const PORT = process.env.PORT || 1111;
 myDataSource
