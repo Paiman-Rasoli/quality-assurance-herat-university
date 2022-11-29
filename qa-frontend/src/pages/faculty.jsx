@@ -51,58 +51,7 @@ const Faculty = () => {
 
   return (
     <section className="font-vazirBold p-10 w-full">
-      <div className="pb-10">
-        <table className="border rounded-xl w-full table-auto border-separate lg:p-5 p-2 md:border-spacing-2 border-spacing-1">
-          <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
-            <tr className="divide-x-2 divide-y-2 bg-blue-200">
-              <th className="font-normal text-center">شماره</th>
-              <th className="font-normal text-center">نام فارسی</th>
-              <th className="font-normal text-center hidden lg:block">
-                نام انگلیسی
-              </th>
-              <th className="font-normal text-center">تاریخ ثبت</th>
-              <th className="font-normal text-center">ویرایش/حذف</th>
-            </tr>
-          </thead>
-          <tbody className="font-vazirBold text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
-            {faculties?.map((item, ndx) => (
-              <tr
-                key={item.en_name}
-                className={`divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse h-full items-center ${
-                  ndx % 2 === 0 ? "bg-stone-100" : "bg-zinc-200"
-                }`}
-              >
-                <td className="text-center">{ndx + 1}</td>
-                <td className="text-center">{item.fa_name}</td>
-                <td className="text-center  hidden lg:block">{item.en_name}</td>
-                <td className="text-center">
-                  {moment(item.date, "YYYY/MM/DD")
-                    .locale("fa")
-                    .format("YYYY/MM/DD")}
-                </td>
-                <td className="text-center">
-                  <div className="flex justify-around">
-                    <button
-                      onClick={() => updateF(item)}
-                      className="h-full flex items-center"
-                    >
-                      <PencilSquareIcon className="h-6 w-6" />
-                    </button>
-                    <button
-                      onClick={() => deleteF(item)}
-                      className="h-full flex items-center"
-                    >
-                      <TrashIcon className="h-6 w-6" />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div className="">
+      <div className="mb-10">
         <button
           className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           onClick={() => setIsOpenModal(true)}
@@ -110,6 +59,87 @@ const Faculty = () => {
           اضافه کردن فاکولته{" "}
         </button>
       </div>
+      <div className="p-5 rounded-xl bg-gray-100">
+        <h4 className="font-vazirBlack text-3xl">لیست فاکولته ها</h4>
+        <div className="mt-5 shadow-sm ring-1 ring-black ring-opacity-5 text">
+          <table className="min-w-full divide-y divide-gray-300" dir="rtl">
+            <thead dir="rtl" className="font-vazirBold text-base">
+              <tr className="divide-x divide-x-reverse divide-gray-200">
+                <th
+                  scope="col"
+                  className="py-3.5 pr-4 pl-4 text-right font-semibold text-gray-900 sm:pr-6"
+                >
+                  شماره
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 py-3.5 text-right font-semibold text-gray-900"
+                >
+                  نام فارسی
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 py-3.5 text-right font-semibold text-gray-900 lg:block hidden"
+                >
+                  نام انگلیسی
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 py-3.5 text-right font-semibold text-gray-900"
+                >
+                  تاریخ ثبت
+                </th>
+                <th
+                  scope="col"
+                  className="py-3.5 p-4 pr-4 text-right font-semibold text-gray-900 sm:pl-6"
+                >
+                  ویرایش/حذف
+                </th>
+              </tr>
+            </thead>
+            <tbody dir="rtl" className="divide-y divide-gray-200 bg-white">
+              {faculties?.map((item, ndx) => (
+                <tr
+                  key={item.en_name}
+                  className="divide-x divide-x-reverse divide-gray-200"
+                >
+                  <td className="whitespace-nowrap py-4 pl-4 pr-4  font-medium text-gray-900 sm:pr-6">
+                    {ndx + 1}
+                  </td>
+                  <td className="whitespace-nowrap p-4  text-gray-500">
+                    {item.fa_name}
+                  </td>
+                  <td className="whitespace-nowrap p-4  text-gray-500 lg:block hidden">
+                    {item.en_name}
+                  </td>
+                  <td className="whitespace-nowrap p-4  text-gray-500">
+                    {moment(item.date, "YYYY/MM/DD")
+                      .locale("fa")
+                      .format("YYYY/MM/DD")}
+                  </td>
+                  <td className="whitespace-nowrap p-4  text-gray-500">
+                    <div className="flex justify-around">
+                      <button
+                        onClick={() => updateF(item)}
+                        className="h-full flex items-center"
+                      >
+                        <PencilSquareIcon className="h-6 w-6" />
+                      </button>
+                      <button
+                        onClick={() => deleteF(item)}
+                        className="h-full flex items-center"
+                      >
+                        <TrashIcon className="h-6 w-6" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <Modal isOpen={isOpenModal} setIsOpen={setIsOpenModal}>
         <AddFacultyForm
           schema={schema}
@@ -127,8 +157,14 @@ const Faculty = () => {
         text={
           <span className="font-vazirBold">
             آیا مطمین هستید که میخواهید فاکولته{" "}
-            <span className="text-red-400">{selectedFaculty.fa_name}</span> را
-            حذف کنید
+            <span className="text-red-400 font-vazirBlack text-lg">
+              {selectedFaculty.fa_name}
+            </span>{" "}
+            را حذف کنید
+            <div>
+              <span className="text-red-500 text-lg">هشدار: </span>
+              تمام دیپارتمنت ها و اساتید مربوطه نیز حذف خواهند شد
+            </div>
           </span>
         }
         confirmText={"تایید"}

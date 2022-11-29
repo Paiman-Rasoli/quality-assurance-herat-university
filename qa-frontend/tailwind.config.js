@@ -5,7 +5,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        vazir: ["vazir"],
         vazirBold: ["vazir bold"],
+        vazirBlack: ["vazir black"],
       },
       screens: {
         xs: "320px",
