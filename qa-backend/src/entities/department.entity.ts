@@ -28,6 +28,7 @@ export class DepartmentEntity {
   // many departments related to one faculty.
   @ManyToOne(() => FacultyEntity, (faculty) => faculty.departments, {
     nullable: false,
+    onDelete: "CASCADE",
   })
   faculty: FacultyEntity;
 
