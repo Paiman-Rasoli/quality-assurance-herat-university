@@ -20,6 +20,8 @@ export class FacultyEntity {
 
   // one faculty has many departments! relationship done.
 
-  @OneToMany(() => DepartmentEntity, (department) => department.faculty)
+  @OneToMany(() => DepartmentEntity, (department) => department.faculty, {
+    onDelete: "CASCADE",
+  })
   departments: DepartmentEntity[];
 }
