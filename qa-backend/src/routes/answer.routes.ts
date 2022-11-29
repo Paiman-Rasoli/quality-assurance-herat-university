@@ -1,14 +1,11 @@
 import { Router } from "express";
 import { AnswerService } from "../services";
+import { body } from "express-validator";
 import { authGuard } from "../middlewares/passport";
-import { check } from "express-validator";
 
 const answerService = new AnswerService();
 
-export const routes = Router();
-routes.post(
-  "/add",
-  [check("username").not().isEmpty(), check("password").not().isEmpty()],
-  authGuard,
-  answerService.addAnswers
-);
+const routes = Router();
+routes.post("/add", [body("formId").notEmpty()], answerService.addAnswers);
+routes.get("/", authGuard, answerService.all);
+export { routes };

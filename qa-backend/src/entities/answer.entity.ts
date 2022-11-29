@@ -1,11 +1,4 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-  OneToOne,
-  JoinColumn,
-} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
 import { EvaluationFormEntity } from "./evaluation-form.entity";
 import { QuestionEntity } from "./question.entity";
 
@@ -16,22 +9,15 @@ export enum RESPONSES {
   HEIGH = 4,
   VERY_HEIGH = 5,
 }
-
 @Entity()
 export class AnswerEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({
-    type: "simple-enum",
-    default: RESPONSES.MEDIUM,
-    enum: RESPONSES,
+    type: "simple-json",
   })
-  response: RESPONSES;
-
-  @OneToOne(() => QuestionEntity)
-  @JoinColumn()
-  questionId: QuestionEntity;
+  response: Record<number, any>;
 
   @ManyToOne(() => EvaluationFormEntity, (evaluation) => evaluation.answers)
   evaluationForm: EvaluationFormEntity;
