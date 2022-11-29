@@ -24,7 +24,7 @@ app.use("/api/faculty", facultyRoutes);
 app.use("/api/department", departmentRoutes);
 app.use("/api/teacher", teacherRoutes);
 app.use("/api/subject", subjectRoutes);
-app.use("/api/evaluation", evaluationRoutes);
+app.use("/api/form", evaluationRoutes);
 app.use("/api/question", questionRoutes);
 app.use("/api/answer", AnswerRoutes);
 

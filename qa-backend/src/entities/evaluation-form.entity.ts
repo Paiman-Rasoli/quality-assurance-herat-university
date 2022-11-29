@@ -5,6 +5,7 @@ import {
   OneToOne,
   JoinColumn,
   OneToMany,
+  ManyToOne,
 } from "typeorm";
 import { AnswerEntity } from "./answer.entity";
 import { SubjectEntity } from "./subject.entity";
@@ -33,19 +34,19 @@ export class EvaluationFormEntity {
   })
   semester_type: semesterType;
 
-  @Column({ type: "date" })
+  @Column({ type: "datetime" })
   start_date: Date;
 
-  @Column({ type: "date" })
-  end_date: SubjectEntity;
+  @Column({ type: "datetime" })
+  end_date: Date;
 
-  @OneToOne(() => TeacherEntity, {
+  @ManyToOne(() => TeacherEntity, {
     nullable: false,
   })
   @JoinColumn()
   teacher: TeacherEntity;
 
-  @OneToOne(() => SubjectEntity, {
+  @ManyToOne(() => SubjectEntity, {
     nullable: false,
   })
   @JoinColumn()
