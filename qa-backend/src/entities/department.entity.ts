@@ -37,12 +37,14 @@ export class DepartmentEntity {
   //one department has many teachers
   @OneToMany(() => TeacherEntity, (teacher) => teacher.department, {
     nullable: true,
+    onDelete: "CASCADE",
   })
   teachers: TeacherEntity[];
 
   //one department has many subjects
   @OneToMany(() => SubjectEntity, (subject) => subject.department, {
     nullable: true,
+    onDelete: "CASCADE",
   })
   subjects: SubjectEntity[];
 }
