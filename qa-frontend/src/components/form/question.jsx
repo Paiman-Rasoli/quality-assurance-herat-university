@@ -1,12 +1,11 @@
 import { RadioGroup } from "@headlessui/react";
-import { useState } from "react";
 
 const Options = [
-  { name: "عالی", inStock: true },
-  { name: "خوب", inStock: true },
-  { name: "متوسط", inStock: true },
-  { name: "کم", inStock: true },
-  { name: "خیلی کم", inStock: true },
+  { name: "عالی", value: 5 },
+  { name: "خوب", value: 4 },
+  { name: "متوسط", value: 3 },
+  { name: "کم", value: 2 },
+  { name: "خیلی کم", value: 1 },
 ];
 
 function classNames(...classes) {
@@ -14,33 +13,38 @@ function classNames(...classes) {
 }
 
 const Question = ({ Controller, control, errors, name, question }) => {
-  const [options, setOptions] = useState(Options[2]);
+  // const [options, setOptions] = useState(Options[2]);
+  console.log(errors);
   return (
     <Controller
       control={control}
       defaultValue={""}
       name={name}
+      rules={{
+        required: {
+          value: true,
+          message: "لطفا جواب مورد نظر تان را انتخاب نمایید",
+        },
+      }}
       render={({ field: { onChange } }) => (
         <div className="my-3 grid w-full">
           <RadioGroup
-            value={options}
+            // value={options}
             onChange={(e) => {
               onChange(e.name);
-              setOptions(e);
+              // setOptions(e);
+              console.log(e);
             }}
             className="mt-2 w-full"
           >
             <RadioGroup.Label>{question}</RadioGroup.Label>
-            <div className="mt-3  grid grid-cols-2 sm:grid-cols-3 gap-3 md:grid-cols-5">
+            <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-3 md:grid-cols-5">
               {Options.map((option) => (
                 <RadioGroup.Option
                   key={option.name}
                   value={option}
                   className={({ active, checked }) =>
                     classNames(
-                      option.inStock
-                        ? "cursor-pointer focus:outline-none"
-                        : "opacity-25 cursor-not-allowed",
                       active ? "ring-2 ring-offset-2 ring-cyan-500" : "",
                       checked
                         ? "bg-cyan-600 border-transparent text-white hover:bg-cyan-700"
@@ -48,7 +52,7 @@ const Question = ({ Controller, control, errors, name, question }) => {
                       "border rounded-md py-3 px-3 flex items-center justify-center text-sm font-medium uppercase sm:flex-1"
                     )
                   }
-                  disabled={!option.inStock}
+                  // disabled={!option.inStock}
                 >
                   <RadioGroup.Label as="span">{option.name}</RadioGroup.Label>
                 </RadioGroup.Option>

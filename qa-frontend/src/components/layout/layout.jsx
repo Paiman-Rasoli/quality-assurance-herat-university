@@ -400,7 +400,7 @@ export default function Layout() {
               </div>
             </div>
           </div>
-          <Breadcrumbs />
+          {/* <Breadcrumbs /> */}
           <main className="flex justify-center w-full">
             <Outlet />
           </main>
