@@ -33,6 +33,7 @@ const navigation = [
       { name: "فاکولته", href: "faculty" },
       { name: "دیپارتمنت", href: "department" },
       { name: "استاد", href: "teacher" },
+      { name: "مضمون", href: "subject" },
       { name: "فورم", href: "form" },
       { name: "سوال", href: "#" },
     ],
