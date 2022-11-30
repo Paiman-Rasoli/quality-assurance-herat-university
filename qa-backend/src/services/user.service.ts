@@ -78,4 +78,6 @@ export class UserService {
       return res.status(500).json({ msg: "INTERNAL_SERVER_ERROR" });
     }
   }
+
+  async get(req: Request, res: Response) {}
 }
