@@ -35,7 +35,7 @@ const navigation = [
       { name: "استاد", href: "teacher" },
       { name: "مضمون", href: "subject" },
       { name: "فورم", href: "form" },
-      { name: "سوال", href: "#" },
+      { name: "سوال", href: "question" },
     ],
   },
   // {

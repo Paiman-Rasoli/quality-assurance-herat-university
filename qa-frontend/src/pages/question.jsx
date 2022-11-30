@@ -5,29 +5,22 @@ import Loading from "../components/loading";
 import useFetch from "../hooks/useFetch";
 import DeleteModal from "../components/subject/deleteModal";
 import Modal from "../components/modal";
-import AddSubjectForm from "../components/subject/addForm";
 import UpdateSubject from "../components/subject/update";
-import SubjectTable from "../components/subject/table";
+import QuestionTable from "../components/question/table";
+import AddQuestionForm from "../components/question/addForm";
 
 const schema = yup.object({
-  name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
-  facultyId: yup.number().nullable().required("لطفا این قسمت را تکمیل نمایید"),
-  departmentId: yup
-    .number()
-    .nullable()
-    .required("لطفا این قسمت را تکمیل نمایید"),
-  date: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
+  text: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
+  status: yup.boolean().required("لطفا این قسمت را تکمیل نمایید"),
 });
 
-const Subject = () => {
+const Question = () => {
   const {
     loading: laodingdata,
-    data: subjects,
+    data: questions,
     error,
     refetch,
-  } = useFetch("subject");
-
-  const { data: faculties } = useFetch("faculty");
+  } = useFetch("question");
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
@@ -58,21 +51,20 @@ const Subject = () => {
 
   return (
     <section className="font-vazirBold p-10 w-full">
-      <SubjectTable
+      <QuestionTable
         setIsOpenModal={setIsOpenModal}
-        subjects={subjects}
+        questions={questions}
         updateF={updateF}
         deleteF={deleteF}
       />
 
       <Modal isOpen={isOpenModal} setIsOpen={setIsOpenModal}>
-        <AddSubjectForm
+        <AddQuestionForm
           schema={schema}
           setLoading={setLoading}
           addNew={isOpenModal}
           setAddNew={setIsOpenModal}
           refetch={refetch}
-          faculties={faculties}
         />
       </Modal>
       <DeleteModal
@@ -109,4 +101,4 @@ const Subject = () => {
   );
 };
 
-export default Subject;
+export default Question;

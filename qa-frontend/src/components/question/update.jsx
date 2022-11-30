@@ -12,7 +12,7 @@ const schema = yup.object({
   date: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
 
-export default function UpdateSubject({
+export default function UpdateQuestion({
   isOpen,
   setIsOpen,
   confirmText,

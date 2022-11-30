@@ -7,6 +7,7 @@ function Paginate({
   setItems,
   itemOffset,
   setItemOffset,
+  setCurrentPage,
 }) {
   // Here we use item offsets; we could also use page offsets
   // following the API or data you're working with.
@@ -25,10 +26,8 @@ function Paginate({
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
+    setCurrentPage && setCurrentPage(event.selected);
     const newOffset = (event.selected * itemsPerPage) % items.length;
-    // console.log(
-    //   `User requested page number ${event.selected}, which is offset ${newOffset}`
-    // );
     setItemOffset(newOffset);
   };
   // console.log("pageinit", itemOffset);

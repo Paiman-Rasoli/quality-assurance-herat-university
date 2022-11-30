@@ -14,7 +14,7 @@ export async function httpPostFaculties(data) {
     body: JSON.stringify(data),
   });
 
-  return await response.json();
+  return response;
 }
 
 // Load faculties and return as JSON.

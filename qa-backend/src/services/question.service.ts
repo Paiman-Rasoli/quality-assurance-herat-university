@@ -10,10 +10,12 @@ export class QuestionService {
       return res.status(400).json({ errors: errors.array() });
     }
     const questionModel = getMyRepository(QuestionEntity);
+
+    const status = req.body?.status;
     await questionModel.upsert(
       {
         text: req.body.text,
-        status: req.body?.status || true,
+        status: status !== "undefined" ? status : true,
       },
       ["id"]
     );
@@ -50,6 +52,17 @@ export class QuestionService {
   }
 
   async get(req: Request, res: Response) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const questionModel = getMyRepository(QuestionEntity);
+    //* get all active question
+    const result = await questionModel.find({});
+    return res.status(200).json(result);
+  }
+
+  async getActive(req: Request, res: Response) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
