@@ -4,8 +4,8 @@ import { toast } from "react-toastify";
 const API_URL = process.env.REACT_APP_API_URL;
 
 // Load faculties and return as JSON.
-export async function httpPostSubject(data) {
-  const response = await fetch(`${API_URL}/subject`, {
+export async function httpPostQuestion(data) {
+  const response = await fetch(`${API_URL}/question`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -18,10 +18,10 @@ export async function httpPostSubject(data) {
 }
 
 // Load faculties and return as JSON.
-export async function httpPutSubject(data) {
+export async function httpPutQuestion(data) {
   console.log("dfata😀😀", data);
 
-  const response = await fetch(`${API_URL}/subject`, {
+  const response = await fetch(`${API_URL}/question`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -33,31 +33,11 @@ export async function httpPutSubject(data) {
   return await response.json();
 }
 
-export const deleteSubject = async function (id) {
+export const deleteQuestion = async function (id) {
   let response;
   try {
-    response = await fetch(`${API_URL}/subject`, {
+    response = await fetch(`${API_URL}/question`, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-      },
-      body: JSON.stringify(id),
-    });
-    console.log("delete", response);
-  } catch (error) {
-    console.log("login error", error);
-    toast.error("لطفا ارتباط با سرور را چک نمایید");
-  }
-
-  return response;
-};
-
-export const updateSubject = async function (id) {
-  let response;
-  try {
-    response = await fetch(`${API_URL}/subject`, {
-      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,

@@ -13,6 +13,7 @@ import Student from "./pages/student";
 import AddUser from "./components/users/add-user";
 import Teachers from "./pages/teachers";
 import Subject from "./pages/subject";
+import Question from "./pages/question";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route path="department" element={<Department />} />
             <Route path="teacher" element={<Teachers />} />
             <Route path="subject" element={<Subject />} />
+            <Route path="question" element={<Question />} />
             <Route index element={<Dashboard />} />
           </Route>
         </Route>

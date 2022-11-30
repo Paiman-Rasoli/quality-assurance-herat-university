@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { toast } from "react-toastify";
 import { httpPostFaculties } from "../../services/facultyService";
 import FormBorder from "../form/formBorder";
 import Input from "../form/input";
@@ -23,8 +24,11 @@ const AddFacultyForm = ({ schema, setLoading, addNew, setAddNew, refetch }) => {
       ...data,
       date: data.date.toJSON().slice(0, 10),
     });
-    console.log(res);
+    // console.log("resss", res);
     if (res) {
+      res.ok
+        ? toast.success("فاکولته جدید ایجاد شد")
+        : toast.warning("لطفا از ایجاد فاکولته تکراری خودداری نمایید");
       refetch();
       setLoading(false);
       setAddNew(false);
@@ -66,6 +70,7 @@ const AddFacultyForm = ({ schema, setLoading, addNew, setAddNew, refetch }) => {
             useForm={useForm}
             Controller={Controller}
             control={control}
+            defaultValue={new Date()}
           />
 
           <div className="flex gap-5 justify-end w-full">

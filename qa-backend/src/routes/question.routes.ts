@@ -7,25 +7,16 @@ const questionService = new QuestionService();
 
 const routes = Router();
 routes.post(
-  "/add",
+  "/",
   [body("text").notEmpty()],
   authGuard,
   questionService.addQuestion
 );
 
 routes.get("/", questionService.get);
-routes.delete(
-  "/delete",
-  [query("id").notEmpty()],
-  authGuard,
-  questionService.delete
-);
+routes.get("/active", questionService.getActive);
+routes.delete("/", [query("id").notEmpty()], authGuard, questionService.delete);
 
-routes.put(
-  "/update",
-  [body("id").notEmpty()],
-  authGuard,
-  questionService.update
-);
+routes.put("/", [body("id").notEmpty()], authGuard, questionService.update);
 
 export { routes };
