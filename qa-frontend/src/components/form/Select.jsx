@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { useEffect } from "react";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -13,6 +14,7 @@ const Select = ({
   control,
   options,
   placeholder,
+  label,
   errors,
   setSelectedOptions,
   className,
@@ -20,6 +22,10 @@ const Select = ({
 }) => {
   console.log("opt", options);
   const [selectedItem, setSelectedItem] = useState(placeholder);
+
+  useEffect(() => {
+    setSelectedItem(placeholder);
+  }, [placeholder]);
 
   return (
     <Controller
@@ -41,7 +47,7 @@ const Select = ({
           {({ open }) => (
             <>
               <Listbox.Label className="block text-sm font-medium text-gray-700">
-                {placeholder}
+                {label}
               </Listbox.Label>
               <div className="relative mt-1">
                 <Listbox.Button
