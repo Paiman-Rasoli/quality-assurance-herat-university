@@ -22,13 +22,13 @@ const QuestionTable = ({ setIsOpenModal, questions, updateF, deleteF }) => {
               <tr className="divide-x divide-x-reverse divide-gray-200">
                 <th
                   scope="col"
-                  className="py-3.5 pr-4 pl-4 text-right font-semibold text-gray-900 sm:pr-6"
+                  className="w-[3rem] py-3.5 pr-4 pl-4 text-right font-semibold text-gray-900 sm:pr-6"
                 >
-                  شماره
+                  شماره (Id)
                 </th>
                 <th
                   scope="col"
-                  className="px-4 py-3.5 text-right font-semibold text-gray-900"
+                  className="max-w-[40rem] px-4 py-3.5 text-right font-semibold text-gray-900"
                 >
                   متن سوال
                 </th>
@@ -48,21 +48,25 @@ const QuestionTable = ({ setIsOpenModal, questions, updateF, deleteF }) => {
               </tr>
             </thead>
             <tbody dir="rtl" className="divide-y divide-gray-200 bg-white">
-              {questions?.map((item, ndx) => (
+              {questions?.map((item) => (
                 <tr
                   key={item.id}
                   className="divide-x divide-x-reverse divide-gray-200"
                 >
                   <td className="whitespace-nowrap p-2 lg:p-4  font-medium text-gray-900">
-                    {ndx + 1}
+                    {item.id}
+                  </td>
+
+                  <td className="max-w-[40rem] p-2 lg:p-4  text-gray-700">
+                    <p>{item.text}</p>
                   </td>
 
                   <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
-                    {item.text}
-                  </td>
-
-                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
-                    {item.status ? "فعال" : "پیش نویس"}
+                    {item.status ? (
+                      <span>تایید شده 🚀</span>
+                    ) : (
+                      <span>پیش نویس ✍</span>
+                    )}
                   </td>
                   <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
                     <div className="flex justify-around">

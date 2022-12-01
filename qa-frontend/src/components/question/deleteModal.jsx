@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { toast } from "react-toastify";
-import { deleteSubject } from "../../services/subject";
+import { deleteQuestion } from "../../services/questin";
 
 export default function DeleteModal({
   isOpen,
@@ -11,16 +11,17 @@ export default function DeleteModal({
   confirmText,
   denyText,
   refetch,
-  subject,
+  question,
 }) {
   function closeModal() {
     setIsOpen(false);
   }
 
   async function confirmDelete(data) {
-    const result = await deleteSubject({ id: data.id });
+    console.log(data, "id q");
+    const result = await deleteQuestion(data.id);
     if (result.ok) {
-      toast.success(subject.name + " موفقانه حذف شد");
+      toast.success(question.id + " موفقانه حذف شد");
       refetch();
     } else {
       toast.warning("متاسفانه تغییرات اعمال نشد");
@@ -93,7 +94,7 @@ export default function DeleteModal({
                     <button
                       type="button"
                       className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                      onClick={() => confirmDelete(subject)}
+                      onClick={() => confirmDelete(question)}
                     >
                       {confirmText}
                     </button>
