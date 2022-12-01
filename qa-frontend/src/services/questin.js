@@ -36,13 +36,12 @@ export async function httpPutQuestion(data) {
 export const deleteQuestion = async function (id) {
   let response;
   try {
-    response = await fetch(`${API_URL}/question`, {
+    response = await fetch(`${API_URL}/question?id=${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
-      body: JSON.stringify(id),
     });
     console.log("delete", response);
   } catch (error) {

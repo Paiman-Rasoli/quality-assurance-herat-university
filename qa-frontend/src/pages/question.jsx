@@ -3,11 +3,11 @@ import * as yup from "yup";
 
 import Loading from "../components/loading";
 import useFetch from "../hooks/useFetch";
-import DeleteModal from "../components/subject/deleteModal";
 import Modal from "../components/modal";
 import UpdateSubject from "../components/subject/update";
 import QuestionTable from "../components/question/table";
 import AddQuestionForm from "../components/question/addForm";
+import DeleteModal from "../components/question/deleteModal";
 
 const schema = yup.object({
   text: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
@@ -25,16 +25,16 @@ const Question = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
-  const [selectedSubject, setSelectedSubject] = useState(false);
+  const [selectedQuestoin, setSelectedQuestion] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const deleteF = async (data) => {
-    setSelectedSubject(data);
+    setSelectedQuestion(data);
     setIsOpenDeleteModal(!isOpenDeleteModal);
   };
   const updateF = async (data) => {
     console.log("update f", data);
-    setSelectedSubject(data);
+    setSelectedQuestion(data);
     setIsOpenUpdateModal(!isOpenUpdateModal);
   };
 
@@ -70,20 +70,20 @@ const Question = () => {
       <DeleteModal
         isOpen={isOpenDeleteModal}
         setIsOpen={setIsOpenDeleteModal}
-        title={"حذف مضمون"}
+        title={"حذف سوال"}
         refetch={refetch}
         text={
           <span className="font-vazirBold">
-            آیا مطمین هستید که میخواهید مضمون{" "}
+            آیا مطمین هستید که میخواهید سوال{" "}
             <span className="text-red-400 font-vazirBlack text-lg">
-              {selectedSubject.name}
+              {selectedQuestoin.text}
             </span>{" "}
             را حذف کنید
           </span>
         }
         confirmText={"تایید"}
         denyText={"لغو"}
-        subject={selectedSubject}
+        question={selectedQuestoin}
       />
       <Modal isOpen={isOpenUpdateModal} setIsOpen={setIsOpenUpdateModal}>
         <UpdateSubject
@@ -94,7 +94,7 @@ const Question = () => {
           refetch={refetch}
           confirmText={"تایید"}
           denyText={"لغو"}
-          subject={selectedSubject}
+          subject={selectedQuestoin}
         />
       </Modal>
     </section>
