@@ -75,9 +75,12 @@ export class TeacherService {
       return res.status(400).json({ errors: errors.array() });
     }
     const departmentModel = getMyRepository(DepartmentEntity);
+    //! updated 001
     const departments = await departmentModel.find({
       where: {
-        facultyId: req.query?.facultyId,
+        facultyId: {
+          id: req.query?.facultyId,
+        },
       },
       select: ["id"],
     });
@@ -85,7 +88,9 @@ export class TeacherService {
     const teacherModel = getMyRepository(TeacherEntity);
     const find = await teacherModel.find({
       where: {
-        departmentId: In(departmentsArray),
+        departmentId: {
+          id: In(departmentsArray), //! Updated 002
+        },
       },
     });
     return res.status(200).json(find);

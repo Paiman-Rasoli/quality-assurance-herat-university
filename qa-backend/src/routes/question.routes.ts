@@ -16,7 +16,6 @@ routes.post(
 routes.get("/", questionService.get);
 routes.get("/active", questionService.getActive);
 routes.delete("/", [query("id").notEmpty()], authGuard, questionService.delete);
-
 routes.put("/", [body("id").notEmpty()], authGuard, questionService.update);
 
 export { routes };
