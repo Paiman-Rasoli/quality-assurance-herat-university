@@ -12,7 +12,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { NavLink, Outlet } from "react-router-dom";
-import Breadcrumbs from "./breadcrumbs";
 
 const navigation = [
   { name: "خانه", href: "/dashboard", icon: HomeIcon, current: true },

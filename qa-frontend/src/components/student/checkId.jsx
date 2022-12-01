@@ -31,7 +31,7 @@ const CheckId = ({ setData }) => {
           toast.warning(
             <ToastMsg
               text={
-                "فورم مورد نظر یافت نشد لطفا دقت کنید کرده و آیدی درست را وارد نمایید"
+                "فورم مورد نظر یافت نشد لطفا دقت کرده و آیدی درست را وارد نمایید"
               }
             />,
             { position: "bottom-center", autoClose: 10000 }

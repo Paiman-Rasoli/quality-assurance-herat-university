@@ -1,9 +1,18 @@
 import React from "react";
 
-const TeacherData = ({ teacher, formData }) => {
+const TeacherData = ({ formData }) => {
+  const { teacher } = formData;
   return (
     <section className="border-b-2 px-5 py-5 bg-slate-100">
       <ul className="flex gap-10">
+        <li className="grid gap-5">
+          <span>فاکولته</span>
+          <span>{formData.department.faculty.fa_name}</span>
+        </li>
+        <li className="grid gap-5">
+          <span>دیپارتمنت</span>
+          <span>{formData.department.fa_name}</span>
+        </li>
         <li className="grid gap-5">
           <span>استاد</span>
           <span>{teacher.fa_name}</span>
