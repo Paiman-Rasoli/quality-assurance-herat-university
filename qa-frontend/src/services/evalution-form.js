@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { ToastMsg } from "../components/TaostMsg";
 // import { API_URL } from "./requests";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -45,7 +46,7 @@ export const deleteFaculty = async function (id) {
     console.log("delete", response);
   } catch (error) {
     console.log("login error", error);
-    toast.error("لطفا ارتباط با سرور را چک نمایید");
+    toast.error(<ToastMsg text={"لطفا ارتباط با سرور را چک نمایید"} />);
   }
 
   return response;
@@ -61,11 +62,24 @@ export const httpGetForm = async function (id) {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     });
-    console.log("GET FORM", response);
+    // console.log("GET FORM", response);
   } catch (error) {
-    console.log("login error", error);
-    toast.error("لطفا ارتباط با سرور را چک نمایید");
+    // console.log("login error", error);
+    toast.error(<ToastMsg text={"لطفا ارتباط با سرور را چک نمایید"} />);
   }
 
   return response;
 };
+
+export async function httpPostAnswres(data) {
+  const response = await fetch(`${API_URL}/answer/add`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      // Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+    },
+    body: JSON.stringify(data),
+  });
+
+  return response;
+}

@@ -6,7 +6,6 @@ import Dashboard from "./pages/dashboard";
 import Faculty from "./pages/faculty";
 import Login from "./pages/login";
 import PrivateRoutes from "./pages/privateRoute";
-import Questions from "./pages/questions";
 import Form from "./pages/form";
 import Users from "./pages/users";
 import Student from "./pages/student";
@@ -22,7 +21,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="student">
           <Route index element={<Student />} />
-          <Route path="questions" element={<Questions />} />
+          {/* <Route path="questions" element={<Questions />} /> */}
         </Route>
         <Route path="/login" element={<Login />} />
         <Route element={<PrivateRoutes />}>

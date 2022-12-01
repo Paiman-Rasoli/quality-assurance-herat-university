@@ -22,7 +22,7 @@ const AddDepartmentForm = ({
     reset();
   }, [addNewDep, reset]);
   return (
-    <article className="w-full">
+    <section>
       <button
         className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 group"
         onClick={() => setAddNewDep(false)}
@@ -30,7 +30,7 @@ const AddDepartmentForm = ({
         {/* <XMarkIcon className="text-gray-500 group-hover:text-black h-4 w-4" /> */}
         <span>بازگشت</span>
       </button>
-      <FormBorder label={"ایجاد دیپارتمنت"}>
+      <FormBorder label={"ایجاد دیپارتمنت"} className="lg:mx-40">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="grid min-w-full gap-3"
@@ -85,7 +85,7 @@ const AddDepartmentForm = ({
           </div>
         </form>
       </FormBorder>
-    </article>
+    </section>
   );
 };
 

@@ -51,7 +51,7 @@ const Login = () => {
       <FormBorder label={"ورود به حساب کاربری"}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="grid min-w-full gap-3"
+          className="grid min-w-full gap-3 p-5"
         >
           <Input
             register={register}

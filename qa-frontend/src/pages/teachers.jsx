@@ -1,15 +1,16 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+import { httpPostTeacher } from "../services/teacher";
+import useFetch from "../hooks/useFetch";
 
 import Loading from "../components/loading";
-import useFetch from "../hooks/useFetch";
 import UpdateModal from "../components/teacher/updateModal";
 import DeleteModal from "../components/teacher/deleteModal";
 import Modal from "../components/modal";
 import AddTeacherForm from "../components/teacher/addform";
-import { httpPostTeacher } from "../services/teacherServices";
 import TeachersTable from "../components/teacher/table";
 
 const schema = yup.object({

@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { ToastMsg } from "../components/TaostMsg";
 // import { API_URL } from "./requests";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -44,7 +45,7 @@ export const deleteDepartment = async function (id) {
     console.log("delete department", response);
   } catch (error) {
     console.log("login error", error);
-    toast.error("لطفا ارتباط با سرور را چک نمایید");
+    toast.error(<ToastMsg text={"لطفا ارتباط با سرور را چک نمایید"} />);
   }
 
   return response;

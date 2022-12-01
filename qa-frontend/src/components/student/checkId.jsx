@@ -3,10 +3,13 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import { httpGetForm } from "../../services/form";
+import { httpGetForm } from "../../services/evalution-form";
+import { ToastMsg } from "../TaostMsg";
 
 const schema = yup.object({
-  id: yup.string().required("لطفا آی دی را وارد نمایید"),
+  id: yup
+    .string("لطفا آیدی درست را وارد نمایید")
+    .required("لطفا آی دی را وارد نمایید"),
 });
 
 const CheckId = ({ setData }) => {
@@ -19,12 +22,28 @@ const CheckId = ({ setData }) => {
   const onSubmit = async (e) => {
     console.log(e);
     const res = await httpGetForm(e.id);
-    console.log(res);
     if (res) {
-      res.ok
-        ? setData(await res.json())
-        : toast.warning("فورم مورد نظر یافت نشد");
+      if (res.ok) {
+        setData(await res.json());
+      } else {
+        // const result = res.json();
+        res.status === 404 &&
+          toast.warning(
+            <ToastMsg
+              text={
+                "فورم مورد نظر یافت نشد لطفا دقت کنید کرده و آیدی درست را وارد نمایید"
+              }
+            />,
+            { position: "bottom-center", autoClose: 10000 }
+          );
+        res.status === 401 &&
+          toast.warning(
+            <ToastMsg text={"به نظر میرسد فورم مورد نظر شما منقضی شده است"} />,
+            { position: "bottom-center", autoClose: 10000 }
+          );
+      }
     }
+    // console.log(await res.json(), "🔞🔞");
   };
 
   return (
@@ -36,9 +55,8 @@ const CheckId = ({ setData }) => {
           </label>
           <div>
             <input
-              type="text"
+              type="number"
               dir="ltr"
-              lang="en"
               autoFocus
               {...register("id")}
               className="w-full font-bold uppercase font-sans border-2 border-[#1E408E] text-[#1E408E] p-1 rounded"

@@ -1,14 +1,16 @@
 import React from "react";
 
-const FormBorder = ({ children, label }) => {
+const FormBorder = ({ children, label, className, childClassName }) => {
   return (
-    <div className="relative bg-stone-50 shadow-xl z-0 border border-gray-500 m-10 rounded-xl transition-all duration-200">
-      <div className="absolute w-full rounded-t-xl border-b border-gray-500 ml-2 bg-stone-200 px-5 py-1">
-        <h1 className="text-xl md:text-3xl font-bold text-[#1E408E]">
+    <div
+      className={`${className} bg-stone-50 shadow-xl border border-gray-500 m-5 rounded-lg transition-all duration-200`}
+    >
+      <div className="w-full border-b border-gray-500 bg-stone-200 px-5 py-1 rounded-t-lg">
+        <h1 className="py-1 text-xl md:text-3xl font-bold text-[#1E408E]">
           {label}
         </h1>
       </div>
-      <div className="md:p-16 sm:p-8 p-4 mt-5">{children}</div>
+      <div className={`${childClassName} mt-5 p-5`}>{children}</div>
     </div>
   );
 };

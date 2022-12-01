@@ -121,6 +121,7 @@ const AddTeacherForm = ({
             useForm={useForm}
             Controller={Controller}
             control={control}
+            defaultValue={new Date()}
           />
           <TextInput
             register={register}

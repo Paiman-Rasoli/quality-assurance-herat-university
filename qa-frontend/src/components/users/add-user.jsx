@@ -1,13 +1,15 @@
-import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
+
+import { yupResolver } from "@hookform/resolvers/yup";
+import useFetch from "../../hooks/useFetch";
+
+import { registerUser } from "../../services/auth";
 import SelectInput from "../faculty/select";
 import FormBorder from "../form/formBorder";
 import Input from "../form/input";
-import useFetch from "../../hooks/useFetch";
 import { toast } from "react-toastify";
-import { registerUser } from "../../services/auth";
 import Loading from "../loading";
 
 const schema = yup.object({
@@ -54,12 +56,12 @@ const AddUser = () => {
   };
   return (
     <main>
-      <section>
+      <section className="w-full">
         {" "}
         <FormBorder label={"اضافه کردن کابر جدید"}>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="grid min-w-full gap-3"
+            className="grid min-w-full gap-3 p-5"
           >
             <Input
               register={register}

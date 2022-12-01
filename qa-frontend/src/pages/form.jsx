@@ -7,7 +7,7 @@ import Select from "../components/form/Select";
 import Loading from "../components/loading";
 
 import { facoltes, semester_type, teachers } from "../services/list";
-import Questions from "./questions";
+// import Questions from "./questions";
 import { useNavigate } from "react-router-dom";
 
 const schema = yup.object({
@@ -135,7 +135,6 @@ const Form = () => {
               {loading && <Loading />}
             </div>
           </form>
-          {showQuestion && <Questions formData={formData} />}
         </FormBorder>
       </div>
     </section>

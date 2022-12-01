@@ -1,9 +1,8 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-import { httpPutTeacher } from "../../services/teacherServices";
+import { httpPutTeacher } from "../../services/teacher";
 import FormBorder from "../form/formBorder";
 import Input from "../form/input";
 import InputDate from "../form/InputDate";
