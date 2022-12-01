@@ -19,7 +19,7 @@ export class FacultyService {
       });
     } else {
       data = await facultyModel.find({
-        relations: ["departments"],
+        relations: ["departments", "departments.teachers"],
       });
     }
     return res.status(200).json(data);

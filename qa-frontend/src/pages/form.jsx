@@ -9,7 +9,7 @@ const Form = () => {
   return (
     <section className="font-vazirBold p-10 w-full">
       <div className="grid w-full font-vazirBold">
-        {/* <AddFrom faculties={faculties} teachers={teachers} /> */}
+        <AddFrom faculties={faculties} teachers={teachers} />
       </div>
     </section>
   );
