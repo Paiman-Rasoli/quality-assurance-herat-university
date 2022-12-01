@@ -28,7 +28,7 @@ export class EvaluationForm {
     const formModel = getMyRepository(EvaluationFormEntity);
     const find = await formModel.findOne({
       where: { id: +req?.query?.formId },
-      relations: ["teacher", "subject"],
+      relations: ["teacher", "subject", "department", "department.faculty"],
     });
     if (!find) {
       return res

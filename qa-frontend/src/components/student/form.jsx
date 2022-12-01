@@ -10,6 +10,7 @@ import FormBorder from "../form/formBorder";
 // });
 
 const Form = ({ formData }) => {
+  // console.log("formData", formData);
   const { teacher } = formData;
 
   return (
@@ -21,7 +22,7 @@ const Form = ({ formData }) => {
         </p>
       </div>
       <FormBorder label={"فورم ارزیابی"} childClassName="px-0 mt-0 py-0">
-        <TeacherData teacher={teacher} formData={formData} />
+        <TeacherData formData={formData} />
         <QuestionForm formId={formData.id} />
       </FormBorder>
     </div>

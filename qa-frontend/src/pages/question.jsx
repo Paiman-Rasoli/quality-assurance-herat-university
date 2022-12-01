@@ -4,7 +4,6 @@ import * as yup from "yup";
 import Loading from "../components/loading";
 import useFetch from "../hooks/useFetch";
 import Modal from "../components/modal";
-import UpdateSubject from "../components/subject/update";
 import QuestionTable from "../components/question/table";
 import AddQuestionForm from "../components/question/addForm";
 import DeleteModal from "../components/question/deleteModal";

@@ -52,7 +52,7 @@ export default function UpdateQuestion({
     closeModal();
   };
 
-  console.log(data);
+  // console.log(data);
 
   if (!data) return <div className="text-red-500">خطا در بارگیری دیتا</div>;
 
