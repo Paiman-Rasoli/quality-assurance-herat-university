@@ -8,6 +8,7 @@ import UpdateSubject from "../components/subject/update";
 import QuestionTable from "../components/question/table";
 import AddQuestionForm from "../components/question/addForm";
 import DeleteModal from "../components/question/deleteModal";
+import UpdateQuestion from "../components/question/update";
 
 const schema = yup.object({
   text: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
@@ -86,15 +87,15 @@ const Question = () => {
         question={selectedQuestoin}
       />
       <Modal isOpen={isOpenUpdateModal} setIsOpen={setIsOpenUpdateModal}>
-        <UpdateSubject
+        <UpdateQuestion
           isOpen={isOpenUpdateModal}
+          schema={schema}
           setIsOpen={setIsOpenUpdateModal}
           setLoading={setLoading}
-          title={"ویرایش مضمون"}
           refetch={refetch}
           confirmText={"تایید"}
           denyText={"لغو"}
-          subject={selectedQuestoin}
+          question={selectedQuestoin}
         />
       </Modal>
     </section>

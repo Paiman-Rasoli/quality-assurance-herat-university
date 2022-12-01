@@ -28,7 +28,7 @@ const QuestionTable = ({ setIsOpenModal, questions, updateF, deleteF }) => {
                 </th>
                 <th
                   scope="col"
-                  className="w-[40rem] px-4 py-3.5 text-right font-semibold text-gray-900"
+                  className="max-w-[40rem] px-4 py-3.5 text-right font-semibold text-gray-900"
                 >
                   متن سوال
                 </th>
@@ -57,8 +57,8 @@ const QuestionTable = ({ setIsOpenModal, questions, updateF, deleteF }) => {
                     {item.id}
                   </td>
 
-                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
-                    {item.text}
+                  <td className="max-w-[40rem] p-2 lg:p-4  text-gray-700">
+                    <p>{item.text}</p>
                   </td>
 
                   <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">

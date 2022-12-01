@@ -1,27 +1,23 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { httpPutSubject } from "../../services/subject";
-import FormBorder from "../form/formBorder";
-import Input from "../form/input";
-import InputDate from "../form/InputDate";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-const schema = yup.object({
-  name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
-  date: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
-});
+import FormBorder from "../form/formBorder";
+import { httpPutQuestion } from "../../services/questin";
+import Select from "../teacher/Select";
+import TextInput from "../form/textInput";
 
 export default function UpdateQuestion({
+  schema,
   isOpen,
   setIsOpen,
   confirmText,
   denyText,
   refetch,
-  subject,
+  question,
   setLoading,
 }) {
-  const [data, setData] = useState("");
+  const [data, setData] = useState(null);
 
   function closeModal() {
     setIsOpen(false);
@@ -36,18 +32,19 @@ export default function UpdateQuestion({
   } = useForm({ resolver: yupResolver(schema) });
 
   useEffect(() => {
-    setData(subject);
+    setData(question);
     reset();
-  }, [subject, isOpen, reset, setIsOpen]);
+  }, [question, isOpen, reset, setIsOpen]);
 
   const onSubmit = async (data) => {
+    console.log("sbbmit data", data);
     setLoading(true);
-    const res = await httpPutSubject({
-      id: subject.id,
-      date: data.date,
-      name: data.name,
+    const res = await httpPutQuestion({
+      id: question.id,
+      status: data.status,
+      text: data.text,
     });
-    // console.log(res, "res put");
+    console.log(res, "res put");
     if (res) {
       refetch();
       setLoading(false);
@@ -55,33 +52,38 @@ export default function UpdateQuestion({
     closeModal();
   };
 
+  console.log(data);
+
+  if (!data) return <div className="text-red-500">خطا در بارگیری دیتا</div>;
+
   return (
     <article className="w-full">
-      <FormBorder label={"ویرایش مضمون"}>
+      <FormBorder label={"ویرایش سوال"}>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="grid min-w-full gap-3"
         >
-          <Input
+          <TextInput
             register={register}
             errors={errors}
-            label="نام مضمون"
-            name="name"
+            label="متن"
+            name="text"
             type="text"
-            defaultValue={data.name}
+            defaultValue={data.text}
           />
-          <InputDate
-            register={register}
-            errors={errors}
-            label="تاریخ"
-            name="date"
-            type="Date"
-            useForm={useForm}
+          <Select
+            name="status"
             Controller={Controller}
             control={control}
-            defaultValue={new Date(subject.date)}
+            errors={errors}
+            options={[
+              ["پیش نویس", false],
+              ["فعال", true],
+            ]}
+            placeholder="حالت"
+            label="حالت"
+            defaultValue={data.status ? ["فعال", true] : ["پیش نویس", false]}
           />
-
           <div className="mt-4 flex gap-3">
             <button
               type="reset"

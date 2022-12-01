@@ -14,7 +14,7 @@ const Form = ({ formData }) => {
 
   return (
     <div className="grid justify-center font-vazirBold text-gray-700">
-      <div className="p-5 text-green-700 font-vazirBlack border-b">
+      <div className="p-5 text-cyan-700 font-vazirBlack border-b">
         <p>
           از اینکه در این همه پرسی اشتراک مینمایید از شما قدردانی میکنیم. لطفا
           با دقت پاسخ دهید.
