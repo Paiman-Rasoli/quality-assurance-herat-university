@@ -115,9 +115,12 @@ export class DepartmentService {
       return res.status(400).json({ errors: errors.array() });
     }
     const departmentModel = getMyRepository(DepartmentEntity);
+    //! update 002
     const find = await departmentModel.find({
       where: {
-        facultyId: +req?.query?.id,
+        facultyId: {
+          id: +req?.query?.id,
+        },
       },
     });
 
