@@ -9,12 +9,14 @@ const routes = Router();
 routes.post(
   "/add",
   [
-    body("teacherId").notEmpty(),
-    body("subjectId").notEmpty(),
+    body("teacher").notEmpty(),
+    body("subject").notEmpty(),
     body("year").notEmpty(),
     body("semester_type").notEmpty(),
+    body("semester").notEmpty(),
     body("start_date").notEmpty(),
     body("end_date").notEmpty(),
+    body("department").notEmpty(),
   ],
   authGuard,
   evaluationForm.addForm

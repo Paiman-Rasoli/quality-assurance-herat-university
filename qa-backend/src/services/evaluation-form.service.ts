@@ -10,6 +10,15 @@ export class EvaluationForm {
       return res.status(400).json({ errors: errors.array() });
     }
     //TODO: add form ....
+    const formModel = getMyRepository(EvaluationFormEntity);
+    const bodyData = req.body as formInputDto;
+    try {
+      const save = await formModel.upsert(bodyData, ["id"]);
+      return res.status(200).json({ formId: save.identifiers[0]?.id });
+    } catch (err) {
+      console.error("Error while creating form.", err);
+      return res.status(500).json({ msg: "Internal server error" });
+    }
   }
   async find(req: Request, res: Response) {
     const errors = validationResult(req);
@@ -39,4 +48,15 @@ export class EvaluationForm {
     }
     return res.status(200).json(find);
   }
+}
+
+interface formInputDto {
+  year: number;
+  semester: number;
+  semester_type: any;
+  start_date: Date;
+  end_date: Date;
+  teacher: string | number;
+  subject: string | number;
+  department: string | number;
 }
