@@ -6,7 +6,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Select from "../form/Select";
 import Loading from "../loading";
 import FormBorder from "../form/formBorder";
-// import Questions from "./questions";
 import { semester_type } from "../../services/list";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -28,9 +27,7 @@ const schema = yup.object({
 });
 
 const AddFrom = ({ faculties }) => {
-  const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
-  const [showQuestion, setShowQuestion] = useState(false);
   const [selectedFacultyName, setSelectedFacultyName] = useState(null);
   const [departments, setDepartments] = useState(null);
   const [selectedDepartment, setSelectedDepartment] = useState(null);
@@ -38,22 +35,33 @@ const AddFrom = ({ faculties }) => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const {
+    handleSubmit,
+    control,
+    resetField,
+    formState: { errors },
+    reset,
+  } = useForm({ resolver: yupResolver(schema) });
+
+  useMemo(() => {
     const deps = faculties?.filter(
       (fc) => fc.fa_name === selectedFacultyName
     )[0]?.departments;
-    console.log("👴👴", deps);
+    // console.log("👴👴", deps);
     setDepartments(deps);
-  }, [faculties, selectedFacultyName]);
+    setSelectedDepartment(null);
+    resetField("department");
+  }, [faculties, resetField, selectedFacultyName]);
 
-  useEffect(() => {
-    console.log("selected dep ", selectedDepartment, departments);
+  useMemo(() => {
+    // console.log("selected dep ", selectedDepartment, departments);
     const teachers = departments?.filter(
       (dep) => dep.fa_name === selectedDepartment
     )[0]?.teachers;
     // console.log("🤶🤶", teachers);
     setTeachers(teachers);
-  }, [selectedDepartment, departments]);
+    resetField("teacher");
+  }, [departments, resetField, selectedDepartment]);
 
   function semesterNumbers(number) {
     const arr = [];
@@ -62,26 +70,18 @@ const AddFrom = ({ faculties }) => {
     }
     return arr;
   }
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-    reset,
-  } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = (data) => {
     setLoading(true);
-    setFormData(data);
     console.log(data);
     setTimeout(() => {
       reset();
       navigate("./questions");
       setLoading(false);
-      setShowQuestion(true);
     }, 2000);
   };
 
-  console.log("faculties", faculties);
+  // console.log("faculties", faculties);
 
   return (
     <div>
@@ -91,6 +91,7 @@ const AddFrom = ({ faculties }) => {
           <Select
             name="faculty"
             Type={"string"}
+            label={"فاکولته"}
             Controller={Controller}
             control={control}
             errors={errors}
@@ -99,12 +100,13 @@ const AddFrom = ({ faculties }) => {
             setSelectedOptions={setSelectedFacultyName}
             reset={reset}
           />
-          {selectedFacultyName && (
+          {departments && (
             <>
               {" "}
               <Select
                 name="department"
                 Type={"string"}
+                label={"دیپارتمنت"}
                 errors={errors}
                 Controller={Controller}
                 control={control}
@@ -117,6 +119,7 @@ const AddFrom = ({ faculties }) => {
                 <Select
                   name="teacher"
                   Type={"string"}
+                  label={"استاد"}
                   errors={errors}
                   Controller={Controller}
                   control={control}
@@ -128,6 +131,7 @@ const AddFrom = ({ faculties }) => {
               <Select
                 name="semesterType"
                 Type={"string"}
+                label={"نوعیت سمستر"}
                 errors={errors}
                 Controller={Controller}
                 control={control}
@@ -137,6 +141,7 @@ const AddFrom = ({ faculties }) => {
               <Select
                 name="semesterNumber"
                 Type={"number"}
+                label="سمستر"
                 errors={errors}
                 Controller={Controller}
                 control={control}
@@ -145,7 +150,7 @@ const AddFrom = ({ faculties }) => {
                     .filter((fc) => fc.name === selectedFacultyName)
                     .map((e) => e.number_of_sem)
                 )}
-                placeholder="انتخاب سمستر"
+                placeholder="سمستر"
                 className={!selectedFacultyName && "disabled"}
               />
             </>

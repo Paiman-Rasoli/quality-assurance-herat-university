@@ -5,7 +5,7 @@ import Department from "./pages/department";
 import Dashboard from "./pages/dashboard";
 import Faculty from "./pages/faculty";
 import Login from "./pages/login";
-import PrivateRoutes from "./pages/privateRoute";
+import PrivateRoutes from "./utils/privateRoute";
 import Form from "./pages/form";
 import Users from "./pages/users";
 import Student from "./pages/student";
@@ -13,6 +13,7 @@ import AddUser from "./components/users/add-user";
 import Teachers from "./pages/teachers";
 import Subject from "./pages/subject";
 import Question from "./pages/question";
+import ProtectedRoutes from "./utils/protecteRoute";
 
 function App() {
   return (
@@ -26,10 +27,12 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Layout />}>
+            <Route element={<ProtectedRoutes />}>
+              <Route path="faculty" element={<Faculty />} />
+              <Route path="add-users" element={<AddUser />} />
+              <Route path="users" element={<Users />} />
+            </Route>
             <Route path="form" element={<Form />} />
-            <Route path="add-users" element={<AddUser />} />
-            <Route path="users" element={<Users />} />
-            <Route path="faculty" element={<Faculty />} />
             <Route path="department" element={<Department />} />
             <Route path="teacher" element={<Teachers />} />
             <Route path="subject" element={<Subject />} />

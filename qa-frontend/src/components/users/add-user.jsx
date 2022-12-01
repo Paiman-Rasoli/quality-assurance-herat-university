@@ -11,12 +11,19 @@ import FormBorder from "../form/formBorder";
 import Input from "../form/input";
 import { toast } from "react-toastify";
 import Loading from "../loading";
+import { ToastMsg } from "../TaostMsg";
 
 const schema = yup.object({
   name: yup.string().required("نام تان را بنویسید"),
   username: yup.string().required("نام کاربری تان را بنویسید"),
-  password: yup.string().required("رمز عبور تان را بنویسید"),
-  faculty: yup.string().nullable().required("فاکولته تان را انتخاب نمایید"),
+  password: yup
+    .string()
+    .min(6, "رمز عبورباید  حداقل ۶ کاراکتر باشد")
+    .required("رمز عبور تان را بنویسید"),
+  passwordConfirmation: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "رمز عبور تان را با دقت وارد نمایید "),
+  faculty: yup.number().nullable().required("فاکولته تان را انتخاب نمایید"),
 });
 
 const AddUser = () => {
@@ -34,19 +41,35 @@ const AddUser = () => {
     console.log("register", data);
     setLoading(true);
     try {
-      const res = await registerUser(data);
+      const res = await registerUser({
+        name: data.name,
+        username: data.username,
+        faculty: data.faculty,
+        password: data.password,
+      });
       console.log(res, "res");
 
-      setLoading(false);
       if (res?.ok) {
-        toast.success("حساب کاربری موفقانه ایجاد شد");
+        toast.success(<ToastMsg text={"حساب کاربری موفقانه ایجاد شد"} />, {
+          position: "bottom-left",
+        });
         const data = await res.json();
         sessionStorage.setItem("token", data.accessToken);
         sessionStorage.setItem("username", data.name);
         sessionStorage.setItem("data", data);
         // navigate("/dashboard");
       } else {
-        toast.error("اوپس..  متاسفانه حساب کاربری مورد نظر ایجاد نشد");
+        // const data = await res.json();
+        console.log("data", data);
+        res.status === 400
+          ? toast.error(
+              <ToastMsg text={"این حساب کاربری قبلا ایجاد شده است"} />,
+              { position: "bottom-left" }
+            )
+          : toast.error(
+              <ToastMsg text={"متاسفانه حساب کاربری مورد نظر ایجاد نشد"} />,
+              { position: "bottom-left" }
+            );
       }
     } catch (error) {
       toast.error("لطفا ارتباط با سرور را چک نمایید");
@@ -83,6 +106,14 @@ const AddUser = () => {
               errors={errors}
               label="رمز عبور"
               name="password"
+              type="passwrod"
+              dir="ltr"
+            />
+            <Input
+              register={register}
+              errors={errors}
+              label="تایید رمز عبور"
+              name="passwordConfirmation"
               type="passwrod"
               dir="ltr"
             />
