@@ -14,7 +14,7 @@ function classNames(...classes) {
 
 const Question = ({ Controller, control, errors, name, question }) => {
   // const [options, setOptions] = useState(Options[2]);
-  console.log(errors);
+  // console.log(errors);
   return (
     <Controller
       control={control}
@@ -23,7 +23,7 @@ const Question = ({ Controller, control, errors, name, question }) => {
       rules={{
         required: {
           value: true,
-          message: "لطفا جواب مورد نظر تان را انتخاب نمایید",
+          message: "لطفا یکی از گزینه ها را انتخاب نمایید",
         },
       }}
       render={({ field: { onChange } }) => (
@@ -31,7 +31,7 @@ const Question = ({ Controller, control, errors, name, question }) => {
           <RadioGroup
             // value={options}
             onChange={(e) => {
-              onChange(e.name);
+              onChange(e.value);
               // setOptions(e);
               console.log(e);
             }}
@@ -49,10 +49,9 @@ const Question = ({ Controller, control, errors, name, question }) => {
                       checked
                         ? "bg-cyan-600 border-transparent text-white hover:bg-cyan-700"
                         : "bg-white border-gray-200 text-gray-900 hover:bg-gray-50",
-                      "border rounded-md py-3 px-3 flex items-center justify-center text-sm font-medium uppercase sm:flex-1"
+                      "border rounded-md py-3 px-3 flex items-center justify-center text-sm font-medium uppercase sm:flex-1 hover:cursor-pointer"
                     )
                   }
-                  // disabled={!option.inStock}
                 >
                   <RadioGroup.Label as="span">{option.name}</RadioGroup.Label>
                 </RadioGroup.Option>

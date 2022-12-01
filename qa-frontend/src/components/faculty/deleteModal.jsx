@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { toast } from "react-toastify";
-import { deleteFaculty } from "../../services/facultyService";
+import { deleteFaculty } from "../../services/faculty";
 
 export default function DeleteModal({
   isOpen,
