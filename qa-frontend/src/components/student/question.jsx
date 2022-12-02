@@ -27,7 +27,7 @@ const Question = ({ Controller, control, errors, name, question }) => {
         },
       }}
       render={({ field: { onChange } }) => (
-        <div className="my-3 grid w-full">
+        <div className="my-1 pt-5 grid w-full">
           <RadioGroup
             // value={options}
             onChange={(e) => {

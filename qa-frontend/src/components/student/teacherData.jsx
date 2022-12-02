@@ -3,8 +3,8 @@ import React from "react";
 const TeacherData = ({ formData }) => {
   const { teacher } = formData;
   return (
-    <section className="border-b-2 px-5 py-5 bg-slate-100">
-      <ul className="flex gap-10">
+    <section className="px-5 py-5 bg-stone-200 font-vazirBlack text-lg shadow-md mb-5">
+      <ul className="w-full flex gap-5">
         <li className="grid gap-5">
           <span>فاکولته</span>
           <span>{formData.department.faculty.fa_name}</span>

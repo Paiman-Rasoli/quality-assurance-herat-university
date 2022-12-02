@@ -11,7 +11,6 @@ import FormBorder from "../form/formBorder";
 
 const Form = ({ formData }) => {
   // console.log("formData", formData);
-  const { teacher } = formData;
 
   return (
     <div className="grid justify-center font-vazirBold text-gray-700">
