@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { httpPostAnswres } from "../../services/evalution-form";
 import Loading from "../loading";
 import Question from "./question";
 import { ToastMsg } from "../TaostMsg";
+import Modal from "../modal";
 
 const QuestionForm = ({ formId }) => {
   const [loading, setLoading] = useState(false);
@@ -24,7 +25,7 @@ const QuestionForm = ({ formId }) => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
+  const Submit = async (data) => {
     setLoading(true);
     // console.log(data, "🤔😀");
     const res = await httpPostAnswres({ formId, response: data });
@@ -48,6 +49,18 @@ const QuestionForm = ({ formId }) => {
       setLoading(false);
     }
   };
+  const [confirmModal, setConfirmModal] = useState(false);
+  const [confirm, setConfirm] = useState(false);
+  const [answers, setAnswers] = useState(null);
+
+  const submtHandler = (data) => {
+    setConfirmModal(true);
+    setAnswers(data);
+  };
+
+  useEffect(() => {
+    if (confirm) Submit(answers);
+  }, [confirm]);
 
   if (laodingdata || loading) return <Loading />;
 
@@ -60,8 +73,34 @@ const QuestionForm = ({ formId }) => {
 
   return (
     <section className="px-5">
-      {" "}
-      <form onSubmit={handleSubmit(onSubmit)} className="grid divide-y-2">
+      {confirmModal && (
+        <Modal isOpen={confirmModal} setIsOpen={setConfirmModal}>
+          <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all">
+            <div className="mt-2">
+              <p className="text-sm text-gray-500">
+                آیا از پاسخ های تان اطمینان دارید؟
+              </p>
+            </div>
+            <div className="mt-4 flex gap-3">
+              <button
+                type="button"
+                className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                onClick={() => setConfirmModal(false)}
+              >
+                لغو{" "}
+              </button>
+              <button
+                type="button"
+                className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+                onClick={() => setConfirm(true)}
+              >
+                تایید{" "}
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
+      <form onSubmit={handleSubmit(submtHandler)} className="grid ">
         {questions?.map((question, ndx) => (
           <Question
             Controller={Controller}
