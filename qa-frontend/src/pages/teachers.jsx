@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -12,6 +12,7 @@ import DeleteModal from "../components/teacher/deleteModal";
 import Modal from "../components/modal";
 import AddTeacherForm from "../components/teacher/addform";
 import TeachersTable from "../components/teacher/table";
+import { FacultyContext } from "../context/facultyContext";
 
 const schema = yup.object({
   fa_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
@@ -29,6 +30,9 @@ const schema = yup.object({
 });
 
 const Teachers = () => {
+  const faculty = useContext(FacultyContext);
+  // console.log("form-faculty", faculty);
+
   const [addNewTeacher, setAddNewTeacher] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
@@ -36,15 +40,29 @@ const Teachers = () => {
   const [selectedTeacher, setSelectedTeacher] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const {
+  let {
     loading: laodingdata,
     data: teachers,
     error,
     refetch,
   } = useFetch("teacher");
 
-  const { data: faculties } = useFetch("faculty");
-  const { data: departments } = useFetch("department");
+  let { data: faculties } = useFetch("faculty");
+  let { data: departments } = useFetch("department");
+
+  faculties = faculty
+    ? faculties?.filter((fc) => fc.id === faculty.id)
+    : faculties;
+
+  departments = faculty
+    ? departments?.filter((dep) => dep.faculty.id === faculty.id)
+    : departments;
+
+  teachers = faculty
+    ? teachers?.filter(
+        (teacher) => teacher.department.faculty.id === faculty.id
+      )
+    : teachers;
 
   const {
     register,
@@ -139,6 +157,8 @@ const Teachers = () => {
         <TeachersTable
           setAddNewTeacher={setAddNewTeacher}
           teachers={teachers}
+          faculties={faculties}
+          departments={departments}
           isOpenTeacherModal={isOpenTeacherModal}
           selectedTeacher={selectedTeacher}
           setIsOpenDeleteModal={setIsOpenDeleteModal}
