@@ -9,6 +9,7 @@ import FormBorder from "../form/formBorder";
 import { semester_type } from "../../services/list";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import InputDate from "../form/InputDate";
 
 const schema = yup.object({
   faculty: yup.string().required("لطفا فاکولته مورد نظرتان را انتخاب نمایید "),
@@ -36,6 +37,7 @@ const AddFrom = ({ faculties }) => {
   const navigate = useNavigate();
 
   const {
+    register,
     handleSubmit,
     control,
     resetField,
@@ -145,13 +147,20 @@ const AddFrom = ({ faculties }) => {
                 errors={errors}
                 Controller={Controller}
                 control={control}
-                options={semesterNumbers(
-                  ...faculties
-                    .filter((fc) => fc.name === selectedFacultyName)
-                    .map((e) => e.number_of_sem)
-                )}
+                options={semesterNumbers(14)}
                 placeholder="سمستر"
                 className={!selectedFacultyName && "disabled"}
+              />
+              <InputDate
+                register={register}
+                errors={errors}
+                label="تاریخ"
+                name="date"
+                type="Date"
+                useForm={useForm}
+                Controller={Controller}
+                control={control}
+                defaultValue={new Date()}
               />
             </>
           )}{" "}

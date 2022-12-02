@@ -16,11 +16,16 @@ const schema = yup.object({
   //   date: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
 
-const FilterTeacher = ({ selectedFac, setSelectedFac, setSelectedDep }) => {
+const FilterTeacher = ({
+  selectedFac,
+  setSelectedFac,
+  setSelectedDep,
+  faculties,
+}) => {
   const [selectedFaculty, setSelectedFaculty] = useState([]);
   const [cancelFilter, setCancelFilter] = useState(false);
 
-  const { data: faculties, loading, error } = useFetch("faculty");
+  // const { data: faculties, loading, error } = useFetch("faculty");
 
   const {
     control,
@@ -38,14 +43,14 @@ const FilterTeacher = ({ selectedFac, setSelectedFac, setSelectedDep }) => {
     setSelectedFac(null);
   }, [cancelFilter]);
 
-  if (loading) return <Loading />;
+  // if (loading) return <Loading />;
 
-  if (error)
-    return (
-      <div className="grid place-content-center">
-        somthing went wrong with connection to database
-      </div>
-    );
+  // if (error)
+  //   return (
+  //     <div className="grid place-content-center">
+  //       somthing went wrong with connection to database
+  //     </div>
+  //   );
 
   console.log("filterTeacher");
 
@@ -58,7 +63,7 @@ const FilterTeacher = ({ selectedFac, setSelectedFac, setSelectedDep }) => {
           Controller={Controller}
           control={control}
           errors={errors}
-          options={faculties.map((faculty) => [faculty.fa_name, faculty.id])}
+          options={faculties?.map((faculty) => [faculty.fa_name, faculty.id])}
           placeholder="فاکولته"
           label=" فیلتر فاکولته"
           setSelectedOptions={setSelectedFaculty}
@@ -74,8 +79,8 @@ const FilterTeacher = ({ selectedFac, setSelectedFac, setSelectedDep }) => {
         Controller={Controller}
         control={control}
         options={faculties
-          .filter((fc) => fc.fa_name === selectedFaculty[0])[0]
-          ?.departments.map((department) => [
+          ?.filter((fc) => fc.fa_name === selectedFaculty[0])[0]
+          ?.departments?.map((department) => [
             department.fa_name,
             department.id,
           ])}

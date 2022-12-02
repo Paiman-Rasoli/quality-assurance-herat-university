@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import * as yup from "yup";
 
 import Loading from "../components/loading";
@@ -8,6 +8,7 @@ import Modal from "../components/modal";
 import AddSubjectForm from "../components/subject/addForm";
 import UpdateSubject from "../components/subject/update";
 import SubjectTable from "../components/subject/table";
+import { FacultyContext } from "../context/facultyContext";
 
 const schema = yup.object({
   name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
@@ -20,14 +21,23 @@ const schema = yup.object({
 });
 
 const Subject = () => {
-  const {
+  const faculty = useContext(FacultyContext);
+
+  let {
     loading: laodingdata,
     data: subjects,
     error,
     refetch,
   } = useFetch("subject");
 
-  const { data: faculties } = useFetch("faculty");
+  let { data: faculties } = useFetch("faculty");
+  faculties = faculty
+    ? faculties?.filter((fc) => fc.id === faculty.id)
+    : faculties;
+  subjects = faculty
+    ? subjects?.filter((subj) => subj.department.faculty.id === faculty.id)
+    : subjects;
+  console.log(subjects, "subject");
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);

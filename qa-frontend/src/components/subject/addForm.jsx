@@ -66,7 +66,7 @@ const AddSubjectForm = ({
             Controller={Controller}
             control={control}
             errors={errors}
-            options={faculties.map((faculty) => [faculty.fa_name, faculty.id])}
+            options={faculties?.map((faculty) => [faculty.fa_name, faculty.id])}
             placeholder="فاکولته"
             label="فاکولته"
             setSelectedOptions={setSelectedFaculty}
@@ -79,8 +79,8 @@ const AddSubjectForm = ({
             Controller={Controller}
             control={control}
             options={faculties
-              .filter((fc) => fc.fa_name === selectedFaculty[0])[0]
-              ?.departments.map((department) => [
+              ?.filter((fc) => fc.fa_name === selectedFaculty[0])[0]
+              ?.departments?.map((department) => [
                 department.fa_name,
                 department.id,
               ])}
