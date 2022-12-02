@@ -1,9 +1,9 @@
 import React from "react";
 
 import DatePicker from "react-multi-date-picker";
-
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
 
 const InputTime = ({
   control,
@@ -26,9 +26,10 @@ const InputTime = ({
             <DatePicker
               value={value || ""}
               onChange={(date) => {
-                onChange(date.toDate());
+                onChange(date);
               }}
-              format={"YYYY/MM/DD"}
+              format={"hh:mm a YYYY/MM/DD"}
+              plugins={[<TimePicker position="bottom" hideSeconds />]}
               calendar={persian}
               locale={persian_fa}
               inputClass="w-full border-2 border-[#1E408E] p-1 rounded"

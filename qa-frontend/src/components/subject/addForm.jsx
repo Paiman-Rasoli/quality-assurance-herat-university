@@ -55,7 +55,7 @@ const AddSubjectForm = ({
           <Input
             register={register}
             errors={errors}
-            label="نام مضمون (فارسی)"
+            label="نام مضمون"
             name="name"
             type="text"
           />

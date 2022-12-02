@@ -6,7 +6,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 // Load current form and return as JSON.
 export async function httpPostForm(data) {
-  const response = await fetch(`${API_URL}/form`, {
+  const response = await fetch(`${API_URL}/form/add`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
