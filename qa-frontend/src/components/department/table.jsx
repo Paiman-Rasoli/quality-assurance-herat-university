@@ -5,11 +5,17 @@ import { useEffect } from "react";
 import Paginate from "../teacher/paginate";
 import FilterDep from "./filteredDeps";
 
-const DepartmentTable = ({ departments, updateF, deleteF, setAddNewDep }) => {
+const DepartmentTable = ({
+  departments,
+  updateF,
+  deleteF,
+  setAddNewDep,
+  faculties,
+}) => {
   const [items, setItems] = useState(departments);
   const [itemOffset, setItemOffset] = useState(0);
   const [selectedFac, setSelectedFac] = useState(null);
-  const [filteredDeps, setFilteredDeps] = useState(departments);
+  const [filteredDeps, setFilteredDeps] = useState(null);
   useEffect(() => {
     setFilteredDeps(
       selectedFac
@@ -20,6 +26,8 @@ const DepartmentTable = ({ departments, updateF, deleteF, setAddNewDep }) => {
     );
     setItemOffset(0);
   }, [departments, selectedFac]);
+
+  if (!filteredDeps) <div>خطا در بارگیری</div>;
 
   return (
     <div>
@@ -34,6 +42,7 @@ const DepartmentTable = ({ departments, updateF, deleteF, setAddNewDep }) => {
           <FilterDep
             setSelectedFac={setSelectedFac}
             selectedFac={selectedFac}
+            faculties={faculties}
           />
         </div>
       </div>
@@ -51,7 +60,7 @@ const DepartmentTable = ({ departments, updateF, deleteF, setAddNewDep }) => {
           </tr>
         </thead>
         <tbody className="font-vazirBold text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
-          {items.map((item, ndx) => (
+          {items?.map((item, ndx) => (
             <tr
               key={ndx}
               className={`divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse ${

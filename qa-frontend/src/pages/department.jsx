@@ -1,18 +1,17 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
-import moment from "jalali-moment";
 
 import Loading from "../components/loading";
 import useFetch from "../hooks/useFetch";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import UpdateDepartment from "../components/department/updateDepartment";
 import DeleteModal from "../components/department/deleteModal";
 import Modal from "../components/modal";
 import AddDepartmentForm from "../components/department/addform";
 import { httpPostDepartment } from "../services/department";
 import DepartmentTable from "../components/department/table";
+import { FacultyContext } from "../context/facultyContext";
 
 const schema = yup.object({
   fa_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
@@ -22,20 +21,28 @@ const schema = yup.object({
 });
 
 const Department = () => {
+  const faculty = useContext(FacultyContext);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
   const [addNewDep, setAddNewDep] = useState(false);
   const [selectedDepartment, setSelectedDepartment] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const {
+  let {
     loading: laodingdata,
     data: departments,
     error,
     refetch,
   } = useFetch("department");
 
-  const { data: faculties } = useFetch("faculty");
+  let { data: faculties } = useFetch("faculty");
+  faculties = faculty
+    ? faculties?.filter((fc) => fc.id === faculty.id)
+    : faculties;
+
+  departments = faculty
+    ? departments?.filter((dep) => dep.faculty.id === faculty.id)
+    : departments;
 
   const {
     register,
@@ -132,6 +139,7 @@ const Department = () => {
           updateF={updateF}
           deleteF={deleteF}
           setAddNewDep={setAddNewDep}
+          faculties={faculties}
         />
       )}
     </section>

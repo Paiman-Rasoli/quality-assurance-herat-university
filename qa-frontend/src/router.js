@@ -1,7 +1,6 @@
-import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Layout from "./components/layout/layout";
+import { FacultyContext } from "./context/facultyContext";
 import LandingPage from "./pages";
 import Department from "./pages/department";
 import Dashboard from "./pages/dashboard";
@@ -12,11 +11,11 @@ import ProtectedRoutes from "./utils/protecteRoute";
 import Form from "./pages/form";
 import Users from "./pages/users";
 import Student from "./pages/student";
-import AddUser from "./components/users/add-user";
 import Teachers from "./pages/teachers";
 import Subject from "./pages/subject";
 import Question from "./pages/question";
-import { FacultyContext } from "./context/facultyContext";
+import Layout from "./components/layout/layout";
+import AddUser from "./components/users/add-user";
 
 function App() {
   return (
