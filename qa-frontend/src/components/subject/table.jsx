@@ -6,12 +6,12 @@ const SubjectTable = ({ setIsOpenModal, subjects, updateF, deleteF }) => {
   return (
     <div>
       {" "}
-      <div className="mb-10">
+      <div className="fixed left-0 bottom-0 mb-10 p-5 z-10 delay-200 duration-300 transition-all">
         <button
-          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          className="h-16 w-16 grid place-content-center shadow-black shadow-lg justify-center rounded-full border border-transparent bg-blue-200 p-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           onClick={() => setIsOpenModal(true)}
         >
-          اضافه کردن مضمون{" "}
+          مضمون جدید
         </button>
       </div>
       <div className="p-5 rounded-xl bg-gray-100">
@@ -22,38 +22,38 @@ const SubjectTable = ({ setIsOpenModal, subjects, updateF, deleteF }) => {
               <tr className="divide-x divide-x-reverse divide-gray-200">
                 <th
                   scope="col"
-                  className="py-3.5 pr-4 pl-4 text-right font-semibold text-gray-900 sm:pr-6"
+                  className="p-2 lg:p-4 text-right font-semibold text-gray-900 sm:pr-6"
                 >
                   شماره
                 </th>
                 <th
                   scope="col"
-                  className="px-4 py-3.5 text-right font-semibold text-gray-900"
+                  className="p-2 lg:p-4 text-right font-semibold text-gray-900"
                 >
-                  نام فارسی
+                  نام
                 </th>
                 <th
                   scope="col"
-                  className="px-4 py-3.5 text-right font-semibold text-gray-900"
+                  className="p-2 lg:p-4 text-right font-semibold text-gray-900"
                 >
                   فاکولته
                 </th>
                 <th
                   scope="col"
-                  className="px-4 py-3.5 text-right font-semibold text-gray-900"
+                  className="p-2 lg:p-4 text-right font-semibold text-gray-900"
                 >
                   دیپارتمنت
                 </th>
 
                 <th
                   scope="col"
-                  className="px-4 py-3.5 text-right font-semibold text-gray-900"
+                  className="p-2 lg:p-4 text-right font-semibold text-gray-900 hidden lg:block"
                 >
                   تاریخ ثبت
                 </th>
                 <th
                   scope="col"
-                  className="py-3.5 p-4 pr-4 text-right font-semibold text-gray-900 sm:pl-6"
+                  className="p-2 lg:p-4 text-right font-semibold text-gray-900 sm:pl-6"
                 >
                   ویرایش/حذف
                 </th>
@@ -68,17 +68,15 @@ const SubjectTable = ({ setIsOpenModal, subjects, updateF, deleteF }) => {
                   <td className="whitespace-nowrap p-2 lg:p-4  font-medium text-gray-900">
                     {ndx + 1}
                   </td>
-                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
-                    {item.name}
-                  </td>
-                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                  <td className="p-2 lg:p-4  text-gray-700">{item.name}</td>
+                  <td className="p-2 lg:p-4  text-gray-700">
                     {item.department.faculty.fa_name}
                   </td>
                   <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
                     {item.department.fa_name}
                   </td>
 
-                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700  hidden lg:block">
                     {moment(item.date, "YYYY/MM/DD")
                       .locale("fa")
                       .format("YYYY/MM/DD")}

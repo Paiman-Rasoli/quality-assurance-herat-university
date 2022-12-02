@@ -8,8 +8,8 @@ import Loading from "../loading";
 import FormBorder from "../form/formBorder";
 import { semester_type } from "../../services/list";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import InputDate from "../form/InputDate";
+import InputTime from "../form/InputTime";
+import { httpPostForm } from "../../services/evalution-form";
 
 const schema = yup.object({
   faculty: yup.string().required("لطفا فاکولته مورد نظرتان را انتخاب نمایید "),
@@ -17,14 +17,17 @@ const schema = yup.object({
     .string()
     .required("لطفا دیپارتمنت مورد نظرتان را انتخاب نمایید "),
   teacher: yup.string().required("لطفا استاد مورد نظرتان را انتخاب نمایید "),
-  semesterType: yup
+  subject: yup.string().required("لطفا مضمون مورد نظرتان را انتخاب نمایید "),
+  semester_type: yup
     .string()
     .required("لطفا نوعیت سمستر مورد نظرتان را انتخاب نمایید "),
-  semesterNumber: yup
+  semester: yup
     .number()
     .nullable()
     .required("لطفا سمستر مورد نظرتان را انتخاب نمایید ")
     .min(1),
+  start_date: yup.number().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
+  end_date: yup.number().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
 
 const AddFrom = ({ faculties }) => {
@@ -65,22 +68,20 @@ const AddFrom = ({ faculties }) => {
     resetField("teacher");
   }, [departments, resetField, selectedDepartment]);
 
-  function semesterNumbers(number) {
-    const arr = [];
-    for (let i = 1; i <= number; i++) {
-      arr.push(i);
-    }
-    return arr;
-  }
+  const onSubmit = async (data) => {
+    // setLoading(true);
+    console.log("form data", {
+      ...data,
+      start_date: new Date(data.start_date),
+      end_date: new Date(data.end_date),
+      year: new Date(data.start_date).getFullYear(),
+    });
 
-  const onSubmit = (data) => {
-    setLoading(true);
-    console.log(data);
-    setTimeout(() => {
-      reset();
-      navigate("./questions");
-      setLoading(false);
-    }, 2000);
+    const res = await httpPostForm({
+      ...data,
+      year: new Date(data.start_date).getFullYear(),
+    });
+    console.log("res-form", res, await res.json());
   };
 
   // console.log("faculties", faculties);
@@ -130,8 +131,21 @@ const AddFrom = ({ faculties }) => {
                   className={!departments && "disabled"}
                 />
               )}
+              {teachers && (
+                <Select
+                  name="teacher"
+                  Type={"string"}
+                  label={"استاد"}
+                  errors={errors}
+                  Controller={Controller}
+                  control={control}
+                  options={teachers?.map((teacher) => teacher.fa_name)}
+                  placeholder="استاد"
+                  className={!departments && "disabled"}
+                />
+              )}
               <Select
-                name="semesterType"
+                name="semester_type"
                 Type={"string"}
                 label={"نوعیت سمستر"}
                 errors={errors}
@@ -151,16 +165,27 @@ const AddFrom = ({ faculties }) => {
                 placeholder="سمستر"
                 className={!selectedFacultyName && "disabled"}
               />
-              <InputDate
+              <InputTime
                 register={register}
                 errors={errors}
-                label="تاریخ"
-                name="date"
+                label="تاریخ شروع"
+                name="start_date"
                 type="Date"
                 useForm={useForm}
                 Controller={Controller}
                 control={control}
-                defaultValue={new Date()}
+                defaultValue={Date.now}
+              />
+              <InputTime
+                register={register}
+                errors={errors}
+                label="تاریخ ختم"
+                name="end_date"
+                type="Date"
+                useForm={useForm}
+                Controller={Controller}
+                control={control}
+                defaultValue={Date.now() + 1000 * 60 * 60 * 24}
               />
             </>
           )}{" "}
@@ -180,3 +205,11 @@ const AddFrom = ({ faculties }) => {
 };
 
 export default AddFrom;
+
+function semesterNumbers(number) {
+  const arr = [];
+  for (let i = 1; i <= number; i++) {
+    arr.push(i);
+  }
+  return arr;
+}
