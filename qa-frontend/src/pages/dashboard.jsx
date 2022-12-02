@@ -2,7 +2,7 @@ import React from "react";
 import { Transition } from "@headlessui/react";
 import { Helmet } from "react-helmet";
 
-const Dashboard = () => {
+const Home = () => {
   return (
     <Transition
       show={true}
@@ -28,4 +28,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Home;
