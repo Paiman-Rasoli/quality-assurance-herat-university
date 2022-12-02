@@ -17,11 +17,11 @@ function Paginate({
   const endOffset = itemOffset + itemsPerPage;
   // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
 
-  const pageCount = Math.ceil(items.length / itemsPerPage);
+  const pageCount = Math.ceil(items?.length / itemsPerPage);
 
   useEffect(() => {
     // console.log("usecallback");
-    setItems(items.slice(itemOffset, endOffset));
+    setItems(items?.slice(itemOffset, endOffset));
   }, [endOffset, itemOffset, items, setItems]);
 
   // Invoke when user click to request another page.

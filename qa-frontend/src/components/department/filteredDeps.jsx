@@ -3,18 +3,16 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
-import useFetch from "../../hooks/useFetch";
-import Loading from "../loading";
 import Select from "../SelectForFilter";
 
 const schema = yup.object({
   facultyId: yup.number().nullable().required("لطفا این قسمت را تکمیل نمایید"),
 });
 
-const FilterDep = ({ selectedFac, setSelectedFac }) => {
+const FilterDep = ({ selectedFac, setSelectedFac, faculties }) => {
   const [cancelFilter, setCancelFilter] = useState(false);
 
-  const { data: faculties, loading, error } = useFetch("faculty");
+  // const { data: faculties, loading, error } = useFetch("faculty");
 
   const {
     control,
@@ -29,18 +27,9 @@ const FilterDep = ({ selectedFac, setSelectedFac }) => {
   useEffect(() => {
     reset({ departmentId: null, facultyId: null });
     setSelectedFac(null);
-  }, [cancelFilter]);
+  }, [cancelFilter, reset, setSelectedFac]);
 
-  if (loading) return <Loading />;
-
-  if (error)
-    return (
-      <div className="grid place-content-center">
-        somthing went wrong with connection to database
-      </div>
-    );
-
-  console.log("filterTeacher");
+  // console.log("filterTeacher");
 
   return (
     <div className="flex flex-wrap gap-5 w-full px-5">
@@ -51,7 +40,7 @@ const FilterDep = ({ selectedFac, setSelectedFac }) => {
           Controller={Controller}
           control={control}
           errors={errors}
-          options={faculties.map((faculty) => [faculty.fa_name, faculty.id])}
+          options={faculties?.map((faculty) => [faculty.fa_name, faculty.id])}
           placeholder="فاکولته"
           label=" فیلتر فاکولته"
           setSelected={setSelectedFac}
