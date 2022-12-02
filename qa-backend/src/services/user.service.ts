@@ -34,6 +34,7 @@ export class UserService {
       id: findUser.id,
       level: findUser.is_super_admin,
       username: findUser.userName,
+      faculty: findUser.faculty,
     });
     delete findUser.password;
     return res.status(200).json({ ...findUser, accessToken: token });

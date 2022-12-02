@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import jwtDecoder from "jwt-decode";
+
 const ProtectedRoutes = () => {
   const token = sessionStorage.getItem("token");
   const { user } = jwtDecoder(token);
