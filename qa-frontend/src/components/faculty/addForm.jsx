@@ -6,6 +6,7 @@ import { httpPostFaculties } from "../../services/faculty";
 import FormBorder from "../form/formBorder";
 import Input from "../form/input";
 import InputDate from "../form/InputDate";
+import { ToastMsg } from "../TaostMsg";
 
 const AddFacultyForm = ({ schema, setLoading, addNew, setAddNew, refetch }) => {
   const {
@@ -27,8 +28,10 @@ const AddFacultyForm = ({ schema, setLoading, addNew, setAddNew, refetch }) => {
     // console.log("resss", res);
     if (res) {
       res.ok
-        ? toast.success("فاکولته جدید ایجاد شد")
-        : toast.warning("لطفا از ایجاد فاکولته تکراری خودداری نمایید");
+        ? toast.success(<ToastMsg text={"فاکولته جدید ایجاد شد"} />)
+        : toast.warning(
+            <ToastMsg text={"لطفا از ایجاد فاکولته تکراری خودداری نمایید"} />
+          );
       refetch();
       setLoading(false);
       setAddNew(false);

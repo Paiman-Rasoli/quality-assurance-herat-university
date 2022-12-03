@@ -73,14 +73,21 @@ export default function DeleteModal({
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
-                  >
-                    {title}
-                  </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">{text}</p>
+                    <div className="flex items-center gap-10 text-sm text-gray-500">
+                      <div className="font-vazirBold">
+                        آیا مطمین هستید که میخواهید سوال{" "}
+                        <span className="text-cyan-400 font-vazirBlack text-lg">
+                          {question.id}
+                        </span>{" "}
+                        را حذف کنید
+                        <p>
+                          <span className="text-red-500 text-lg">هشدار: </span>
+                          تمام اطلاعات، فورم ها و گزاش های مربوطه نیز حذف خواهند
+                          شد
+                        </p>
+                      </div>
+                    </div>{" "}
                   </div>
 
                   <div className="mt-4 flex gap-3">

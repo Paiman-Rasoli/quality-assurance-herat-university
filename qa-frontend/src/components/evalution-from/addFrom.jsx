@@ -1,17 +1,19 @@
 import React, { useContext, useMemo, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
-
 import { yupResolver } from "@hookform/resolvers/yup";
+
+import useFetch from "../../hooks/useFetch";
+import SelectDep from "../evalution-from/Select";
 import Select from "../form/Select";
 import Loading from "../loading";
 import FormBorder from "../form/formBorder";
-import { semester_type } from "../../services/list";
-import { useNavigate } from "react-router-dom";
 import InputTime from "../form/InputTime";
+import { semester_type } from "../../services/list";
 import { httpPostForm } from "../../services/evalution-form";
-import useFetch from "../../hooks/useFetch";
 import { FacultyContext } from "../../context/facultyContext";
+import { toast } from "react-toastify";
+import { ToastMsg } from "../TaostMsg";
 
 const schema = yup.object({
   faculty: yup.string().required("لطفا فاکولته مورد نظرتان را انتخاب نمایید "),
@@ -32,8 +34,7 @@ const schema = yup.object({
   end_date: yup.number().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
 
-const AddFrom = ({ faculties }) => {
-  const faculty = useContext(FacultyContext);
+const AddFrom = ({ faculties, refetch, setAddNew }) => {
   const [loading, setLoading] = useState(false);
   const [selectedFacultyName, setSelectedFacultyName] = useState(null);
   const [departments, setDepartments] = useState(null);
@@ -53,7 +54,7 @@ const AddFrom = ({ faculties }) => {
 
   useMemo(() => {
     const deps = faculties?.filter(
-      (fc) => fc.fa_name === selectedFacultyName
+      (fc) => fc.id === selectedFacultyName?.[1]
     )[0]?.departments;
     // console.log("👴👴", deps);
     setDepartments(deps);
@@ -64,7 +65,7 @@ const AddFrom = ({ faculties }) => {
   useMemo(() => {
     // console.log("selected dep ", selectedDepartment, departments);
     const teachers = departments?.filter(
-      (dep) => dep.fa_name === selectedDepartment
+      (dep) => dep.id === selectedDepartment?.[1]
     )[0]?.teachers;
     // console.log("🤶🤶", teachers);
     setTeachers(teachers);
@@ -73,40 +74,46 @@ const AddFrom = ({ faculties }) => {
   }, [departments, resetField, selectedDepartment]);
 
   subjects = selectedDepartment
-    ? subjects?.filter((subj) => subj.department.fa_name === selectedDepartment)
+    ? subjects?.filter((subj) => subj.department.id === selectedDepartment?.[1])
     : subjects;
 
   const onSubmit = async (data) => {
-    // setLoading(true);
-    console.log("form data", {
+    setLoading(true);
+    const res = await httpPostForm({
       ...data,
       start_date: new Date(data.start_date),
       end_date: new Date(data.end_date),
       year: new Date(data.start_date).getFullYear(),
     });
-
-    const res = await httpPostForm({
-      ...data,
-      year: new Date(data.start_date).getFullYear(),
-    });
     console.log("res-form", res, await res.json());
+    if (res) {
+      res.ok
+        ? toast.success(<ToastMsg text={"فورم جدید ایجاد شد"} />)
+        : toast.warning(<ToastMsg text={"فورم ایجاد نشد"} />);
+      refetch();
+      setLoading(false);
+      setAddNew(false);
+    }
   };
-
-  // console.log("faculties", faculties);
 
   return (
     <div>
-      {" "}
+      <button
+        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 group"
+        onClick={() => setAddNew(false)}
+      >
+        <span>بازگشت</span>
+      </button>
       <FormBorder label={"ایجاد فورم ارزیابی اصلاح تدریس"}>
         <form onSubmit={handleSubmit(onSubmit)} className="grid w-full gap-3">
-          <Select
+          <SelectDep
             name="faculty"
             Type={"string"}
             label={"فاکولته"}
             Controller={Controller}
             control={control}
             errors={errors}
-            options={faculties?.map((item) => item.fa_name)}
+            options={faculties?.map((fc) => [fc.fa_name, fc.id])}
             placeholder="فاکولته"
             setSelectedOptions={setSelectedFacultyName}
             reset={reset}
@@ -114,43 +121,49 @@ const AddFrom = ({ faculties }) => {
           {departments && (
             <>
               {" "}
-              <Select
+              <SelectDep
                 name="department"
                 Type={"string"}
                 label={"دیپارتمنت"}
                 errors={errors}
                 Controller={Controller}
                 control={control}
-                options={departments?.map((dep) => dep.fa_name)}
+                options={departments?.map((dep) => [dep.fa_name, dep.id])}
                 placeholder="دیپارتمنت"
                 className={!selectedFacultyName && "disabled"}
                 setSelectedOptions={setSelectedDepartment}
               />
               {teachers && (
-                <Select
-                  name="teacher"
-                  Type={"string"}
-                  label={"استاد"}
-                  errors={errors}
-                  Controller={Controller}
-                  control={control}
-                  options={teachers?.map((teacher) => teacher.fa_name)}
-                  placeholder="استاد"
-                  className={!departments && "disabled"}
-                />
-              )}
-              {teachers && (
-                <Select
-                  name="subject"
-                  Type="string"
-                  label="مضمون"
-                  errors={errors}
-                  Controller={Controller}
-                  control={control}
-                  options={subjects?.map((subject) => subject.name)}
-                  placeholder="مضمون"
-                  className={!departments && "disabled"}
-                />
+                <>
+                  <SelectDep
+                    name="teacher"
+                    Type={"string"}
+                    label={"استاد"}
+                    errors={errors}
+                    Controller={Controller}
+                    control={control}
+                    options={teachers?.map((teacher) => [
+                      teacher.fa_name,
+                      teacher.id,
+                    ])}
+                    placeholder="استاد"
+                    className={!departments && "disabled"}
+                  />
+                  <SelectDep
+                    name="subject"
+                    Type="string"
+                    label="مضمون"
+                    errors={errors}
+                    Controller={Controller}
+                    control={control}
+                    options={subjects?.map((subject) => [
+                      subject.name,
+                      subject.id,
+                    ])}
+                    placeholder="مضمون"
+                    className={!departments && "disabled"}
+                  />
+                </>
               )}
               <Select
                 name="semester_type"

@@ -90,15 +90,6 @@ const Subject = () => {
         setIsOpen={setIsOpenDeleteModal}
         title={"حذف مضمون"}
         refetch={refetch}
-        text={
-          <span className="font-vazirBold">
-            آیا مطمین هستید که میخواهید مضمون{" "}
-            <span className="text-red-400 font-vazirBlack text-lg">
-              {selectedSubject.name}
-            </span>{" "}
-            را حذف کنید
-          </span>
-        }
         confirmText={"تایید"}
         denyText={"لغو"}
         subject={selectedSubject}

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
@@ -6,22 +6,33 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const SelectInput = ({
-  Type,
+const SelectDep = ({
   name,
+  Type,
   Controller,
   control,
   options,
   placeholder,
   errors,
+  setSelectedOptions,
   className,
   defaultValue,
+  resetField,
+  label,
 }) => {
+  // console.log("def", defaultValue, "type", Type);
   const [selectedItem, setSelectedItem] = useState([
     defaultValue?.[0] || placeholder,
     0,
   ]);
-  // console.log("select", defaultValue, selectedItem, setSelectedOptions);
+
+  useMemo(() => {
+    setSelectedOptions && setSelectedOptions(selectedItem);
+    if (name === "facultyId") {
+      resetField("departmentId");
+    }
+  }, [name, resetField, selectedItem, setSelectedOptions]);
+
   return (
     <Controller
       control={control}
@@ -32,23 +43,23 @@ const SelectInput = ({
       render={({ field: { onChange } }) => (
         <Listbox
           onChange={(e) => {
+            // console.log(e, "onchange");
             onChange(e[1]);
-            // console.log(e[1]);
             setSelectedItem(e);
           }}
           as={"div"}
           value={defaultValue || selectedItem}
-          className="relative grid md:grid-cols-2 grid-cols-1 items-center z-20"
+          className="relative grid items-center md:grid-cols-2 grid-cols-1"
           disabled={className}
         >
           {({ open }) => (
             <>
               <Listbox.Label className="block text-sm font-medium">
-                {placeholder}
+                {label}
               </Listbox.Label>
               <div className="relative mt-1">
                 <Listbox.Button
-                  className="relative w-full cursor-default rounded-md border border-[#1E408E] bg-white py-2 pl-3 pr-10 text-right shadow-sm focus:border-[#1E408E] focus:outline-none focus:ring-1 focus:ring-[#1E408E] sm:text-sm disabled:text-gray-300"
+                  className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-right shadow-sm focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500 sm:text-sm disabled:text-gray-300"
                   disabled={className}
                 >
                   <span className="block truncate">{selectedItem[0]}</span>
@@ -124,4 +135,4 @@ const SelectInput = ({
   );
 };
 
-export default SelectInput;
+export default SelectDep;

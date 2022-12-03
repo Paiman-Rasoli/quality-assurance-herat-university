@@ -43,21 +43,26 @@ export class EvaluationFormEntity {
 
   @ManyToOne(() => TeacherEntity, {
     nullable: false,
+    onDelete: "CASCADE",
   })
   @JoinColumn()
   teacher: TeacherEntity;
 
   @ManyToOne(() => SubjectEntity, {
     nullable: false,
+    onDelete: "CASCADE",
   })
   @JoinColumn()
   subject: SubjectEntity;
 
-  @OneToMany(() => AnswerEntity, (answer) => answer.evaluationForm)
+  @OneToMany(() => AnswerEntity, (answer) => answer.evaluationForm, {
+    onDelete: "CASCADE",
+  })
   answers: AnswerEntity[];
 
   @ManyToOne(() => DepartmentEntity, {
     nullable: false,
+    onDelete: "CASCADE",
   })
   @JoinColumn()
   department: DepartmentEntity;

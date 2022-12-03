@@ -12,6 +12,8 @@ export class EvaluationForm {
     //TODO: add form ....
     const formModel = getMyRepository(EvaluationFormEntity);
     const bodyData = req.body as formInputDto;
+    console.log(bodyData, "body");
+
     try {
       const save = await formModel.upsert(bodyData, ["id"]);
       return res.status(200).json({ formId: save.identifiers[0]?.id });
@@ -46,6 +48,24 @@ export class EvaluationForm {
     if (find.end_date < new Date()) {
       return res.status(401).json({ msg: "This form has been expired." });
     }
+    return res.status(200).json(find);
+  }
+
+  async findAll(req: Request, res: Response) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const formModel = getMyRepository(EvaluationFormEntity);
+    const find = await formModel.find({
+      relations: ["teacher", "subject", "department", "department.faculty"],
+    });
+    if (!find) {
+      return res.status(404).json({ msg: "Not found any Evaluation form " });
+    }
+    //* check expiration date
+    console.log(new Date(), "Form =>", find);
+
     return res.status(200).json(find);
   }
 }
