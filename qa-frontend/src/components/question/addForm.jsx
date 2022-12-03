@@ -41,8 +41,8 @@ const AddQuestionForm = ({
   }, [addNew, reset]);
 
   return (
-    <article className="w-full">
-      <FormBorder label={"ایجاد مضمون"}>
+    <article className="">
+      <FormBorder label={"اضافه کردن سوال"}>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="grid min-w-full gap-3"

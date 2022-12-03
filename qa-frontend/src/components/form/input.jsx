@@ -10,7 +10,7 @@ const Input = ({
   ...props
 }) => {
   return (
-    <div className="grid md:grid-cols-2 grid-cols-1 items-center">
+    <div className="grid md:grid-cols-2 grid-cols-1 items-center ">
       <label htmlFor={name}>{label}</label>
       <div className="w-full">
         <input

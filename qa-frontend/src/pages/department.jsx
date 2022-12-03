@@ -8,7 +8,7 @@ import useFetch from "../hooks/useFetch";
 import UpdateDepartment from "../components/department/updateDepartment";
 import DeleteModal from "../components/department/deleteModal";
 import Modal from "../components/modal";
-import AddDepartmentForm from "../components/department/addform";
+import AddDepartmentForm from "../components/department/addForm";
 import { httpPostDepartment } from "../services/department";
 import DepartmentTable from "../components/department/table";
 import { FacultyContext } from "../context/facultyContext";
