@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 
@@ -10,6 +10,8 @@ import { semester_type } from "../../services/list";
 import { useNavigate } from "react-router-dom";
 import InputTime from "../form/InputTime";
 import { httpPostForm } from "../../services/evalution-form";
+import useFetch from "../../hooks/useFetch";
+import { FacultyContext } from "../../context/facultyContext";
 
 const schema = yup.object({
   faculty: yup.string().required("لطفا فاکولته مورد نظرتان را انتخاب نمایید "),
@@ -31,13 +33,14 @@ const schema = yup.object({
 });
 
 const AddFrom = ({ faculties }) => {
+  const faculty = useContext(FacultyContext);
   const [loading, setLoading] = useState(false);
   const [selectedFacultyName, setSelectedFacultyName] = useState(null);
   const [departments, setDepartments] = useState(null);
   const [selectedDepartment, setSelectedDepartment] = useState(null);
-  const [teachers, setTeachers] = useState("");
+  const [teachers, setTeachers] = useState(null);
 
-  const navigate = useNavigate();
+  let { data: subjects } = useFetch("subject");
 
   const {
     register,
@@ -66,7 +69,12 @@ const AddFrom = ({ faculties }) => {
     // console.log("🤶🤶", teachers);
     setTeachers(teachers);
     resetField("teacher");
+    resetField("subject");
   }, [departments, resetField, selectedDepartment]);
+
+  subjects = selectedDepartment
+    ? subjects?.filter((subj) => subj.department.fa_name === selectedDepartment)
+    : subjects;
 
   const onSubmit = async (data) => {
     // setLoading(true);
@@ -133,14 +141,14 @@ const AddFrom = ({ faculties }) => {
               )}
               {teachers && (
                 <Select
-                  name="teacher"
-                  Type={"string"}
-                  label={"استاد"}
+                  name="subject"
+                  Type="string"
+                  label="مضمون"
                   errors={errors}
                   Controller={Controller}
                   control={control}
-                  options={teachers?.map((teacher) => teacher.fa_name)}
-                  placeholder="استاد"
+                  options={subjects?.map((subject) => subject.name)}
+                  placeholder="مضمون"
                   className={!departments && "disabled"}
                 />
               )}
@@ -155,7 +163,7 @@ const AddFrom = ({ faculties }) => {
                 placeholder="نوعیت سمستر"
               />
               <Select
-                name="semesterNumber"
+                name="semester"
                 Type={"number"}
                 label="سمستر"
                 errors={errors}

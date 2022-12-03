@@ -20,7 +20,7 @@ const Select = ({
   className,
   reset,
 }) => {
-  console.log("opt", options);
+  // console.log("opt", options);
   const [selectedItem, setSelectedItem] = useState(placeholder);
 
   useEffect(() => {
