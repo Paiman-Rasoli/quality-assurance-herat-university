@@ -49,7 +49,7 @@ const Faculty = () => {
     );
 
   return (
-    <section className="font-vazirBold p-10 w-full">
+    <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
       <FacultyTable
         setIsOpenModal={setIsOpenModal}
         faculties={faculties}
