@@ -1,16 +1,16 @@
 import React, { useContext, useMemo, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
-
 import { yupResolver } from "@hookform/resolvers/yup";
+
+import useFetch from "../../hooks/useFetch";
+import SelectDep from "../evalution-from/Select";
 import Select from "../form/Select";
 import Loading from "../loading";
 import FormBorder from "../form/formBorder";
-import { semester_type } from "../../services/list";
-import { useNavigate } from "react-router-dom";
 import InputTime from "../form/InputTime";
+import { semester_type } from "../../services/list";
 import { httpPostForm } from "../../services/evalution-form";
-import useFetch from "../../hooks/useFetch";
 import { FacultyContext } from "../../context/facultyContext";
 
 const schema = yup.object({
@@ -53,7 +53,7 @@ const AddFrom = ({ faculties }) => {
 
   useMemo(() => {
     const deps = faculties?.filter(
-      (fc) => fc.fa_name === selectedFacultyName
+      (fc) => fc.id === selectedFacultyName?.[1]
     )[0]?.departments;
     // console.log("👴👴", deps);
     setDepartments(deps);
@@ -64,7 +64,7 @@ const AddFrom = ({ faculties }) => {
   useMemo(() => {
     // console.log("selected dep ", selectedDepartment, departments);
     const teachers = departments?.filter(
-      (dep) => dep.fa_name === selectedDepartment
+      (dep) => dep.id === selectedDepartment?.[1]
     )[0]?.teachers;
     // console.log("🤶🤶", teachers);
     setTeachers(teachers);
@@ -73,7 +73,7 @@ const AddFrom = ({ faculties }) => {
   }, [departments, resetField, selectedDepartment]);
 
   subjects = selectedDepartment
-    ? subjects?.filter((subj) => subj.department.fa_name === selectedDepartment)
+    ? subjects?.filter((subj) => subj.department.id === selectedDepartment?.[1])
     : subjects;
 
   const onSubmit = async (data) => {
@@ -87,26 +87,35 @@ const AddFrom = ({ faculties }) => {
 
     const res = await httpPostForm({
       ...data,
+      start_date: new Date(data.start_date),
+      end_date: new Date(data.end_date),
       year: new Date(data.start_date).getFullYear(),
     });
     console.log("res-form", res, await res.json());
   };
 
-  // console.log("faculties", faculties);
+  console.log("selected-fac", selectedFacultyName);
 
   return (
     <div>
       {" "}
       <FormBorder label={"ایجاد فورم ارزیابی اصلاح تدریس"}>
         <form onSubmit={handleSubmit(onSubmit)} className="grid w-full gap-3">
-          <Select
+          <SelectDep
+            //  name="facultyId"
+            //  Type={"number"}
+            //  Controller={Controller}
+            //  control={control}
+            //  errors={errors}
+            //  options={faculties?.map((item) => [item.fa_name, item.id])}
+            //  placeholder="فاکولته"
             name="faculty"
             Type={"string"}
             label={"فاکولته"}
             Controller={Controller}
             control={control}
             errors={errors}
-            options={faculties?.map((item) => item.fa_name)}
+            options={faculties?.map((fc) => [fc.fa_name, fc.id])}
             placeholder="فاکولته"
             setSelectedOptions={setSelectedFacultyName}
             reset={reset}
@@ -114,43 +123,49 @@ const AddFrom = ({ faculties }) => {
           {departments && (
             <>
               {" "}
-              <Select
+              <SelectDep
                 name="department"
                 Type={"string"}
                 label={"دیپارتمنت"}
                 errors={errors}
                 Controller={Controller}
                 control={control}
-                options={departments?.map((dep) => dep.fa_name)}
+                options={departments?.map((dep) => [dep.fa_name, dep.id])}
                 placeholder="دیپارتمنت"
                 className={!selectedFacultyName && "disabled"}
                 setSelectedOptions={setSelectedDepartment}
               />
               {teachers && (
-                <Select
-                  name="teacher"
-                  Type={"string"}
-                  label={"استاد"}
-                  errors={errors}
-                  Controller={Controller}
-                  control={control}
-                  options={teachers?.map((teacher) => teacher.fa_name)}
-                  placeholder="استاد"
-                  className={!departments && "disabled"}
-                />
-              )}
-              {teachers && (
-                <Select
-                  name="subject"
-                  Type="string"
-                  label="مضمون"
-                  errors={errors}
-                  Controller={Controller}
-                  control={control}
-                  options={subjects?.map((subject) => subject.name)}
-                  placeholder="مضمون"
-                  className={!departments && "disabled"}
-                />
+                <>
+                  <SelectDep
+                    name="teacher"
+                    Type={"string"}
+                    label={"استاد"}
+                    errors={errors}
+                    Controller={Controller}
+                    control={control}
+                    options={teachers?.map((teacher) => [
+                      teacher.fa_name,
+                      teacher.id,
+                    ])}
+                    placeholder="استاد"
+                    className={!departments && "disabled"}
+                  />
+                  <SelectDep
+                    name="subject"
+                    Type="string"
+                    label="مضمون"
+                    errors={errors}
+                    Controller={Controller}
+                    control={control}
+                    options={subjects?.map((subject) => [
+                      subject.name,
+                      subject.id,
+                    ])}
+                    placeholder="مضمون"
+                    className={!departments && "disabled"}
+                  />
+                </>
               )}
               <Select
                 name="semester_type"

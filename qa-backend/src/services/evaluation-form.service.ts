@@ -12,6 +12,8 @@ export class EvaluationForm {
     //TODO: add form ....
     const formModel = getMyRepository(EvaluationFormEntity);
     const bodyData = req.body as formInputDto;
+    console.log(bodyData, "body");
+
     try {
       const save = await formModel.upsert(bodyData, ["id"]);
       return res.status(200).json({ formId: save.identifiers[0]?.id });
