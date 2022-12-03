@@ -33,7 +33,7 @@ const AddTeacherForm = ({
         {/* <XMarkIcon className="text-gray-500 group-hover:text-black h-4 w-4" /> */}
         <span>بازگشت</span>
       </button>
-      <FormBorder label={"اضافه کردن استاد"}>
+      <FormBorder label={"اضافه کردن استاد"} className="lg:mx-40">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="grid min-w-full gap-3"
