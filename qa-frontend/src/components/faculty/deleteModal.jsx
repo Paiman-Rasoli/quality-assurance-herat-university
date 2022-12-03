@@ -79,7 +79,20 @@ export default function DeleteModal({
                     {title}
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">{text}</p>
+                    <div className="flex items-center gap-10 text-sm text-gray-500">
+                      <div className="font-vazirBold">
+                        آیا مطمین هستید که میخواهید فاکولته{" "}
+                        <span className="text-cyan-400 font-vazirBlack text-lg">
+                          {faculty.fa_name}
+                        </span>{" "}
+                        را حذف کنید
+                        <p>
+                          <span className="text-red-500 text-lg">هشدار: </span>
+                          تمام اطلاعات،دیپارتمنت ها، اساتید ،فورم ها و گزاش های
+                          مربوطه نیز حذف خواهند شد
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="mt-4 flex gap-3">

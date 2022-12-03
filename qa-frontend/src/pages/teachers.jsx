@@ -110,13 +110,6 @@ const Teachers = () => {
         setIsOpenTeacherModal={setIsOpenTeacherModal}
         title={"حذف استاد"}
         refetch={refetch}
-        text={
-          <span className="font-vazirBold">
-            آیا مطمین هستید که میخواهید استاد{" "}
-            <span className="text-red-400">{selectedTeacher.fa_name}</span> را
-            حذف کنید
-          </span>
-        }
         confirmText={"تایید"}
         denyText={"لغو"}
         teacher={selectedTeacher}

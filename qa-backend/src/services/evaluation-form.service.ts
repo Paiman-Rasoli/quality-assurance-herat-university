@@ -50,6 +50,24 @@ export class EvaluationForm {
     }
     return res.status(200).json(find);
   }
+
+  async findAll(req: Request, res: Response) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const formModel = getMyRepository(EvaluationFormEntity);
+    const find = await formModel.find({
+      relations: ["teacher", "subject", "department", "department.faculty"],
+    });
+    if (!find) {
+      return res.status(404).json({ msg: "Not found any Evaluation form " });
+    }
+    //* check expiration date
+    console.log(new Date(), "Form =>", find);
+
+    return res.status(200).json(find);
+  }
 }
 
 interface formInputDto {

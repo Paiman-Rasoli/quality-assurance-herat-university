@@ -28,4 +28,6 @@ routes.get(
   evaluationForm.find
 );
 
+routes.get("/", [authGuard], evaluationForm.findAll);
+
 export { routes };

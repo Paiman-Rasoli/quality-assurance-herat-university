@@ -71,19 +71,6 @@ const Faculty = () => {
         setIsOpen={setIsOpenDeleteModal}
         title={"حذف فاکولته"}
         refetch={refetch}
-        text={
-          <span className="font-vazirBold">
-            آیا مطمین هستید که میخواهید فاکولته{" "}
-            <span className="text-red-400 font-vazirBlack text-lg">
-              {selectedFaculty.fa_name}
-            </span>{" "}
-            را حذف کنید
-            <div>
-              <span className="text-red-500 text-lg">هشدار: </span>
-              تمام دیپارتمنت ها و اساتید مربوطه نیز حذف خواهند شد
-            </div>
-          </span>
-        }
         confirmText={"تایید"}
         denyText={"لغو"}
         faculty={selectedFaculty}

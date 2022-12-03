@@ -92,13 +92,6 @@ const Department = () => {
         setIsOpen={setIsOpenDeleteModal}
         title={"حذف دیپارتمنت"}
         refetch={refetch}
-        text={
-          <span className="font-vazirBold">
-            آیا مطمین هستید که میخواهید دیپارتمنت{" "}
-            <span className="text-red-400">{selectedDepartment.fa_name}</span>{" "}
-            را حذف کنید
-          </span>
-        }
         confirmText={"تایید"}
         denyText={"لغو"}
         department={selectedDepartment}

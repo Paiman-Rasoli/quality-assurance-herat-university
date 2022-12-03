@@ -12,6 +12,8 @@ import InputTime from "../form/InputTime";
 import { semester_type } from "../../services/list";
 import { httpPostForm } from "../../services/evalution-form";
 import { FacultyContext } from "../../context/facultyContext";
+import { toast } from "react-toastify";
+import { ToastMsg } from "../TaostMsg";
 
 const schema = yup.object({
   faculty: yup.string().required("لطفا فاکولته مورد نظرتان را انتخاب نمایید "),
@@ -32,8 +34,7 @@ const schema = yup.object({
   end_date: yup.number().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
 
-const AddFrom = ({ faculties }) => {
-  const faculty = useContext(FacultyContext);
+const AddFrom = ({ faculties, refetch, setAddNew }) => {
   const [loading, setLoading] = useState(false);
   const [selectedFacultyName, setSelectedFacultyName] = useState(null);
   const [departments, setDepartments] = useState(null);
@@ -77,14 +78,7 @@ const AddFrom = ({ faculties }) => {
     : subjects;
 
   const onSubmit = async (data) => {
-    // setLoading(true);
-    console.log("form data", {
-      ...data,
-      start_date: new Date(data.start_date),
-      end_date: new Date(data.end_date),
-      year: new Date(data.start_date).getFullYear(),
-    });
-
+    setLoading(true);
     const res = await httpPostForm({
       ...data,
       start_date: new Date(data.start_date),
@@ -92,23 +86,27 @@ const AddFrom = ({ faculties }) => {
       year: new Date(data.start_date).getFullYear(),
     });
     console.log("res-form", res, await res.json());
+    if (res) {
+      res.ok
+        ? toast.success(<ToastMsg text={"فورم جدید ایجاد شد"} />)
+        : toast.warning(<ToastMsg text={"فورم ایجاد نشد"} />);
+      refetch();
+      setLoading(false);
+      setAddNew(false);
+    }
   };
-
-  console.log("selected-fac", selectedFacultyName);
 
   return (
     <div>
-      {" "}
+      <button
+        className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 group"
+        onClick={() => setAddNew(false)}
+      >
+        <span>بازگشت</span>
+      </button>
       <FormBorder label={"ایجاد فورم ارزیابی اصلاح تدریس"}>
         <form onSubmit={handleSubmit(onSubmit)} className="grid w-full gap-3">
           <SelectDep
-            //  name="facultyId"
-            //  Type={"number"}
-            //  Controller={Controller}
-            //  control={control}
-            //  errors={errors}
-            //  options={faculties?.map((item) => [item.fa_name, item.id])}
-            //  placeholder="فاکولته"
             name="faculty"
             Type={"string"}
             label={"فاکولته"}
