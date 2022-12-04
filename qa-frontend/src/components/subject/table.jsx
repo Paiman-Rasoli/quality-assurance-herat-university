@@ -30,6 +30,12 @@ const SubjectTable = ({ setIsOpenModal, subjects, updateF, deleteF }) => {
                   scope="col"
                   className="p-2 lg:p-4 text-right font-semibold text-gray-900"
                 >
+                  آیدی
+                </th>
+                <th
+                  scope="col"
+                  className="p-2 lg:p-4 text-right font-semibold text-gray-900"
+                >
                   نام
                 </th>
                 <th
@@ -68,6 +74,7 @@ const SubjectTable = ({ setIsOpenModal, subjects, updateF, deleteF }) => {
                   <td className="whitespace-nowrap p-2 lg:p-4  font-medium text-gray-900">
                     {ndx + 1}
                   </td>
+                  <td className="p-2 lg:p-4  text-gray-700">{item.id}</td>
                   <td className="p-2 lg:p-4  text-gray-700">{item.name}</td>
                   <td className="p-2 lg:p-4  text-gray-700">
                     {item.department.faculty.fa_name}

@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { toast } from "react-toastify";
 import { deleteDepartment } from "../../services/department";
+import { ToastMsg } from "../TaostMsg";
 
 export default function DeleteModal({
   isOpen,
@@ -21,10 +22,10 @@ export default function DeleteModal({
     console.log("id depart", department);
     const result = await deleteDepartment({ id: data.id });
     if (result.ok) {
-      toast.success(department.fa_name + " موفقانه حذف شد");
+      toast.success(<ToastMsg text={department.fa_name + " موفقانه حذف شد"} />);
       refetch();
     } else {
-      toast.warning("متاسفانه تغییرات اعمال نشد");
+      toast.warning(<ToastMsg text={"متاسفانه تغییرات اعمال نشد"} />);
       console.log(result.statusText);
     }
     closeModal();

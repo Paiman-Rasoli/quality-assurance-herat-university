@@ -1,27 +1,31 @@
 import { toast } from "react-toastify";
+import { ToastMsg } from "../components/TaostMsg";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 export async function httpPostTeacher(data) {
-  console.log("date", data);
+  try {
+    const response = await fetch(`${API_URL}/teacher`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(data),
+    });
 
-  const response = await fetch(`${API_URL}/teacher`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-    },
-    body: JSON.stringify(data),
-  });
-
-  return await response.json();
+    return await response.json();
+  } catch (error) {
+    console.log("create teacher error", error);
+    toast.error(<ToastMsg text={"لطفا ارتباط با سرور را چک نمایید"} />);
+  }
 }
 
-export const deleteTeacher = async function (id) {
+export const httpPutTeacher = async function (id) {
   let response;
   try {
     response = await fetch(`${API_URL}/teacher`, {
-      method: "DELETE",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -37,11 +41,11 @@ export const deleteTeacher = async function (id) {
   return response;
 };
 
-export const httpPutTeacher = async function (id) {
+export const deleteTeacher = async function (id) {
   let response;
   try {
     response = await fetch(`${API_URL}/teacher`, {
-      method: "PUT",
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,

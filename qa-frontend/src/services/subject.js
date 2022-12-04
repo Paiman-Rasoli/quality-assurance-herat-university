@@ -1,36 +1,42 @@
 import { toast } from "react-toastify";
-// import { API_URL } from "./requests";
+import { ToastMsg } from "../components/TaostMsg";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-// Load faculties and return as JSON.
 export async function httpPostSubject(data) {
-  const response = await fetch(`${API_URL}/subject`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-    },
-    body: JSON.stringify(data),
-  });
+  try {
+    const response = await fetch(`${API_URL}/subject`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(data),
+    });
 
-  return await response.json();
+    return await response.json();
+  } catch (error) {
+    console.log("create subject error", error);
+    toast.error(<ToastMsg text={"لطفا ارتباط با سرور را چک نمایید"} />);
+  }
 }
 
-// Load faculties and return as JSON.
 export async function httpPutSubject(data) {
   console.log("dfata😀😀", data);
-
-  const response = await fetch(`${API_URL}/subject`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-    },
-    body: JSON.stringify(data),
-  });
-
-  return await response.json();
+  try {
+    const response = await fetch(`${API_URL}/subject`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  } catch (error) {
+    console.log("update subject error", error);
+    toast.error(<ToastMsg text={"لطفا ارتباط با سرور را چک نمایید"} />);
+  }
 }
 
 export const deleteSubject = async function (id) {

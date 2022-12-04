@@ -45,6 +45,12 @@ const EvaluationFromTable = ({ setIsOpenModal, forms, deleteF, updateF }) => {
                 </th>
                 <th
                   scope="col"
+                  className="p-2 lg:p-4 text-right font-semibold text-gray-900"
+                >
+                  آی دی مضمون
+                </th>
+                <th
+                  scope="col"
                   className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
                 >
                   تاریخ شروع
@@ -77,6 +83,9 @@ const EvaluationFromTable = ({ setIsOpenModal, forms, deleteF, updateF }) => {
                   </td>
                   <td className="whitespace-nowrapp-2 p-2 lg:p-4  text-gray-700">
                     {item.teacher.id}
+                  </td>
+                  <td className="whitespace-nowrapp-2 p-2 lg:p-4  text-gray-700">
+                    {item.subject.id}
                   </td>
                   <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
                     {moment(item.start_date, "YYYY/MM/DD h:mm")

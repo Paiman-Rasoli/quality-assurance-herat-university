@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { toast } from "react-toastify";
 import { deleteFaculty } from "../../services/faculty";
+import { ToastMsg } from "../TaostMsg";
 
 export default function DeleteModal({
   isOpen,
@@ -20,27 +21,17 @@ export default function DeleteModal({
   async function confirmDelete(data) {
     const result = await deleteFaculty({ id: data.id });
     if (result.ok) {
-      toast.success(faculty.fa_name + " موفقانه حذف شد");
+      toast.success(<ToastMsg text={faculty.fa_name + " موفقانه حذف شد"} />);
       refetch();
     } else {
-      toast.warning("متاسفانه تغییرات اعمال نشد");
-      console.log(result.statusText);
+      toast.warning(<ToastMsg text={"متاسفانه تغییرات اعمال نشد"} />);
+      // console.log(result.statusText);
     }
     closeModal();
   }
 
   return (
     <>
-      {/* <div className="fixed inset-0 flex items-center justify-center">
-        <button
-          type="button"
-          onClick={openModal}
-          className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
-        >
-          Open dialog
-        </button>
-      </div> */}
-
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
