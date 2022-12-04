@@ -6,46 +6,55 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 // Load current form and return as JSON.
 export async function httpPostForm(data) {
-  const response = await fetch(`${API_URL}/form/add`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-    },
-    body: JSON.stringify(data),
-  });
+  try {
+    const response = await fetch(`${API_URL}/form/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(data),
+    });
 
-  return response;
+    return response;
+  } catch (error) {
+    console.log("creat form error", error);
+    toast.error(<ToastMsg text={"لطفا ارتباط با سرور را چک نمایید"} />);
+  }
 }
 
 // Load faculties and return as JSON.
-export async function httpPutFaculties(data) {
-  const response = await fetch(`${API_URL}/faculty`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-    },
-    body: JSON.stringify(data),
-  });
+export async function httpPutForm(data) {
+  try {
+    const response = await fetch(`${API_URL}/form`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(data),
+    });
 
-  return await response.json();
+    return response;
+  } catch (error) {
+    console.log("update form error", error);
+    toast.error(<ToastMsg text={"لطفا ارتباط با سرور را چک نمایید"} />);
+  }
 }
 
-export const deleteFaculty = async function (id) {
+export const deleteForm = async function (id) {
   let response;
   try {
-    response = await fetch(`${API_URL}/faculty`, {
+    response = await fetch(`${API_URL}/form?id=${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
-      body: JSON.stringify(id),
     });
     console.log("delete", response);
   } catch (error) {
-    console.log("login error", error);
+    console.log("delete form error", error);
     toast.error(<ToastMsg text={"لطفا ارتباط با سرور را چک نمایید"} />);
   }
 

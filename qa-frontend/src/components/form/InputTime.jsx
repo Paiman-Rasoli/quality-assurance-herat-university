@@ -19,14 +19,14 @@ const InputTime = ({
       <Controller
         control={control}
         name={name}
-        defaultValue={defaultValue}
+        defaultValue={new Date(defaultValue).getTime()}
         rules={{ required: true }}
         render={({ field: { onChange, name, value } }) => (
           <div className="grid">
             <DatePicker
-              value={value || ""}
+              value={new Date(value).getTime() || undefined}
               onChange={(date) => {
-                onChange(date);
+                onChange(new Date(date).getTime());
               }}
               format={"hh:mm a YYYY/MM/DD"}
               plugins={[<TimePicker position="bottom" hideSeconds />]}

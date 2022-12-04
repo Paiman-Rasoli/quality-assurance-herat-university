@@ -68,6 +68,40 @@ export class EvaluationForm {
 
     return res.status(200).json(find);
   }
+
+  async updateForm(req: Request, res: Response) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const formModel = getMyRepository(EvaluationFormEntity);
+    const findOne = await formModel.update(
+      {
+        id: +req.body.id,
+      },
+      {
+        ...req.body,
+      }
+    );
+    return res
+      .status(findOne.affected > 0 ? 200 : 500)
+      .json({ updated: findOne.affected > 0 });
+  }
+
+  async deleteForm(req: Request, res: Response) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const formModel = getMyRepository(EvaluationFormEntity);
+    const deleteOne = await formModel.delete({
+      id: +req?.query?.id,
+    });
+
+    return res
+      .status(deleteOne.affected > 0 ? 200 : 400)
+      .json({ deleted: deleteOne.affected > 0 });
+  }
 }
 
 interface formInputDto {
