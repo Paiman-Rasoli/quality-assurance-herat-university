@@ -8,7 +8,7 @@ import Faculty from "./pages/faculty";
 import Login from "./pages/login";
 import PrivateRoutes from "./utils/privateRoute";
 import ProtectedRoutes from "./utils/protecteRoute";
-import Form from "./pages/form";
+import Form from "./pages/evaluation-form";
 import Users from "./pages/users";
 import Student from "./pages/student";
 import Teachers from "./pages/teachers";

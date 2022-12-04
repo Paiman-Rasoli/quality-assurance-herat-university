@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import Loading from "../loading";
 import FormBorder from "../form/formBorder";
 import InputTime from "../form/InputTime";
 import { httpPutForm } from "../../services/evalution-form";
@@ -15,9 +14,7 @@ const schema = yup.object({
   end_date: yup.number().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
 
-const UpdateForm = ({ formData, refetch, setIsOpen }) => {
-  const [loading, setLoading] = useState(false);
-
+const UpdateForm = ({ formData, refetch, setIsOpen, setLoading }) => {
   const {
     register,
     handleSubmit,
@@ -94,7 +91,6 @@ const UpdateForm = ({ formData, refetch, setIsOpen }) => {
             </button>
           </div>
         </form>
-        {loading && <Loading />}
       </FormBorder>
     </div>
   );

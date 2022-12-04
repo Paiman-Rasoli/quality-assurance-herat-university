@@ -13,7 +13,6 @@ import useFetch from "../hooks/useFetch";
 const Form = () => {
   const faculty = useContext(FacultyContext);
   const [addNew, setAddNew] = useState(false);
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
   const [selectedForm, setSelectedForm] = useState(null);
@@ -64,6 +63,7 @@ const Form = () => {
             faculties={faculties}
             formData={selectedForm}
             refetch={refetch}
+            setLoading={setLoading}
             setIsOpen={setIsOpenUpdateModal}
           />
         </Modal>

@@ -1,5 +1,8 @@
 import { Fragment, useState } from "react";
+import jwtDecoder from "jwt-decode";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { NavLink, Outlet } from "react-router-dom";
 import {
   Bars3BottomLeftIcon,
   BellIcon,
@@ -10,8 +13,6 @@ import {
   Cog8ToothIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import { NavLink, Outlet } from "react-router-dom";
 
 const navigation = [
   { name: "خانه", href: "/dashboard", icon: HomeIcon, current: true },
@@ -19,6 +20,7 @@ const navigation = [
     name: "کاربران",
     icon: UsersIcon,
     current: false,
+    isPrivate: true,
     children: [
       { name: "لیست کاربران", href: "users" },
       { name: "افزودن کاربر جدید", href: "add-users" },
@@ -27,14 +29,15 @@ const navigation = [
   {
     name: "ثبت و تعریف",
     icon: FolderIcon,
+    isPrivate: false,
     current: false,
     children: [
-      { name: "فاکولته", href: "faculty" },
-      { name: "دیپارتمنت", href: "department" },
-      { name: "استاد", href: "teacher" },
-      { name: "مضمون", href: "subject" },
-      { name: "فورم", href: "form" },
-      { name: "سوال", href: "question" },
+      { name: "فاکولته", href: "faculty", isPrivate: true },
+      { name: "دیپارتمنت", href: "department", isPrivate: false },
+      { name: "استاد", href: "teacher", isPrivate: false },
+      { name: "مضمون", href: "subject", isPrivate: false },
+      { name: "فورم", href: "form", isPrivate: false },
+      { name: "سوال", href: "question", isPrivate: false },
     ],
   },
   // {
@@ -53,18 +56,25 @@ const navigation = [
     href: "reports",
     icon: CalendarIcon,
     current: false,
+    isPrivate: false,
     children: [
-      { name: "لیست کامل گزارشات", href: "faculty" },
-      { name: "نمودار گزارشات", href: "department" },
-      { name: "گزارش امروز", href: "#" },
+      { name: "لیست کامل گزارشات", href: "faculty", isPrivate: false },
+      { name: "نمودار گزارشات", href: "department", isPrivate: false },
+      { name: "گزارش امروز", href: "#", isPrivate: false },
     ],
   },
-  { name: "مدیریت سیستم", href: "/", icon: Cog8ToothIcon, current: true },
+  {
+    name: "مدیریت سیستم",
+    href: "/",
+    icon: Cog8ToothIcon,
+    current: true,
+    isPrivate: true,
+  },
 ];
 
 const userNavigation = [
-  { name: "پروفایل", href: "#" },
-  { name: "ایجاد حساب جدید", href: "add-users" },
+  { name: "پروفایل", href: "/profile" },
+  { name: "ایجاد حساب جدید", href: "add-users", isPrivate: true },
   { name: "خروج", href: "/" },
 ];
 
@@ -74,6 +84,9 @@ function classNames(...classes) {
 
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const token = sessionStorage.getItem("token");
+  const { user } = jwtDecoder(token);
+  console.log("user-layout", user);
 
   return (
     <>
@@ -146,6 +159,7 @@ export default function Layout() {
                             <NavLink
                               to={item.href}
                               className={classNames(
+                                item?.isPrivate && !user.level && "hidden",
                                 item.current
                                   ? "bg-gray-100 text-gray-900"
                                   : "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900",
@@ -174,6 +188,7 @@ export default function Layout() {
                               <>
                                 <Disclosure.Button
                                   className={classNames(
+                                    item?.isPrivate && !user.level && "hidden",
                                     item.current
                                       ? "bg-gray-100 text-gray-900"
                                       : "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900",
@@ -206,7 +221,12 @@ export default function Layout() {
                                     <NavLink
                                       key={subItem.name}
                                       to={subItem.href}
-                                      className="group flex w-full items-center rounded-md py-2 pr-11 pl-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                                      className={classNames(
+                                        subItem?.isPrivate &&
+                                          !user.level &&
+                                          "hidden",
+                                        "group flex w-full items-center rounded-md py-2 pr-11 pl-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                                      )}
                                     >
                                       {subItem.name}
                                     </NavLink>
@@ -243,6 +263,7 @@ export default function Layout() {
                       <NavLink
                         to={item.href}
                         className={classNames(
+                          item?.isPrivate && !user.level && "hidden",
                           item.current
                             ? "bg-gray-100 text-gray-900"
                             : "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900",
@@ -267,6 +288,7 @@ export default function Layout() {
                         <>
                           <Disclosure.Button
                             className={classNames(
+                              item.isPrivate && !user.level && "hidden",
                               item.current
                                 ? "bg-gray-100 text-gray-900"
                                 : "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900",
@@ -299,7 +321,11 @@ export default function Layout() {
                               <NavLink
                                 key={subItem.name}
                                 to={subItem.href}
-                                className="group flex w-full items-center rounded-md py-2 pr-11 pl-2 text-sm font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                                className={classNames(
+                                  subItem.isPrivate && !user.level
+                                    ? "hidden"
+                                    : "group flex w-full items-center rounded-md py-2 pr-11 pl-2 text-sm font-medium text-gray-600 hover:bg-red-100 hover:text-gray-900"
+                                )}
                               >
                                 {subItem.name}
                               </NavLink>
@@ -384,11 +410,16 @@ export default function Layout() {
                             <NavLink
                               to={item.href}
                               className={classNames(
+                                item.isPrivate && !user.level
+                                  ? "hidden"
+                                  : "block",
                                 active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm text-gray-700"
+                                "px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              {item.name}
+                              {item.name === "پروفایل"
+                                ? user.username
+                                : item.name}
                             </NavLink>
                           )}
                         </Menu.Item>

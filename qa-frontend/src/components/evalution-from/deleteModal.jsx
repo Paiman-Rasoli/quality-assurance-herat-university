@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { toast } from "react-toastify";
 import { deleteForm } from "../../services/evalution-form";
+import { ToastMsg } from "../TaostMsg";
 
 export default function DeleteModal({ isOpen, setIsOpen, refetch, data }) {
   function closeModal() {
@@ -13,12 +14,12 @@ export default function DeleteModal({ isOpen, setIsOpen, refetch, data }) {
     const result = await deleteForm(data.id);
     console.log("result delete", result);
     if (result.ok) {
-      toast.success(data?.id + " موفقانه حذف شد", {
+      toast.success(<ToastMsg text={data?.id + " موفقانه حذف شد"} />, {
         position: "bottom-left",
       });
       refetch();
     } else {
-      toast.warning("متاسفانه تغییرات اعمال نشد");
+      toast.warning(<ToastMsg text={"متاسفانه تغییرات اعمال نشد"} />);
       console.log(result.statusText);
     }
     closeModal();
