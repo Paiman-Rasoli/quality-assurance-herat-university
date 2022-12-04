@@ -22,8 +22,7 @@ const TeachersTable = ({
   const [selectedDep, setSelectedDep] = useState(null);
   const [selectedFac, setSelectedFac] = useState(null);
   const [filteredTeachers, setFilteredTeachers] = useState(teachers);
-  // console.log(selectedFac, selectedDep);
-  // console.log("teachers, ", teachers);
+
   useEffect(() => {
     setFilteredTeachers(
       selectedFac

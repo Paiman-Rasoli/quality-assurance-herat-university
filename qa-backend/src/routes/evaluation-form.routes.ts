@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { EvaluationForm } from "../services";
 import { authGuard } from "../middlewares/passport";
-import { body, query } from "express-validator";
+import { body, check, query } from "express-validator";
 
 const evaluationForm = new EvaluationForm();
 
@@ -29,5 +29,18 @@ routes.get(
 );
 
 routes.get("/", [authGuard], evaluationForm.findAll);
+
+routes.put(
+  "/",
+  authGuard,
+  [check("id").notEmpty().withMessage("id is required!")],
+  evaluationForm.updateForm
+);
+
+routes.delete(
+  "/",
+  [authGuard, query("id").notEmpty().withMessage("id is required")],
+  evaluationForm.deleteForm
+);
 
 export { routes };

@@ -2,7 +2,10 @@ import React from "react";
 import { useState } from "react";
 import { useContext } from "react";
 import AddFrom from "../components/evalution-from/addFrom";
+import DeleteModal from "../components/evalution-from/deleteModal";
 import EvaluationFromTable from "../components/evalution-from/table";
+import UpdateForm from "../components/evalution-from/update";
+import Loading from "../components/loading";
 import Modal from "../components/modal";
 import { FacultyContext } from "../context/facultyContext";
 import useFetch from "../hooks/useFetch";
@@ -13,11 +16,11 @@ const Form = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
-  const [selectedFaculty, setSelectedFaculty] = useState(false);
+  const [selectedForm, setSelectedForm] = useState(null);
   const [loading, setLoading] = useState(false);
 
   let { data: faculties } = useFetch("faculty");
-  let { data: forms, refetch } = useFetch("form");
+  let { laodingdata, data: forms, error, refetch } = useFetch("form");
 
   faculties = faculty
     ? faculties?.filter((fc) => fc.id === faculty.id)
@@ -30,18 +33,40 @@ const Form = () => {
   console.log("form-evaluaito", forms);
 
   const deleteF = async (data) => {
-    setSelectedFaculty(data);
+    setSelectedForm(data);
     setIsOpenDeleteModal(!isOpenDeleteModal);
   };
   const updateF = async (data) => {
-    console.log("update f", data);
-    setSelectedFaculty(data);
+    setSelectedForm(data);
     setIsOpenUpdateModal(!isOpenUpdateModal);
   };
+
+  if (laodingdata || loading) return <Loading />;
+
+  if (error)
+    return (
+      <div className="grid place-content-center">
+        somthing went wrong with connection to database
+      </div>
+    );
 
   return (
     <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
       <div className="grid w-full font-vazirBold">
+        <DeleteModal
+          data={selectedForm}
+          isOpen={isOpenDeleteModal}
+          refetch={refetch}
+          setIsOpen={setIsOpenDeleteModal}
+        />
+        <Modal isOpen={isOpenUpdateModal} setIsOpen={setIsOpenUpdateModal}>
+          <UpdateForm
+            faculties={faculties}
+            formData={selectedForm}
+            refetch={refetch}
+            setIsOpen={setIsOpenUpdateModal}
+          />
+        </Modal>
         {!addNew ? (
           <EvaluationFromTable
             setIsOpenModal={setAddNew}
