@@ -19,7 +19,9 @@ export class AnswerEntity {
   })
   response: Record<number, any>;
 
-  @ManyToOne(() => EvaluationFormEntity, (evaluation) => evaluation.answers)
+  @ManyToOne(() => EvaluationFormEntity, (evaluation) => evaluation.answers, {
+    onDelete: "CASCADE",
+  })
   evaluationForm: EvaluationFormEntity;
 
   @Column()
