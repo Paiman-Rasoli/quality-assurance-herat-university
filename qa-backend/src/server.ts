@@ -2,33 +2,27 @@ require("dotenv").config();
 import express from "express";
 import cors from "cors";
 import { myDataSource } from "./data-source";
-import {
-  authRoutes,
-  departmentRoutes,
-  evaluationRoutes,
-  facultyRoutes,
-  teacherRoutes,
-  questionRoutes,
-  AnswerRoutes,
-  subjectRoutes,
-  ReportRoutes,
-} from "./routes";
 import { logger } from "./lib";
+import { api } from "./routes/api.routes";
+import path from "path";
 
 const app = express();
 app.use(cors());
+
+app.use(
+  express.static(path.join(__dirname, "..", "..", "qa-frontend", "build"))
+);
+
 app.use(express.json());
 
 // routes => domain.com/api/dynamicRoutes
-app.use("/api/auth", authRoutes);
-app.use("/api/faculty", facultyRoutes);
-app.use("/api/department", departmentRoutes);
-app.use("/api/teacher", teacherRoutes);
-app.use("/api/subject", subjectRoutes);
-app.use("/api/form", evaluationRoutes);
-app.use("/api/question", questionRoutes);
-app.use("/api/answer", AnswerRoutes);
-app.use("/api/report", ReportRoutes);
+app.use("/", api);
+
+app.get("/*", (_, res) => {
+  res.sendFile(
+    path.join(__dirname, "..", "..", "qa-frontend", "build", "index.html")
+  );
+});
 
 const PORT = process.env.PORT || 1111;
 myDataSource
@@ -42,3 +36,5 @@ myDataSource
   .catch((err) => {
     logger.error("Error while connecting with database", err);
   });
+
+export { app };
