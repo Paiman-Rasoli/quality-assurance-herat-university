@@ -22,7 +22,10 @@ const FacultyTable = ({ setIsOpenModal, faculties, deleteF, updateF }) => {
       <div className="p-5 rounded-xl bg-gray-100">
         <h4 className="font-vazirBlack text-3xl">لیست فاکولته ها</h4>
         <div className="mt-5 shadow-sm ring-1 ring-black ring-opacity-5 text">
-          <table className="min-w-full divide-y divide-gray-300" dir="rtl">
+          <table
+            className="min-w-full divide-y divide-gray-300 font-vazir"
+            dir="rtl"
+          >
             <thead dir="rtl" className="font-vazirBold text-base">
               <tr className="divide-x divide-x-reverse divide-gray-200">
                 <th

@@ -65,7 +65,10 @@ const SubjectTable = ({ setIsOpenModal, subjects, updateF, deleteF }) => {
                 </th>
               </tr>
             </thead>
-            <tbody dir="rtl" className="divide-y divide-gray-200 bg-white">
+            <tbody
+              dir="rtl"
+              className="divide-y divide-gray-200 bg-white font-vazir"
+            >
               {subjects?.map((item, ndx) => (
                 <tr
                   key={item.id}

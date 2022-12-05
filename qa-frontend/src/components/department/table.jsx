@@ -46,7 +46,7 @@ const DepartmentTable = ({
           />
         </div>
       </div>
-      <table className="border rounded-xl w-full table-auto border-separate lg:p-5 p-2 md:border-spacing-2 border-spacing-1">
+      <table className="font-vazir border rounded-xl w-full table-auto border-separate lg:p-5 p-2 md:border-spacing-2 border-spacing-1">
         <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
           <tr className="divide-x-2 divide-y-2 bg-blue-200">
             <th className="font-normal text-center">شماره</th>
@@ -59,7 +59,7 @@ const DepartmentTable = ({
             <th className="font-normal text-center">ویرایش/حذف</th>
           </tr>
         </thead>
-        <tbody className="font-vazirBold text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
+        <tbody className="text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
           {items?.map((item, ndx) => (
             <tr
               key={ndx}
