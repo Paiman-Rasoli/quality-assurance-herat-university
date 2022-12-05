@@ -50,6 +50,7 @@ const AddQuestionForm = ({
           <TextInput
             register={register}
             errors={errors}
+            rows={5}
             label="متن سوال"
             name="text"
             type="text"

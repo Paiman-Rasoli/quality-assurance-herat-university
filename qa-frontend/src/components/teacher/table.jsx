@@ -92,7 +92,7 @@ const TeachersTable = ({
                 </th>
               </tr>
             </thead>
-            <tbody className="font-vazirBold text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
+            <tbody className="font-vazir text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
               {items.map(
                 (item, ndx) => (
                   <tr

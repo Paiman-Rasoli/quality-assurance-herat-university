@@ -324,7 +324,7 @@ export default function Layout() {
                                 className={classNames(
                                   subItem.isPrivate && !user.level
                                     ? "hidden"
-                                    : "group flex w-full items-center rounded-md py-2 pr-11 pl-2 text-sm font-medium text-gray-600 hover:bg-red-100 hover:text-gray-900"
+                                    : "group flex w-full items-center rounded-md py-2 pr-11 pl-2 text-sm font-medium text-gray-600 hover:bg-cyan-100 hover:text-gray-900"
                                 )}
                               >
                                 {subItem.name}

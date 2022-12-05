@@ -12,9 +12,9 @@
 }
 @font-face {
   font-family: "vazir";
-  src: url("/public/fonts/Vazir-Regular.ttf") format("ttf"),
-    url("/public/fonts/Vazir-Regular-FD.woff") format("woff"),
-    url("/public/fonts/Vazir-Regular.woff2") format("woff2");
+  src: url("/public/fonts/Vazir-Medium.ttf") format("ttf"),
+    url("/public/fonts/Vazir-Medium-FD.woff") format("woff"),
+    url("/public/fonts/Vazir-Medium.woff2") format("woff2");
 }
 
 @tailwind base;

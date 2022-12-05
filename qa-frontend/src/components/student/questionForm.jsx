@@ -100,7 +100,7 @@ const QuestionForm = ({ formId }) => {
           </div>
         </Modal>
       )}
-      <form onSubmit={handleSubmit(submtHandler)} className="grid ">
+      <form onSubmit={handleSubmit(submtHandler)} className="grid font-vazir">
         {questions?.map((question, ndx) => (
           <Question
             Controller={Controller}

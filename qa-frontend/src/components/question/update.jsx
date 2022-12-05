@@ -66,6 +66,7 @@ export default function UpdateQuestion({
           <TextInput
             register={register}
             errors={errors}
+            rows={5}
             label="متن"
             name="text"
             type="text"
