@@ -11,7 +11,7 @@ export class ReportService {
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    // faculty , department , year, semester type, s
+    // faculty , department , year, semester type
     const body = req.body;
     const formModel = getMyRepository(EvaluationFormEntity);
     let answers;
@@ -48,30 +48,34 @@ export class ReportService {
     const purify = getPureData(answers);
     const final = getLastValue(purify);
     return res.status(200).json(final);
-    //     const teacher = {};
-    //     console.log(answers);
+  }
 
-    //     answers.map((form, index) => {
-    //       let sum = 0;
-    //       let count = 0;
-    //       form.answers.map((response) => {
-    //         const pure = Object.values(response.response);
-    //         pure.forEach((score) => {
-    //           sum += Number(score);
-    //         });
-    //         count += 1;
-    //       });
-    //       console.log("Count for form 🚀🚀", index, count);
-    //       if (teacher[form.teacher.id]) {
-    //         teacher[form.teacher.id] = {
-    //           sum: teacher[form.teacher.id]["sum"] + sum / count,
-    //           formId: form.id,
-    //         };
-    //       } else {
-    //         teacher[form.teacher.id] = { sum: sum / count, formId: form.id };
-    //       }
-    //     });
-    return res.status(200).json(answers);
+  async reportEach(req: Request, res: Response) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    // faculty , department , year, semester type, teacherId
+    const body = req.body;
+    const formModel = getMyRepository(EvaluationFormEntity);
+    let answers;
+    answers = await formModel.find({
+      where: {
+        teacher: {
+          id: body.teacherId,
+        },
+        department: { id: +body.departmentId }, //
+        year: +body.year,
+        semester_type: body.type,
+        semester: +body.semester,
+      },
+      relations: ["answers", "teacher", "subject"],
+    });
+    // for there were no form
+    if (answers.length === 0) {
+      return res.status(200).json({ data: null });
+    }
+    // TODO: get average for each question
   }
 }
 
