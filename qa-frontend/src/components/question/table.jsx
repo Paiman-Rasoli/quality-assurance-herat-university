@@ -1,8 +1,10 @@
-import React from "react";
+import jwtDecoder from "jwt-decode";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 const QuestionTable = ({ setIsOpenModal, questions, updateF, deleteF }) => {
-  console.log(questions);
+  const token = sessionStorage.getItem("token");
+  const { user } = jwtDecoder(token);
+  // console.log(questions);
   return (
     <div>
       {" "}
@@ -39,12 +41,14 @@ const QuestionTable = ({ setIsOpenModal, questions, updateF, deleteF }) => {
                 >
                   حالت
                 </th>
-                <th
-                  scope="col"
-                  className="py-3.5 p-4 pr-4 text-right font-semibold text-gray-900 sm:pl-6"
-                >
-                  ویرایش/حذف
-                </th>
+                {user.level && (
+                  <th
+                    scope="col"
+                    className="py-3.5 p-4 pr-4 text-right font-semibold text-gray-900 sm:pl-6"
+                  >
+                    ویرایش/حذف
+                  </th>
+                )}
               </tr>
             </thead>
             <tbody dir="rtl" className="divide-y divide-gray-200 bg-white">
@@ -68,22 +72,24 @@ const QuestionTable = ({ setIsOpenModal, questions, updateF, deleteF }) => {
                       <span>پیش نویس ✍</span>
                     )}
                   </td>
-                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
-                    <div className="flex justify-around">
-                      <button
-                        onClick={() => updateF(item)}
-                        className="h-full flex items-center hover:text-black hover:scale-105"
-                      >
-                        <PencilSquareIcon className="h-6 w-6" />
-                      </button>
-                      <button
-                        onClick={() => deleteF(item)}
-                        className="h-full flex items-center hover:text-black hover:scale-105"
-                      >
-                        <TrashIcon className="h-6 w-6" />
-                      </button>
-                    </div>
-                  </td>
+                  {user.level && (
+                    <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                      <div className="flex justify-around">
+                        <button
+                          onClick={() => updateF(item)}
+                          className="h-full flex items-center hover:text-black hover:scale-105"
+                        >
+                          <PencilSquareIcon className="h-6 w-6" />
+                        </button>
+                        <button
+                          onClick={() => deleteF(item)}
+                          className="h-full flex items-center hover:text-black hover:scale-105"
+                        >
+                          <TrashIcon className="h-6 w-6" />
+                        </button>
+                      </div>
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
