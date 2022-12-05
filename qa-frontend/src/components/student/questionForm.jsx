@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,8 @@ import Modal from "../modal";
 
 const QuestionForm = ({ formId }) => {
   const [loading, setLoading] = useState(false);
+  const [confirmModal, setConfirmModal] = useState(false);
+  const [answers, setAnswers] = useState(null);
   const navigate = useNavigate();
 
   const {
@@ -49,18 +51,16 @@ const QuestionForm = ({ formId }) => {
       setLoading(false);
     }
   };
-  const [confirmModal, setConfirmModal] = useState(false);
-  const [confirm, setConfirm] = useState(false);
-  const [answers, setAnswers] = useState(null);
 
   const submtHandler = (data) => {
     setConfirmModal(true);
     setAnswers(data);
   };
 
-  useEffect(() => {
-    if (confirm) Submit(answers);
-  }, [confirm]);
+  const onSubmit = () => {
+    Submit(answers);
+    setConfirmModal(false);
+  };
 
   if (laodingdata || loading) return <Loading />;
 
@@ -92,7 +92,7 @@ const QuestionForm = ({ formId }) => {
               <button
                 type="button"
                 className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                onClick={() => setConfirm(true)}
+                onClick={onSubmit}
               >
                 تایید{" "}
               </button>
