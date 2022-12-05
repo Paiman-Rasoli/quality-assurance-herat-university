@@ -86,7 +86,7 @@ export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const token = sessionStorage.getItem("token");
   const { user } = jwtDecoder(token);
-  console.log("user-layout", user);
+  // console.log("user-layout", user);
 
   return (
     <>
