@@ -16,4 +16,17 @@ routes.post(
   authGuard,
   reportService.report
 );
+
+routes.post(
+  "/each",
+  [
+    body("teacherId").notEmpty(),
+    body("departmentId").notEmpty(),
+    body("year").notEmpty(),
+    body("type").notEmpty(),
+  ],
+  authGuard,
+  reportService.reportEach
+);
+
 export { routes };
