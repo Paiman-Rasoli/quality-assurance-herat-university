@@ -9,6 +9,23 @@ export const BarChart = ({ chartData, label }) => {
     <div className="chart-container">
       <h2 style={{ textAlign: "center" }}>{label}</h2>
       <Bar
+        options={{
+          scales: {
+            y: {
+              title: { display: true, text: "درصدی" },
+              max: 100,
+            },
+            x: {
+              title: { display: true, text: "آیدی" },
+            },
+          },
+          plugins: {
+            title: {
+              display: true,
+              text: " چارت نشان دهنده فیصدی نمرات همه اساتید دیپارتمنت است.",
+            },
+          },
+        }}
         data={{
           labels: [...chartData?.map((item) => item.label)],
           datasets: [
@@ -38,18 +55,6 @@ export const BarChart = ({ chartData, label }) => {
               borderWidth: 1,
             },
           ],
-        }}
-        options={{
-          responsive: true,
-          title: {
-            display: true,
-            text: "COVID-19 Cases of Last 3 Months",
-            fontSize: 15,
-          },
-          legend: {
-            display: true, //Is the legend shown?
-            position: "top", //Position of the legend.
-          },
         }}
       />
     </div>
