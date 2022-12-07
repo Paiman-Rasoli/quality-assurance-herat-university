@@ -3,10 +3,9 @@ import Loading from "../loading";
 import { httpGetReport } from "../../services/report";
 import { BarChart } from "./barChart";
 
-const DepartmentReport = () => {
-  const [depReport, setDepReport] = useState([]);
+const TeacherReport = () => {
+  const [teacherReport, setTeacherReport] = useState([]);
   const [chartData, setChartData] = useState([]);
-  const [response, setResponse] = useState(null);
 
   console.log("chart", chartData);
 
@@ -16,55 +15,55 @@ const DepartmentReport = () => {
         {
           semester: 1,
           departmentId: 1,
+          teacherId: 9,
           year: 2022,
           type: "بهاری",
         },
-        "department"
+        "teacher"
       );
-      setResponse(res);
+      console.log("-res-", res);
       const reports = await res.json();
-      setDepReport(reports);
+      setTeacherReport(reports);
       setChartData(
-        reports?.teachersRep?.map((item) => ({
-          percent: item?.percent,
-          label: item?.teacherId,
+        teacherReport?.purify?.map((item) => ({
+          percent: item.percent,
+          label: item.teacherId,
         }))
       );
-      console.log("dep-report", reports, depReport);
+      console.log("teacher-report", reports, teacherReport);
     })();
   }, []);
 
-  if (depReport.length < 1) return <Loading />;
-  if (response.status === 404) return <section>اطلاعاتی یافت نشد</section>;
+  if (teacherReport.length === 0) return <Loading />;
 
   return (
     <section>
       <ul>
         <li className="flex gap-3">
           <span>فاکولته</span>
-          <span>{depReport?.department?.faculty?.fa_name}</span>
+          <span>{teacherReport?.department.faculty.fa_name}</span>
         </li>
         <li className="flex gap-3">
           <span>دیپارتمنت</span>
-          <span>{depReport?.department?.fa_name}</span>
+          <span>{teacherReport?.department.fa_name}</span>
         </li>
         <li className="flex gap-3">
           <span>فیصدی امتیازات دیپارتمنت</span>
-          <span>
-            {Number(depReport?.total?.percent).toFixed(1).toString()}%
-          </span>
+          <span>{Number(teacherReport?.final?.percent).toFixed(1)}%</span>
         </li>
         <li className="flex gap-3">
           <span>تعداد اشتراک کننده</span>
-          <span>{Number(depReport?.total?.subscribers)}</span>
+          <span>{Number(teacherReport?.final?.subscribers)}</span>
         </li>
       </ul>
       <div>
         <span>dep</span>
-        {chartData?.length > 0 && <BarChart chartData={chartData} />}
+        {chartData?.length > 0 && (
+          <BarChart chartData={chartData} label="چارت اساتید دیپارتمنت" />
+        )}
       </div>
     </section>
   );
 };
 
-export default DepartmentReport;
+export default TeacherReport;
