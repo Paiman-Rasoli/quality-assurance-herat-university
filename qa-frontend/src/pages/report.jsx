@@ -12,6 +12,7 @@ import { httpGetReport } from "../services/report";
 import { useEffect } from "react";
 import RequestReport from "../components/reports/request";
 import DepartmentReport from "../components/reports/department";
+import TeacherReport from "../components/reports/teacher";
 
 const schema = yup.object({
   fa_name: yup.string().required("لطفا این قسمت را تکمیل نمایید"),
@@ -60,6 +61,7 @@ const Report = () => {
       <div>گزارشات</div>
       <RequestReport faculties={faculties} />
       <DepartmentReport />
+      {/* <TeacherReport /> */}
     </section>
   );
 };
