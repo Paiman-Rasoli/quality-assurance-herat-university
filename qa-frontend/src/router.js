@@ -16,6 +16,7 @@ import Subject from "./pages/subject";
 import Question from "./pages/question";
 import Layout from "./components/layout/layout";
 import AddUser from "./components/users/add-user";
+import Report from "./pages/report";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
               <Route path="teacher" element={<Teachers />} />
               <Route path="subject" element={<Subject />} />
               <Route path="question" element={<Question />} />
+              <Route path="report" element={<Report />} />
               <Route index element={<Dashboard />} />
             </Route>
           </Route>

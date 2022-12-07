@@ -58,8 +58,7 @@ const navigation = [
     current: false,
     isPrivate: false,
     children: [
-      { name: "لیست کامل گزارشات", href: "faculty", isPrivate: false },
-      { name: "نمودار گزارشات", href: "department", isPrivate: false },
+      { name: "لیست گزارشات", href: "report", isPrivate: false },
       { name: "گزارش امروز", href: "#", isPrivate: false },
     ],
   },

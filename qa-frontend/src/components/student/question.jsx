@@ -1,11 +1,11 @@
 import { RadioGroup } from "@headlessui/react";
 
 const Options = [
-  { name: "عالی", value: 5 },
-  { name: "خوب", value: 4 },
-  { name: "متوسط", value: 3 },
-  { name: "کم", value: 2 },
-  { name: "خیلی کم", value: 1 },
+  { name: "عالی", value: 4 },
+  { name: "خوب", value: 3 },
+  { name: "متوسط", value: 2 },
+  { name: "کم", value: 1 },
+  { name: "خیلی کم", value: 0 },
 ];
 
 function classNames(...classes) {

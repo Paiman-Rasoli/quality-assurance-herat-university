@@ -12,7 +12,7 @@ export class EvaluationForm {
     //TODO: add form ....
     const formModel = getMyRepository(EvaluationFormEntity);
     const bodyData = req.body as formInputDto;
-    console.log(bodyData, "body");
+    // console.log(bodyData, "body");
 
     try {
       const save = await formModel.upsert(bodyData, ["id"]);
@@ -38,7 +38,7 @@ export class EvaluationForm {
         .json({ msg: "Evaluation form with this id not found!" });
     }
     //* check expiration date
-    console.log(new Date(), "Form =>", find);
+    // console.log(new Date(), "Form =>", find);
     // check if start
     if (find?.start_date > new Date()) {
       return res.status(401).json({ msg: "This form has not started yet." });
@@ -64,7 +64,7 @@ export class EvaluationForm {
       return res.status(404).json({ msg: "Not found any Evaluation form " });
     }
     //* check expiration date
-    console.log(new Date(), "Form =>", find);
+    // console.log(new Date(), "Form =>", find);
 
     return res.status(200).json(find);
   }
