@@ -3,11 +3,11 @@ import { EvaluationFormEntity } from "./evaluation-form.entity";
 import { QuestionEntity } from "./question.entity";
 
 export enum RESPONSES {
-  VERY_LOW = 1,
-  LOW = 2,
-  MEDIUM = 3,
-  HEIGH = 4,
-  VERY_HEIGH = 5,
+  VERY_LOW = 0,
+  LOW = 1,
+  MEDIUM = 2,
+  HEIGH = 3,
+  VERY_HEIGH = 4,
 }
 @Entity()
 export class AnswerEntity {
