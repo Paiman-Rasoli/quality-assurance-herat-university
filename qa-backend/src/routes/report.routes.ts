@@ -10,9 +10,8 @@ routes.post(
   "/department",
   [
     body("departmentId").notEmpty(),
-    body("semester").notEmpty(),
     body("year").notEmpty(),
-    body("type").notEmpty(),
+    body("semester_type").notEmpty(),
   ],
   authGuard,
   reportService.departmentReport
