@@ -11,7 +11,7 @@ import FacultyTable from "../components/faculty/table";
 import { httpGetReport } from "../services/report";
 import { useEffect } from "react";
 import RequestReport from "../components/reports/request";
-import DepartmentReport from "../components/reports/department";
+import DepartmentReport from "../components/reports/depReport";
 import TeacherReport from "../components/reports/teacher";
 
 const schema = yup.object({

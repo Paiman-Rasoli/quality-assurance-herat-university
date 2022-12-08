@@ -49,7 +49,7 @@ const DepartmentTable = ({
       <table className="font-vazir border rounded-xl w-full table-auto border-separate lg:p-5 p-2 md:border-spacing-2 border-spacing-1">
         <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
           <tr className="divide-x-2 divide-y-2 bg-blue-200">
-            <th className="font-normal text-center">شماره</th>
+            <th className="font-normal text-center">آیدی</th>
             <th className="font-normal text-center">نام فارسی</th>
             <th className="font-normal text-center hidden lg:block">
               نام انگلیسی
@@ -67,7 +67,7 @@ const DepartmentTable = ({
                 ndx % 2 === 0 ? "bg-stone-100" : "bg-zinc-200"
               }`}
             >
-              <td className="text-center">{ndx + 1}</td>
+              <td className="text-center">{item.id}</td>
               <td className="text-center">{item.fa_name}</td>
               <td className="text-center hidden lg:block">{item.en_name}</td>
               <td className="text-center">{item.faculty.fa_name}</td>
