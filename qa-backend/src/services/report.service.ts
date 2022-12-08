@@ -20,8 +20,8 @@ export class ReportService {
       where: {
         department: { id: +body.departmentId }, //
         year: +body.year,
-        semester_type: body.type,
-        semester: +body.semester,
+        semester_type: body.semester_type,
+        // semester: +body.semester,
       },
       relations: ["answers", "teacher", "subject"],
     });
@@ -56,7 +56,9 @@ export class ReportService {
       total: purifyTeachersOfDep,
       teachersRep: purifyTeacher,
       department: department,
-      semester: body.semester,
+      year: body.year,
+      semester_type: body.semester_type,
+      totalSubject: purifySubject.length,
     });
   }
 

@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,9 +11,10 @@ import FormBorder from "../form/formBorder";
 import InputTime from "../form/InputTime";
 import { semester_type } from "../../services/list";
 import { httpPostForm } from "../../services/evalution-form";
-import { FacultyContext } from "../../context/facultyContext";
 import { toast } from "react-toastify";
 import { ToastMsg } from "../TaostMsg";
+import InputDate from "../form/InputDate";
+import InputYear from "../form/inputYear";
 
 const schema = yup.object({
   faculty: yup.string().required("لطفا فاکولته مورد نظرتان را انتخاب نمایید "),
@@ -30,6 +31,7 @@ const schema = yup.object({
     .nullable()
     .required("لطفا سمستر مورد نظرتان را انتخاب نمایید ")
     .min(1),
+  year: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
   start_date: yup.number().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
   end_date: yup.number().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
@@ -79,11 +81,17 @@ const AddFrom = ({ faculties, refetch, setAddNew }) => {
 
   const onSubmit = async (data) => {
     setLoading(true);
+    console.log({
+      ...data,
+      start_date: new Date(data.start_date),
+      end_date: new Date(data.end_date),
+      year: new Date(data.year).getFullYear(),
+    });
     const res = await httpPostForm({
       ...data,
       start_date: new Date(data.start_date),
       end_date: new Date(data.end_date),
-      year: new Date(data.start_date).getFullYear(),
+      year: new Date(data.year).getFullYear(),
     });
     console.log("res-form", res, await res.json());
     if (res) {
@@ -186,6 +194,17 @@ const AddFrom = ({ faculties, refetch, setAddNew }) => {
                 placeholder="سمستر"
                 className={!selectedFacultyName && "disabled"}
               />
+              <InputYear
+                register={register}
+                errors={errors}
+                label="سال"
+                name="year"
+                type="Date"
+                useForm={useForm}
+                Controller={Controller}
+                control={control}
+                defaultValue={new Date()}
+              />
               <InputTime
                 register={register}
                 errors={errors}
@@ -195,7 +214,7 @@ const AddFrom = ({ faculties, refetch, setAddNew }) => {
                 useForm={useForm}
                 Controller={Controller}
                 control={control}
-                defaultValue={Date.now}
+                defaultValue={Date.now()}
               />
               <InputTime
                 register={register}

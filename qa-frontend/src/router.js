@@ -16,7 +16,8 @@ import Subject from "./pages/subject";
 import Question from "./pages/question";
 import Layout from "./components/layout/layout";
 import AddUser from "./components/users/add-user";
-import Report from "./pages/report";
+import Report from "./pages/facultyReport";
+import DepartmentReport from "./components/reports/depReport";
 
 function App() {
   return (
@@ -27,21 +28,30 @@ function App() {
           <Route path="student">
             <Route index element={<Student />} />
           </Route>
-          <Route path="/login" element={<Login />} />
+          <Route path="login" element={<Login />} />
           <Route element={<PrivateRoutes />}>
-            <Route path="/dashboard" element={<Layout />}>
+            <Route element={<Layout />}>
               <Route element={<ProtectedRoutes />}>
-                <Route path="faculty" element={<Faculty />} />
-                <Route path="add-users" element={<AddUser />} />
-                <Route path="users" element={<Users />} />
+                <Route path="dashboard">
+                  <Route path="faculty" element={<Faculty />} />
+                </Route>
+                <Route path="user">
+                  <Route path="add-users" element={<AddUser />} />
+                  <Route path="users" element={<Users />} />
+                </Route>
               </Route>
-              <Route path="form" element={<Form />} />
-              <Route path="department" element={<Department />} />
-              <Route path="teacher" element={<Teachers />} />
-              <Route path="subject" element={<Subject />} />
-              <Route path="question" element={<Question />} />
-              <Route path="report" element={<Report />} />
-              <Route index element={<Dashboard />} />
+              <Route path="dashboard">
+                <Route path="form" element={<Form />} />
+                <Route path="department" element={<Department />} />
+                <Route path="teacher" element={<Teachers />} />
+                <Route path="subject" element={<Subject />} />
+                <Route path="question" element={<Question />} />
+                <Route index element={<Dashboard />} />
+              </Route>
+              <Route path="report">
+                <Route path="faculty" element={<Report />} />
+                <Route path="department" element={<DepartmentReport />} />
+              </Route>
             </Route>
           </Route>
         </Routes>

@@ -15,9 +15,10 @@ import {
 } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "خانه", href: "/dashboard", icon: HomeIcon, current: true },
+  { name: "خانه", href: "dashboard", icon: HomeIcon, current: true },
   {
     name: "کاربران",
+    href: "user",
     icon: UsersIcon,
     current: false,
     isPrivate: true,
@@ -28,6 +29,7 @@ const navigation = [
   },
   {
     name: "ثبت و تعریف",
+    href: "dashboard",
     icon: FolderIcon,
     isPrivate: false,
     current: false,
@@ -40,25 +42,17 @@ const navigation = [
       { name: "سوال", href: "question", isPrivate: false },
     ],
   },
-  // {
-  //   name: "اطلاعات ثبت شده",
-  //   icon: FolderIcon,
-  //   current: false,
-  //   children: [
-  //     { name: "لیست فاکولته ها", href: "faculty" },
-  //     { name: "لیست دیپارتمنت ها", href: "department" },
-  //     { name: "لیست اساتید", href: "#" },
-  //     { name: "لیست سوالات", href: "#" },
-  //   ],
-  // },
   {
     name: "گزارشات",
-    href: "reports",
+    href: "report",
     icon: CalendarIcon,
     current: false,
     isPrivate: false,
     children: [
-      { name: "لیست گزارشات", href: "report", isPrivate: false },
+      { name: "فاکولته", href: "faculty", isPrivate: false },
+      { name: "دیپارتمنت", href: "department", isPrivate: false },
+      { name: "استاد", href: "faculty", isPrivate: false },
+      { name: "مضمون", href: "faculty", isPrivate: false },
       { name: "گزارش امروز", href: "#", isPrivate: false },
     ],
   },
@@ -219,7 +213,7 @@ export default function Layout() {
                                   {item.children.map((subItem) => (
                                     <NavLink
                                       key={subItem.name}
-                                      to={subItem.href}
+                                      to={`${item.href}/${subItem.href}`}
                                       className={classNames(
                                         subItem?.isPrivate &&
                                           !user.level &&
@@ -319,7 +313,7 @@ export default function Layout() {
                             {item.children.map((subItem) => (
                               <NavLink
                                 key={subItem.name}
-                                to={subItem.href}
+                                to={`${item.href}/${subItem.href}`}
                                 className={classNames(
                                   subItem.isPrivate && !user.level
                                     ? "hidden"

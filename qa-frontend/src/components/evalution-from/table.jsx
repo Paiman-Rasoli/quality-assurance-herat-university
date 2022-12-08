@@ -7,7 +7,7 @@ const EvaluationFromTable = ({ setIsOpenModal, forms, deleteF, updateF }) => {
   const [items, setItems] = useState(forms);
   const [itemOffset, setItemOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 2;
+  const itemsPerPage = 10;
 
   return (
     <>
@@ -29,13 +29,13 @@ const EvaluationFromTable = ({ setIsOpenModal, forms, deleteF, updateF }) => {
                   scope="col"
                   className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
                 >
-                  شماره
+                  آی دی
                 </th>
                 <th
                   scope="col"
                   className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
                 >
-                  آی دی
+                  دیپارتمنت
                 </th>
                 <th
                   scope="col"
@@ -70,16 +70,16 @@ const EvaluationFromTable = ({ setIsOpenModal, forms, deleteF, updateF }) => {
               </tr>
             </thead>
             <tbody dir="rtl" className="divide-y divide-gray-200 bg-white">
-              {items?.map((item, ndx) => (
+              {items?.map((item) => (
                 <tr
                   key={item.id}
                   className="divide-x divide-x-reverse divide-gray-200"
                 >
-                  <td className="whitespace-nowrap p-2 lg:p-4  font-medium text-gray-900 sm:pr-6">
-                    {currentPage * itemsPerPage + ndx + 1}
-                  </td>
                   <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
                     {item.id}
+                  </td>
+                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                    {item.department.fa_name}
                   </td>
                   <td className="whitespace-nowrapp-2 p-2 lg:p-4  text-gray-700">
                     {item.teacher.id}

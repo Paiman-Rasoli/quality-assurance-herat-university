@@ -24,6 +24,7 @@ export const BarChart = ({ chartData, label }) => {
               display: true,
               text: " چارت نشان دهنده فیصدی نمرات همه اساتید دیپارتمنت است.",
             },
+            tooltip: { titleFont: { size: "20px" } },
           },
         }}
         data={{

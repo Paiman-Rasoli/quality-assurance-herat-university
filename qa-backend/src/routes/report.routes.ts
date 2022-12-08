@@ -10,9 +10,8 @@ routes.post(
   "/department",
   [
     body("departmentId").notEmpty(),
-    body("semester").notEmpty(),
     body("year").notEmpty(),
-    body("type").notEmpty(),
+    body("semester_type").notEmpty(),
   ],
   authGuard,
   reportService.departmentReport
@@ -26,6 +25,31 @@ routes.post(
     body("semester").notEmpty(),
     body("year").notEmpty(),
     body("type").notEmpty(),
+  ],
+  authGuard,
+  reportService.teacherReport
+);
+
+routes.post(
+  "/each",
+  [
+    body("teacherId").notEmpty(),
+    body("departmentId").notEmpty(),
+    body("year").notEmpty(),
+    body("semester_type").notEmpty(),
+  ],
+  authGuard,
+  reportService.departmentReport
+);
+
+routes.post(
+  "/teacher",
+  [
+    body("departmentId").notEmpty(),
+    body("teacherId").notEmpty(),
+    body("semester").notEmpty(),
+    body("year").notEmpty(),
+    body("semester_type").notEmpty(),
   ],
   authGuard,
   reportService.teacherReport
