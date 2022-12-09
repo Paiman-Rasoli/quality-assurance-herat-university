@@ -27,7 +27,10 @@ export class ReportService {
     });
 
     if (evlForm.length === 0) {
-      return res.status(404).json({ data: null, message: "no data" });
+      return res.status(404).json({ data: null, message: "no form" });
+    }
+    if (evlForm.length.answers.length === 0) {
+      return res.status(404).json({ data: null, message: "No Answers" });
     }
 
     const departmentModel = getMyRepository(DepartmentEntity);
