@@ -125,6 +125,9 @@ export class ReportService {
         year: +body.year,
         semester_type: body.type,
         semester: +body.semester,
+        subject: {
+          id: +body.subjectId,
+        },
       },
       relations: ["answers", "teacher", "subject"],
     });
@@ -133,6 +136,15 @@ export class ReportService {
       return res.status(200).json({ data: null });
     }
     // TODO: get average for each question
+    const numberOfForms = answers?.length;
+    const sumOfEachAnswerForQuestion = findSumOfAnswersForEachForm(answers);
+    const finalResult = getFinalAverageForEachQuestion(
+      sumOfEachAnswerForQuestion,
+      numberOfForms === 1
+        ? sumOfEachAnswerForQuestion?.totalParticipant
+        : numberOfForms + sumOfEachAnswerForQuestion?.totalParticipant
+    );
+    return res.status(200).json(finalResult);
   }
 }
 
@@ -251,5 +263,42 @@ function reportOfEachTeacherForDep(data: any[]) {
 
   // console.log("temp🎉🎉", temp);
 
+  return temp;
+}
+//* Helpers for each questions
+function findSumOfAnswersForEachForm(data: any[]) {
+  const stack = { totalParticipant: 0 };
+  data.map((form) => {
+    //! each form block-01
+    form.answers.map((response, index) => {
+      // all answers of each participant
+      const temp = response.response;
+      for (const questionNumber in temp) {
+        if (stack[questionNumber]) {
+          stack[questionNumber] += temp[questionNumber];
+        } else {
+          stack[questionNumber] = temp[questionNumber];
+        }
+      }
+      stack["totalParticipant"] += 1;
+    });
+    //! endblock 01
+  });
+  /**
+   * returns
+   * { questionId1 : 10 , questionId2 : 4 , questionId3 : 9 , ... totalFormParticipant : 14}
+   */
+  return stack;
+}
+
+function getFinalAverageForEachQuestion(
+  data: Record<string, any>,
+  sumOfFormsAndParticipant: number
+) {
+  delete data["totalParticipant"];
+  const temp = {};
+  for (const questionId in data) {
+    temp[questionId] = Math.round(data[questionId] / sumOfFormsAndParticipant);
+  }
   return temp;
 }
