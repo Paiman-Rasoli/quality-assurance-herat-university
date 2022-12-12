@@ -14,9 +14,9 @@ export class ReportService {
     // faculty , department , year, semester type
     const body = req.body;
     const formModel = getMyRepository(EvaluationFormEntity);
-    let evlForm;
+    let evlForms: string | any[];
 
-    evlForm = await formModel.find({
+    evlForms = await formModel.find({
       where: {
         department: { id: +body.departmentId }, //
         year: +body.year,
@@ -26,9 +26,14 @@ export class ReportService {
       relations: ["answers", "teacher", "subject"],
     });
 
-    if (evlForm.length === 0) {
-      return res.status(404).json({ data: null, message: "no data" });
+    console.log("eval form", evlForms);
+    if (evlForms.length === 0) {
+      return res.status(404).json({ data: null, message: "no form" });
     }
+
+    // if (evlForm.length.answers === 0) {
+    //   return res.status(404).json({ data: null, message: "No Answers" });
+    // }
 
     const departmentModel = getMyRepository(DepartmentEntity);
     const department = await departmentModel.findOne({
@@ -36,7 +41,7 @@ export class ReportService {
       relations: ["faculty"],
     });
 
-    const purifySubject = reportOfEachSubjectForTeacher(evlForm);
+    const purifySubject = reportOfEachSubjectForTeacher(evlForms);
 
     const groupedSubjectForEachTeacher = Object.values(
       purifySubject.reduce((acc, current) => {

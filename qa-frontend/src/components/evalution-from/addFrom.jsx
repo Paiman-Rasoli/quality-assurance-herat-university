@@ -31,7 +31,7 @@ const schema = yup.object({
     .nullable()
     .required("لطفا سمستر مورد نظرتان را انتخاب نمایید ")
     .min(1),
-  year: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
+  year: yup.number().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
   start_date: yup.number().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
   end_date: yup.number().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
@@ -87,21 +87,21 @@ const AddFrom = ({ faculties, refetch, setAddNew }) => {
       end_date: new Date(data.end_date),
       year: new Date(data.year).getFullYear(),
     });
-    const res = await httpPostForm({
-      ...data,
-      start_date: new Date(data.start_date),
-      end_date: new Date(data.end_date),
-      year: new Date(data.year).getFullYear(),
-    });
-    console.log("res-form", res, await res.json());
-    if (res) {
-      res.ok
-        ? toast.success(<ToastMsg text={"فورم جدید ایجاد شد"} />)
-        : toast.warning(<ToastMsg text={"فورم ایجاد نشد"} />);
-      refetch();
-      setLoading(false);
-      setAddNew(false);
-    }
+    // const res = await httpPostForm({
+    //   ...data,
+    //   start_date: new Date(data.start_date),
+    //   end_date: new Date(data.end_date),
+    //   year: new Date(data.year).getFullYear(),
+    // });
+    // console.log("res-form", res, await res.json());
+    // if (res) {
+    //   res.ok
+    //     ? toast.success(<ToastMsg text={"فورم جدید ایجاد شد"} />)
+    //     : toast.warning(<ToastMsg text={"فورم ایجاد نشد"} />);
+    //   refetch();
+    //   setLoading(false);
+    //   setAddNew(false);
+    // }
   };
 
   return (
@@ -203,7 +203,7 @@ const AddFrom = ({ faculties, refetch, setAddNew }) => {
                 useForm={useForm}
                 Controller={Controller}
                 control={control}
-                defaultValue={new Date()}
+                defaultValue={Date.now()}
               />
               <InputTime
                 register={register}
