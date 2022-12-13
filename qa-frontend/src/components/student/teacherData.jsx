@@ -22,6 +22,9 @@ const TeacherData = ({ formData }) => {
             <li className="flex gap-10">
               <span>سمستر</span>
             </li>
+            <li className="flex gap-10">
+              <span>سال</span>
+            </li>
           </ul>
           <ul className="grid gap-1">
             <span>{teacher.fa_name}</span>
@@ -32,6 +35,7 @@ const TeacherData = ({ formData }) => {
               <span>{formData.semester}</span> -{" "}
               <span>{formData.semester_type}</span>
             </span>
+            <span>{formData.year}</span>
           </ul>
         </article>
         <article className="hidden md:block">
