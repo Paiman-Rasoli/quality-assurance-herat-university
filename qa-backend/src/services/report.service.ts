@@ -26,14 +26,9 @@ export class ReportService {
       relations: ["answers", "teacher", "subject"],
     });
 
-    console.log("eval form", evlForms);
     if (evlForms.length === 0) {
       return res.status(404).json({ data: null, message: "no form" });
     }
-
-    // if (evlForm.length.answers === 0) {
-    //   return res.status(404).json({ data: null, message: "No Answers" });
-    // }
 
     const departmentModel = getMyRepository(DepartmentEntity);
     const department = await departmentModel.findOne({
@@ -93,6 +88,7 @@ export class ReportService {
     if (evlForm.length === 0) {
       return res.status(404).json({ data: null, n: "no data" });
     }
+
     const departmentModel = getMyRepository(DepartmentEntity);
     const department = await departmentModel.findOne({
       where: { id: body.departmentId },
@@ -172,6 +168,7 @@ function getPureData(forms: any[]) {
   });
   return all;
 }
+
 function reportOfEachSubjectForTeacher(forms: any[]) {
   const all = [];
   forms.map((form) => {

@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
-import Loading from "../loading";
-import { httpGetReport } from "../../services/report";
-import { BarChart } from "./barChart";
+import Loading from "../../loading";
+import { httpGetReport } from "../../../services/report";
+import { BarChart } from "../barChart";
 import { toast } from "react-toastify";
-import { ToastMsg } from "../TaostMsg";
+import { ToastMsg } from "../../TaostMsg";
 
-const DepartmentReport = () => {
+const DepartmentReportChart = ({ departmentId, year, semester_type }) => {
   const [loading, setLoading] = useState(false);
   const [depReport, setDepReport] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [response, setResponse] = useState(null);
+
+  console.log("👩👩", departmentId, year, semester_type, {
+    departmentId: departmentId,
+    year: new Date(year).getFullYear(),
+    semester_type: semester_type,
+  });
 
   console.log("chart", chartData);
 
@@ -19,9 +25,9 @@ const DepartmentReport = () => {
       try {
         const res = await httpGetReport(
           {
-            departmentId: 2,
-            year: 2022,
-            semester_type: "بهاری",
+            departmentId: departmentId,
+            year: new Date(year).getFullYear(),
+            semester_type: semester_type,
           },
           "department"
         );
@@ -43,10 +49,7 @@ const DepartmentReport = () => {
     })();
   }, []);
 
-  if (loading)
-    <div>
-      <Loading />
-    </div>;
+  if (loading) return <Loading />;
 
   if (response?.status === 404) return <section>اطلاعاتی یافت نشد</section>;
 
@@ -104,4 +107,4 @@ const DepartmentReport = () => {
   );
 };
 
-export default DepartmentReport;
+export default DepartmentReportChart;

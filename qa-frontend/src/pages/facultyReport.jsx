@@ -11,7 +11,7 @@ import FacultyTable from "../components/faculty/table";
 import { httpGetReport } from "../services/report";
 import { useEffect } from "react";
 import RequestReport from "../components/reports/request";
-import DepartmentReport from "../components/reports/depReport";
+import DepartmentReportChart from "../components/reports/department/depReport";
 import TeacherReport from "../components/reports/teacher";
 
 const schema = yup.object({
@@ -60,7 +60,7 @@ const Report = () => {
     <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
       <div>گزارشات</div>
       <RequestReport faculties={faculties} />
-      <DepartmentReport />
+      <DepartmentReportChart />
       {/* <TeacherReport /> */}
     </section>
   );

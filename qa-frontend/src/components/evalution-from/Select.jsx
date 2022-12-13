@@ -28,7 +28,7 @@ const SelectDep = ({
 
   useMemo(() => {
     setSelectedOptions && setSelectedOptions(selectedItem);
-    if (name === "facultyId") {
+    if (name === "facultyId" && resetField) {
       resetField("departmentId");
     }
   }, [name, resetField, selectedItem, setSelectedOptions]);

@@ -17,7 +17,7 @@ import Question from "./pages/question";
 import Layout from "./components/layout/layout";
 import AddUser from "./components/users/add-user";
 import Report from "./pages/facultyReport";
-import DepartmentReport from "./components/reports/depReport";
+import DepartmentReportSelection from "./components/reports/department";
 
 function App() {
   return (
@@ -50,7 +50,10 @@ function App() {
               </Route>
               <Route path="report">
                 <Route path="faculty" element={<Report />} />
-                <Route path="department" element={<DepartmentReport />} />
+                <Route
+                  path="department"
+                  element={<DepartmentReportSelection />}
+                />
               </Route>
             </Route>
           </Route>
