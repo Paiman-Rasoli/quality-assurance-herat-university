@@ -19,8 +19,8 @@ const DepartmentReportChart = ({ departmentId, year, semester_type }) => {
 
   useEffect(() => {
     (async function () {
-      setLoading(true);
       try {
+        setLoading(true);
         const res = await httpGetReport(
           {
             departmentId: departmentId,
@@ -98,7 +98,15 @@ const DepartmentReportChart = ({ departmentId, year, semester_type }) => {
             </div>
           </article>
           <div>
-            {chartData?.length > 0 && <BarChart chartData={chartData} />}
+            {chartData?.length > 0 && (
+              <BarChart
+                chartData={chartData}
+                label="نمودار فیصدی اساتید"
+                y_label="درصدی"
+                x_label="استاد"
+                title=" چارت نشان دهنده فیصدی نمرات همه اساتید دیپارتمنت است."
+              />
+            )}
           </div>
         </>
       )}

@@ -18,19 +18,6 @@ routes.post(
 );
 
 routes.post(
-  "/teacher",
-  [
-    body("departmentId").notEmpty(),
-    body("teacherId").notEmpty(),
-    body("semester").notEmpty(),
-    body("year").notEmpty(),
-    body("type").notEmpty(),
-  ],
-  authGuard,
-  reportService.teacherReport
-);
-
-routes.post(
   "/each",
   [
     body("teacherId").notEmpty(),
@@ -47,7 +34,6 @@ routes.post(
   [
     body("departmentId").notEmpty(),
     body("teacherId").notEmpty(),
-    body("semester").notEmpty(),
     body("year").notEmpty(),
     body("semester_type").notEmpty(),
   ],

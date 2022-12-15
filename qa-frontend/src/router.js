@@ -17,8 +17,8 @@ import Question from "./pages/question";
 import Layout from "./components/layout/layout";
 import AddUser from "./components/users/add-user";
 import Report from "./pages/facultyReport";
-import DepartmentReportSelection from "./components/reports/department";
-import DepartmentReportChart from "./components/reports/department/depReport";
+import DepartmentReportSelection from "./components/reports/department/selectDep";
+import TeacherReport from "./components/reports/teacher/teacher";
 
 function App() {
   return (
@@ -55,10 +55,7 @@ function App() {
                   path="department"
                   element={<DepartmentReportSelection />}
                 />
-                <Route
-                  path="department/report"
-                  element={<DepartmentReportChart />}
-                />
+                <Route path="teacher" element={<TeacherReport />} />
               </Route>
             </Route>
           </Route>

@@ -10,7 +10,6 @@ import useFetch from "../../../hooks/useFetch";
 import { FacultyContext } from "../../../context/facultyContext";
 import FormBorder from "../../form/formBorder";
 import { semester_type } from "../../../services/list";
-import moment from "jalali-moment";
 
 const schema = yup.object({
   facultyId: yup
@@ -26,7 +25,7 @@ const schema = yup.object({
   year: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
 
-const DepartmentReportSelection = () => {
+const TeacherReportSelection = () => {
   const faculty = useContext(FacultyContext);
   const [selected, setSelected] = useState(null);
   const [selectedFacultyName, setSelectedFacultyName] = useState(null);
@@ -53,7 +52,7 @@ const DepartmentReportSelection = () => {
   }, [faculties, selectedFacultyName]);
 
   const onSubmit = async (data) => {
-    console.log(data, moment.utc(data.year));
+    // console.log(data, data.year);
     setSelected(data);
   };
 
@@ -134,4 +133,4 @@ const DepartmentReportSelection = () => {
   );
 };
 
-export default DepartmentReportSelection;
+export default TeacherReportSelection;
