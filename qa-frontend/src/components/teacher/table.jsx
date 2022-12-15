@@ -41,10 +41,6 @@ const TeachersTable = ({
     setSelectedDep(null);
   }, [selectedFac]);
 
-  // useMemo(() => {
-  //   setItemOffset(0);
-  // }, [filteredTeachers]);
-
   return (
     <>
       {isOpenTeacherModal && (
@@ -133,7 +129,7 @@ const TeachersTable = ({
         </div>
         <div className="">
           <Paginate
-            itemsPerPage={2}
+            itemsPerPage={10}
             items={filteredTeachers}
             setItems={setItems}
             itemOffset={itemOffset}

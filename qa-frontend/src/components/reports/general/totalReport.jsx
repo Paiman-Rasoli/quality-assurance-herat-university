@@ -1,32 +1,27 @@
 import React, { useEffect, useState } from "react";
-import Loading from "../loading";
-import { httpGetGeneralReport } from "../../services/report";
-import { ToastMsg } from "../TaostMsg";
+import Loading from "../../loading";
+import { httpGetGeneralReport } from "../../../services/report";
+import { ToastMsg } from "../../TaostMsg";
 import { toast } from "react-toastify";
-import { BarChart } from "./barChart";
+import { BarChart } from "../barChart";
 
-const TotalReport = ({ teacherId, year, semester_type }) => {
+const TotalReport = ({ year, semester_type }) => {
   const [loading, setLoading] = useState(false);
   const [reports, setReports] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [response, setResponse] = useState(null);
-  const reqest = {
-    year: 2022,
-    semester_type: "بهاری",
-  };
-  console.log("chart", chartData, reqest);
 
   useEffect(() => {
     (async function () {
       try {
-        console.log("report req");
-        // setLoading(true);
-        const res = await httpGetGeneralReport(reqest);
-        console.log("res-report");
+        setLoading(true);
+        const res = await httpGetGeneralReport({
+          year: new Date(year).getFullYear(),
+          semester_type,
+        });
         setResponse(res);
 
         const reports = await res.json();
-        console.log("res-faculty-report", reports);
         setReports(reports);
         setChartData(
           reports?.purifyFaculty?.map((item) => ({
@@ -34,15 +29,13 @@ const TotalReport = ({ teacherId, year, semester_type }) => {
             label: item?.faculty.fa_name,
           }))
         );
-        console.log("faclty-report", reports);
       } catch (error) {
-        console.log("error");
         toast.warning(<ToastMsg text={"خطا در بارگیری دیتا"} />);
       } finally {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [semester_type, year]);
 
   if (loading) return <Loading />;
 
@@ -52,11 +45,11 @@ const TotalReport = ({ teacherId, year, semester_type }) => {
     <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
       <ul className="grid grid-cols-2 bg-cyan-200 rounded py-5 px-10">
         <li className="flex gap-3">
-          <span>سال</span>
+          <span>سال:</span>
           <span>{reports?.year}</span>
         </li>
         <li className="flex gap-3">
-          <span>سمستر</span>
+          <span>سمستر:</span>
           <span>{reports?.semester_type}</span>
         </li>
       </ul>

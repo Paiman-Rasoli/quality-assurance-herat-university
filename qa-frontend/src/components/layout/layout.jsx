@@ -10,7 +10,6 @@ import {
   FolderIcon,
   HomeIcon,
   UsersIcon,
-  Cog8ToothIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
@@ -49,19 +48,11 @@ const navigation = [
     current: false,
     isPrivate: false,
     children: [
-      { name: "فاکولته ها", href: "general", isPrivate: true },
+      { name: "فاکولته ها", href: "total", isPrivate: true },
       { name: "دیپارتمنت", href: "department", isPrivate: false },
       { name: "استاد", href: "teacher", isPrivate: false },
       { name: "مضمون", href: "faculty", isPrivate: false },
-      { name: "گزارش امروز", href: "#", isPrivate: false },
     ],
-  },
-  {
-    name: "مدیریت سیستم",
-    href: "/",
-    icon: Cog8ToothIcon,
-    current: true,
-    isPrivate: true,
   },
 ];
 
