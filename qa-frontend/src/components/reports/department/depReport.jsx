@@ -11,12 +11,6 @@ const DepartmentReportChart = ({ departmentId, year, semester_type }) => {
   const [chartData, setChartData] = useState([]);
   const [response, setResponse] = useState(null);
 
-  // console.log("👩👩", departmentId, year, semester_type, {
-  //   departmentId: departmentId,
-  //   year: new Date(year).getFullYear(),
-  //   semester_type: semester_type,
-  // });
-
   useEffect(() => {
     (async function () {
       try {
@@ -31,7 +25,6 @@ const DepartmentReportChart = ({ departmentId, year, semester_type }) => {
         );
         setResponse(res);
         const reports = await res.json();
-        console.log("chart", reports);
         setDepReport(reports);
         setChartData(
           reports?.teachersRep?.map((item) => ({
@@ -39,14 +32,13 @@ const DepartmentReportChart = ({ departmentId, year, semester_type }) => {
             label: item?.teacher.fa_name,
           }))
         );
-        console.log("dep-report", reports, depReport);
       } catch (error) {
         toast.warning(<ToastMsg text={"خطا در بارگیری دیتا"} />);
       } finally {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [departmentId, semester_type, year]);
 
   if (loading) return <Loading />;
 
@@ -56,19 +48,19 @@ const DepartmentReportChart = ({ departmentId, year, semester_type }) => {
     <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
       <ul className="grid grid-cols-2 bg-cyan-200 rounded py-5 px-10">
         <li className="flex gap-3">
-          <span>فاکولته</span>
+          <span>فاکولته:</span>
           <span>{depReport?.department?.faculty?.fa_name}</span>
         </li>
         <li className="flex gap-3">
-          <span>دیپارتمنت</span>
+          <span>دیپارتمنت:</span>
           <span>{depReport?.department?.fa_name}</span>
         </li>
         <li className="flex gap-3">
-          <span>سال</span>
+          <span>سال:</span>
           <span>{depReport?.year}</span>
         </li>
         <li className="flex gap-3">
-          <span>سمستر</span>
+          <span>سمستر:</span>
           <span>{depReport?.semester_type}</span>
         </li>
       </ul>

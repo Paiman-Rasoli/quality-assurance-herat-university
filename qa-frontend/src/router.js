@@ -16,11 +16,10 @@ import Subject from "./pages/subject";
 import Question from "./pages/question";
 import Layout from "./components/layout/layout";
 import AddUser from "./components/users/add-user";
-import Report from "./pages/facultyReport";
 import DepartmentReportSelection from "./components/reports/department/selectDep";
 import TeacherReportSelection from "./components/reports/teacher/selectTeacher";
 import FacultyReport from "./components/reports/faculty/facultyReport";
-import TotalReport from "./components/reports/request";
+import TotalReportSelection from "./components/reports/general/selectYear";
 
 function App() {
   return (
@@ -52,7 +51,9 @@ function App() {
                 <Route index element={<Dashboard />} />
               </Route>
               <Route path="report">
-                <Route path="general" element={<TotalReport />} />
+                <Route element={<ProtectedRoutes />}>
+                  <Route path="total" element={<TotalReportSelection />} />
+                </Route>
                 <Route
                   path="department"
                   element={<DepartmentReportSelection />}

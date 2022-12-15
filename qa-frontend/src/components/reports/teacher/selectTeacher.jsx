@@ -54,7 +54,7 @@ const TeacherReportSelection = () => {
     setDepartments(deps);
     setSelectedDepartment(null);
     resetField("departmentId");
-  }, [faculties, selectedFacultyName, resetField]);
+  }, [selectedFacultyName, resetField]);
 
   useMemo(() => {
     // console.log("selected dep ", selectedDepartment, departments);
