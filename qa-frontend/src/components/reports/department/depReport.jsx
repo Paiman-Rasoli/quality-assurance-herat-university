@@ -17,8 +17,6 @@ const DepartmentReportChart = ({ departmentId, year, semester_type }) => {
     semester_type: semester_type,
   });
 
-  console.log("chart", chartData);
-
   useEffect(() => {
     (async function () {
       setLoading(true);
@@ -33,11 +31,12 @@ const DepartmentReportChart = ({ departmentId, year, semester_type }) => {
         );
         setResponse(res);
         const reports = await res.json();
+        console.log("chart", reports);
         setDepReport(reports);
         setChartData(
           reports?.teachersRep?.map((item) => ({
             percent: item?.percent,
-            label: item?.teacherId,
+            label: item?.teacher.fa_name,
           }))
         );
         console.log("dep-report", reports, depReport);
@@ -95,7 +94,7 @@ const DepartmentReportChart = ({ departmentId, year, semester_type }) => {
             </div>
             <div className="flex gap-3 bg-orange-300 rounded p-3">
               <span>تعداد اشتراک کننده</span>
-              <span>{Number(depReport?.total?.subscribers)}</span>
+              <span>{depReport?.total?.subscribers}</span>
             </div>
           </article>
           <div>

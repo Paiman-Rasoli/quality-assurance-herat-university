@@ -4,7 +4,7 @@ import { Chart as ChartJS, registerables } from "chart.js/auto";
 ChartJS.register(...registerables);
 
 export const BarChart = ({ chartData, label }) => {
-  // console.log("barChart", chartData);
+  console.log("barChart", chartData);
   return (
     <div className="chart-container">
       <h2 style={{ textAlign: "center" }}>{label}</h2>

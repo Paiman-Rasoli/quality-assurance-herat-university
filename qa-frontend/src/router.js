@@ -18,6 +18,7 @@ import Layout from "./components/layout/layout";
 import AddUser from "./components/users/add-user";
 import Report from "./pages/facultyReport";
 import DepartmentReportSelection from "./components/reports/department";
+import DepartmentReportChart from "./components/reports/department/depReport";
 
 function App() {
   return (
@@ -53,6 +54,10 @@ function App() {
                 <Route
                   path="department"
                   element={<DepartmentReportSelection />}
+                />
+                <Route
+                  path="department/report"
+                  element={<DepartmentReportChart />}
                 />
               </Route>
             </Route>

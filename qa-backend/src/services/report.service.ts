@@ -37,6 +37,7 @@ export class ReportService {
     });
 
     const purifySubject = reportOfEachSubjectForTeacher(evlForms);
+    console.log(purifySubject);
 
     const groupedSubjectForEachTeacher = Object.values(
       purifySubject.reduce((acc, current) => {
@@ -49,6 +50,7 @@ export class ReportService {
     const purifyTeacher = groupedSubjectForEachTeacher.map((teacher) =>
       reportOfEachTeacherForDep(teacher as any[])
     );
+    console.log(groupedSubjectForEachTeacher);
 
     const purifyTeachersOfDep = totalReport(purifyTeacher);
     return res.status(200).json({
@@ -189,8 +191,10 @@ function reportOfEachSubjectForTeacher(forms: any[]) {
       tempPercent += fromPercent;
     });
     let subs = form.answers?.length;
+
     if (subs > 0) {
       all.push({
+        teacher: form.teacher,
         teacherId: form.teacher.id,
         subjectId: form.subject.id,
         sum: tempSum,
@@ -242,9 +246,16 @@ function totalReport(data: any[]) {
 }
 
 function reportOfEachTeacherForDep(data: any[]) {
-  const temp = { average: 0, percent: 0, subscribers: 0, teacherId: 0 };
+  const temp = {
+    average: 0,
+    percent: 0,
+    subscribers: 0,
+    teacherId: 0,
+    teacher: {},
+  };
 
   data.map((item) => {
+    temp["teacher"] = item.teacher;
     temp["teacherId"] = item.teacherId;
     temp["average"] += +(item.average / data.length);
     temp["percent"] += +(item.percent / data.length);
