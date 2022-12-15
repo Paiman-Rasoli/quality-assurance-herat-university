@@ -28,7 +28,7 @@ const Form = () => {
     ? forms?.filter((fr) => fr.department.facultyId === faculty.id)
     : forms;
 
-  console.log("form-evaluaito", forms);
+  // console.log("form-evaluaito", forms);
 
   const deleteF = async (data) => {
     setSelectedForm(data);

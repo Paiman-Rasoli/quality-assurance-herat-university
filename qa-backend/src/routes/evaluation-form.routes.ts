@@ -17,6 +17,7 @@ routes.post(
     body("start_date").notEmpty(),
     body("end_date").notEmpty(),
     body("department").notEmpty(),
+    body("faculty").notEmpty(),
   ],
   authGuard,
   evaluationForm.addForm

@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { getMyRepository } from "../data-source";
-import { DepartmentEntity, EvaluationFormEntity, RESPONSES } from "../entities";
+import { getMyRepository } from "../../data-source";
+import {
+  DepartmentEntity,
+  EvaluationFormEntity,
+  RESPONSES,
+} from "../../entities";
 
 export class ReportService {
-  async addAnswers(req: Request, res: Response) {}
-
   async departmentReport(req: Request, res: Response) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

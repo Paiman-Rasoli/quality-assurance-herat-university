@@ -4,6 +4,22 @@ import { ToastMsg } from "../components/TaostMsg";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
+export async function httpGetGeneralReport(data) {
+  try {
+    const response = await fetch(`${API_URL}/report`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(data),
+    });
+    return response;
+  } catch (error) {
+    console.log("create report error", error);
+    toast.error(<ToastMsg text={"لطفا ارتباط با سرور را چک نمایید"} />);
+  }
+}
 // Load faculties and return as JSON.
 export async function httpGetReport(data, path) {
   try {

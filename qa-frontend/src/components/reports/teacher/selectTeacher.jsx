@@ -73,10 +73,10 @@ const TeacherReportSelection = () => {
   };
 
   return (
-    <section>
+    <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
       {!selected ? (
         <div>
-          <FormBorder label={"تهیه گزارش استاد"}>
+          <FormBorder label={"تهیه گزارش استاد"} className="lg:mx-40">
             <h6 className="mb-10 text-sm">
               برای تهیه گزارش لطفا موارد ذیل را با دقت انتخاب نمایید
             </h6>

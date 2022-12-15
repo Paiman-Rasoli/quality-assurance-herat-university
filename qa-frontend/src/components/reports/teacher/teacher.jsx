@@ -51,7 +51,7 @@ const TeacherReport = ({ teacherId, year, semester_type }) => {
 
   return (
     <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
-      <ul className="grid grid-cols-1 lg:grid-cols-2 bg-cyan-200 rounded py-5 px-10 gap-x-10">
+      <ul className="grid grid-cols-2 bg-cyan-200 rounded py-5 px-10 gap-x-10">
         <li className="flex gap-3">
           <span>نام و تخلص:</span>
           <span>{teacherReport?.purifyTeachers?.teacher?.fa_name}</span>

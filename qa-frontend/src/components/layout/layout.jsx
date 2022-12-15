@@ -49,6 +49,7 @@ const navigation = [
     current: false,
     isPrivate: false,
     children: [
+      { name: "کلی", href: "general", isPrivate: true },
       { name: "فاکولته", href: "faculty", isPrivate: false },
       { name: "دیپارتمنت", href: "department", isPrivate: false },
       { name: "استاد", href: "teacher", isPrivate: false },

@@ -6,7 +6,7 @@ import Paginate from "../teacher/paginate";
 const EvaluationFromTable = ({ setIsOpenModal, forms, deleteF, updateF }) => {
   const [items, setItems] = useState(forms);
   const [itemOffset, setItemOffset] = useState(0);
-  const [currentPage, setCurrentPage] = useState(0);
+
   const itemsPerPage = 10;
 
   return (
@@ -53,6 +53,18 @@ const EvaluationFromTable = ({ setIsOpenModal, forms, deleteF, updateF }) => {
                   scope="col"
                   className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
                 >
+                  سال
+                </th>
+                <th
+                  scope="col"
+                  className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                >
+                  سمستر
+                </th>
+                <th
+                  scope="col"
+                  className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                >
                   تاریخ شروع
                 </th>
                 <th
@@ -86,6 +98,12 @@ const EvaluationFromTable = ({ setIsOpenModal, forms, deleteF, updateF }) => {
                   </td>
                   <td className="whitespace-nowrapp-2 p-2 lg:p-4  text-gray-700">
                     {item.subject.id}
+                  </td>
+                  <td className="whitespace-nowrapp-2 p-2 lg:p-4  text-gray-700">
+                    {item.year}
+                  </td>
+                  <td className="whitespace-nowrapp-2 p-2 lg:p-4  text-gray-700">
+                    {item.semester_type}
                   </td>
                   <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
                     {moment(item.start_date, "YYYY/MM/DD h:mm")
@@ -121,7 +139,6 @@ const EvaluationFromTable = ({ setIsOpenModal, forms, deleteF, updateF }) => {
       </div>
       <div>
         <Paginate
-          setCurrentPage={setCurrentPage}
           itemsPerPage={itemsPerPage}
           items={forms}
           setItems={setItems}
