@@ -274,7 +274,6 @@ function reportOfEachTeacherForDep(data: any[]) {
 
   return temp;
 }
-
 //* Helpers for each questions
 function findSumOfAnswersForEachForm(data: any[]) {
   const stack = { totalParticipant: 0 };

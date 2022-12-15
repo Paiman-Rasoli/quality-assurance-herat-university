@@ -70,6 +70,7 @@ routes.post(
     body("departmentId").notEmpty(),
     body("year").notEmpty(),
     body("type").notEmpty(),
+    body("subjectId").notEmpty(),
   ],
   authGuard,
   reportService.reportEach
