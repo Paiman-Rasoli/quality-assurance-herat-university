@@ -4,12 +4,12 @@ import { Controller, useForm } from "react-hook-form";
 import SelectDep from "../../evalution-from/Select";
 import InputYear from "../../form/inputYear";
 import Select from "../../form/Select";
-import DepartmentReportChart from "./depReport";
 import * as yup from "yup";
 import useFetch from "../../../hooks/useFetch";
 import { FacultyContext } from "../../../context/facultyContext";
 import FormBorder from "../../form/formBorder";
 import { semester_type } from "../../../services/list";
+import TeacherReport from "./teacher";
 
 const schema = yup.object({
   facultyId: yup
@@ -18,10 +18,10 @@ const schema = yup.object({
   departmentId: yup
     .string()
     .required("لطفا دیپارتمنت مورد نظرتان را انتخاب نمایید "),
+  teacherId: yup.string().required("لطفا استاد مورد نظرتان را انتخاب نمایید "),
   semester_type: yup
     .string()
     .required("لطفا نوعیت سمستر مورد نظرتان را انتخاب نمایید "),
-
   year: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
 
@@ -30,6 +30,8 @@ const TeacherReportSelection = () => {
   const [selected, setSelected] = useState(null);
   const [selectedFacultyName, setSelectedFacultyName] = useState(null);
   const [departments, setDepartments] = useState(null);
+  const [selectedDepartment, setSelectedDepartment] = useState(null);
+  const [teachers, setTeachers] = useState(null);
 
   let { data: faculties } = useFetch("faculty");
   faculties = faculty
@@ -40,6 +42,7 @@ const TeacherReportSelection = () => {
     register,
     handleSubmit,
     control,
+    resetField,
     formState: { errors },
     reset,
   } = useForm({ resolver: yupResolver(schema) });
@@ -49,10 +52,23 @@ const TeacherReportSelection = () => {
       (fc) => fc.id === selectedFacultyName?.[1]
     )[0]?.departments;
     setDepartments(deps);
-  }, [faculties, selectedFacultyName]);
+    setSelectedDepartment(null);
+    resetField("departmentId");
+  }, [faculties, selectedFacultyName, resetField]);
+
+  useMemo(() => {
+    // console.log("selected dep ", selectedDepartment, departments);
+    const teachers = departments?.filter(
+      (dep) => dep.id === selectedDepartment?.[1]
+    )[0]?.teachers;
+    // console.log("🤶🤶", teachers);
+    setTeachers(teachers);
+    resetField("teacher");
+    resetField("subject");
+  }, [departments, resetField, selectedDepartment]);
 
   const onSubmit = async (data) => {
-    // console.log(data, data.year);
+    console.log("ddddd", data, data.year);
     setSelected(data);
   };
 
@@ -60,7 +76,10 @@ const TeacherReportSelection = () => {
     <section>
       {!selected ? (
         <div>
-          <FormBorder label={"تهیه گزارش دیپارتمنت"}>
+          <FormBorder label={"تهیه گزارش استاد"}>
+            <h6 className="mb-10 text-sm">
+              برای تهیه گزارش لطفا موارد ذیل را با دقت انتخاب نمایید
+            </h6>
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="grid w-full gap-3"
@@ -88,6 +107,23 @@ const TeacherReportSelection = () => {
                   options={departments?.map((dep) => [dep.fa_name, dep.id])}
                   placeholder="دیپارتمنت"
                   className={!selectedFacultyName && "disabled"}
+                  setSelectedOptions={setSelectedDepartment}
+                />
+              )}
+              {teachers && (
+                <SelectDep
+                  name="teacherId"
+                  Type={"string"}
+                  label={"استاد"}
+                  errors={errors}
+                  Controller={Controller}
+                  control={control}
+                  options={teachers?.map((teacher) => [
+                    teacher.fa_name,
+                    teacher.id,
+                  ])}
+                  placeholder="استاد"
+                  className={!departments && "disabled"}
                 />
               )}
               <InputYear
@@ -123,10 +159,11 @@ const TeacherReportSelection = () => {
           </FormBorder>
         </div>
       ) : (
-        <DepartmentReportChart
+        <TeacherReport
           departmentId={+selected.departmentId}
-          year={selected.year}
           semester_type={selected.semester_type}
+          teacherId={+selected?.teacherId}
+          year={selected.year}
         />
       )}
     </section>

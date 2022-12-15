@@ -32,7 +32,6 @@ routes.post(
 routes.post(
   "/teacher",
   [
-    body("departmentId").notEmpty(),
     body("teacherId").notEmpty(),
     body("year").notEmpty(),
     body("semester_type").notEmpty(),

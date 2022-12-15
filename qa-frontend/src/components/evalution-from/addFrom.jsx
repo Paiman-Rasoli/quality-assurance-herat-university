@@ -134,7 +134,6 @@ const AddFrom = ({ faculties, refetch, setAddNew }) => {
           />
           {departments && (
             <>
-              {" "}
               <SelectDep
                 name="department"
                 Type={"string"}

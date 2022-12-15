@@ -11,11 +11,11 @@ const DepartmentReportChart = ({ departmentId, year, semester_type }) => {
   const [chartData, setChartData] = useState([]);
   const [response, setResponse] = useState(null);
 
-  console.log("👩👩", departmentId, year, semester_type, {
-    departmentId: departmentId,
-    year: new Date(year).getFullYear(),
-    semester_type: semester_type,
-  });
+  // console.log("👩👩", departmentId, year, semester_type, {
+  //   departmentId: departmentId,
+  //   year: new Date(year).getFullYear(),
+  //   semester_type: semester_type,
+  // });
 
   useEffect(() => {
     (async function () {
@@ -74,7 +74,7 @@ const DepartmentReportChart = ({ departmentId, year, semester_type }) => {
       </ul>
 
       {depReport?.total?.subscribers === 0 ? (
-        <div>هنوز هیچ کسی اشتراک نکرده</div>
+        <div>هنوز کسی اشتراک نکرده</div>
       ) : (
         <>
           <article className="flex gap-2 flex-wrap justify-around m-5">

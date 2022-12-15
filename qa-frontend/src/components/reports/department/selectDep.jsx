@@ -52,7 +52,7 @@ const DepartmentReportSelection = () => {
   }, [faculties, selectedFacultyName]);
 
   const onSubmit = async (data) => {
-    // console.log(data, data.year);
+    console.log(data, data.year);
     setSelected(data);
   };
 
@@ -61,6 +61,9 @@ const DepartmentReportSelection = () => {
       {!selected ? (
         <div>
           <FormBorder label={"تهیه گزارش دیپارتمنت"}>
+            <h6 className="mb-10 text-sm">
+              برای تهیه گزارش لطفا موارد ذیل را با دقت انتخاب نمایید
+            </h6>
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="grid w-full gap-3"

@@ -37,7 +37,6 @@ export class ReportService {
     });
 
     const purifySubject = reportOfEachSubjectForTeacher(evlForms);
-    console.log(purifySubject);
 
     const groupedSubjectForEachTeacher = Object.values(
       purifySubject.reduce((acc, current) => {
@@ -50,7 +49,6 @@ export class ReportService {
     const purifyTeacher = groupedSubjectForEachTeacher.map((teacher) =>
       reportOfEachTeacherForDep(teacher as any[])
     );
-    console.log(groupedSubjectForEachTeacher);
 
     const purifyTeachersOfDep = totalReport(purifyTeacher);
     return res.status(200).json({
@@ -78,7 +76,6 @@ export class ReportService {
         teacher: {
           id: body.teacherId,
         },
-        department: { id: +body.departmentId }, //
         year: +body.year,
         semester_type: body.semester_type,
       },
