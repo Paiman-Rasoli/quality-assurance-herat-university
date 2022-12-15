@@ -17,7 +17,10 @@ import Question from "./pages/question";
 import Layout from "./components/layout/layout";
 import AddUser from "./components/users/add-user";
 import Report from "./pages/facultyReport";
-import DepartmentReport from "./components/reports/depReport";
+import DepartmentReportSelection from "./components/reports/department/selectDep";
+import TeacherReportSelection from "./components/reports/teacher/selectTeacher";
+import FacultyReport from "./components/reports/faculty/facultyReport";
+import TotalReport from "./components/reports/request";
 
 function App() {
   return (
@@ -49,8 +52,13 @@ function App() {
                 <Route index element={<Dashboard />} />
               </Route>
               <Route path="report">
-                <Route path="faculty" element={<Report />} />
-                <Route path="department" element={<DepartmentReport />} />
+                <Route path="general" element={<TotalReport />} />
+                <Route
+                  path="department"
+                  element={<DepartmentReportSelection />}
+                />
+                <Route path="teacher" element={<TeacherReportSelection />} />
+                <Route path="faculty" element={<FacultyReport />} />
               </Route>
             </Route>
           </Route>

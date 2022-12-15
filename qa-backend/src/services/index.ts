@@ -6,4 +6,4 @@ export * from "./subject.service";
 export * from "./evaluation-form.service";
 export * from "./question.service";
 export * from "./answer.service";
-export * from "./report.service";
+export * from "./reports/report.service";

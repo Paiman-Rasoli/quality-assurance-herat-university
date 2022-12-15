@@ -1,37 +1,42 @@
 import React, { useEffect, useState } from "react";
-import Loading from "../loading";
-import { httpGetReport } from "../../services/report";
-import { BarChart } from "./barChart";
+import Loading from "../../loading";
+import { httpGetReport } from "../../../services/report";
+import { BarChart } from "../barChart";
 import { toast } from "react-toastify";
-import { ToastMsg } from "../TaostMsg";
+import { ToastMsg } from "../../TaostMsg";
 
-const DepartmentReport = () => {
+const DepartmentReportChart = ({ departmentId, year, semester_type }) => {
   const [loading, setLoading] = useState(false);
   const [depReport, setDepReport] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [response, setResponse] = useState(null);
 
-  console.log("chart", chartData);
+  // console.log("👩👩", departmentId, year, semester_type, {
+  //   departmentId: departmentId,
+  //   year: new Date(year).getFullYear(),
+  //   semester_type: semester_type,
+  // });
 
   useEffect(() => {
     (async function () {
-      setLoading(true);
       try {
+        setLoading(true);
         const res = await httpGetReport(
           {
-            departmentId: 2,
-            year: 2022,
-            semester_type: "بهاری",
+            departmentId: departmentId,
+            year: new Date(year).getFullYear(),
+            semester_type: semester_type,
           },
           "department"
         );
         setResponse(res);
         const reports = await res.json();
+        console.log("chart", reports);
         setDepReport(reports);
         setChartData(
           reports?.teachersRep?.map((item) => ({
             percent: item?.percent,
-            label: item?.teacherId,
+            label: item?.teacher.fa_name,
           }))
         );
         console.log("dep-report", reports, depReport);
@@ -43,10 +48,7 @@ const DepartmentReport = () => {
     })();
   }, []);
 
-  if (loading)
-    <div>
-      <Loading />
-    </div>;
+  if (loading) return <Loading />;
 
   if (response?.status === 404) return <section>اطلاعاتی یافت نشد</section>;
 
@@ -72,7 +74,7 @@ const DepartmentReport = () => {
       </ul>
 
       {depReport?.total?.subscribers === 0 ? (
-        <div>هنوز هیچ کسی اشتراک نکرده</div>
+        <div>هنوز کسی اشتراک نکرده</div>
       ) : (
         <>
           <article className="flex gap-2 flex-wrap justify-around m-5">
@@ -92,11 +94,19 @@ const DepartmentReport = () => {
             </div>
             <div className="flex gap-3 bg-orange-300 rounded p-3">
               <span>تعداد اشتراک کننده</span>
-              <span>{Number(depReport?.total?.subscribers)}</span>
+              <span>{depReport?.total?.subscribers}</span>
             </div>
           </article>
           <div>
-            {chartData?.length > 0 && <BarChart chartData={chartData} />}
+            {chartData?.length > 0 && (
+              <BarChart
+                chartData={chartData}
+                label="نمودار فیصدی اساتید"
+                y_label="درصدی"
+                x_label="استاد"
+                title=" چارت نشان دهنده فیصدی نمرات همه اساتید دیپارتمنت است."
+              />
+            )}
           </div>
         </>
       )}
@@ -104,4 +114,4 @@ const DepartmentReport = () => {
   );
 };
 
-export default DepartmentReport;
+export default DepartmentReportChart;

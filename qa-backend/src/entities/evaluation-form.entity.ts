@@ -9,6 +9,7 @@ import {
 } from "typeorm";
 import { AnswerEntity } from "./answer.entity";
 import { DepartmentEntity } from "./department.entity";
+import { FacultyEntity } from "./faculty.entity";
 import { SubjectEntity } from "./subject.entity";
 import { TeacherEntity } from "./teacher.entity";
 
@@ -66,4 +67,11 @@ export class EvaluationFormEntity {
   })
   @JoinColumn()
   department: DepartmentEntity;
+
+  @ManyToOne(() => FacultyEntity, {
+    nullable: false,
+    onDelete: "CASCADE",
+  })
+  @JoinColumn()
+  faculty: FacultyEntity;
 }

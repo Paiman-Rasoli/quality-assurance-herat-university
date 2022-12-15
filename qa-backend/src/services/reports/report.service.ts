@@ -1,11 +1,13 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { getMyRepository } from "../data-source";
-import { DepartmentEntity, EvaluationFormEntity, RESPONSES } from "../entities";
+import { getMyRepository } from "../../data-source";
+import {
+  DepartmentEntity,
+  EvaluationFormEntity,
+  RESPONSES,
+} from "../../entities";
 
 export class ReportService {
-  async addAnswers(req: Request, res: Response) {}
-
   async departmentReport(req: Request, res: Response) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -26,14 +28,9 @@ export class ReportService {
       relations: ["answers", "teacher", "subject"],
     });
 
-    console.log("eval form", evlForms);
     if (evlForms.length === 0) {
       return res.status(404).json({ data: null, message: "no form" });
     }
-
-    // if (evlForm.length.answers === 0) {
-    //   return res.status(404).json({ data: null, message: "No Answers" });
-    // }
 
     const departmentModel = getMyRepository(DepartmentEntity);
     const department = await departmentModel.findOne({
@@ -81,10 +78,8 @@ export class ReportService {
         teacher: {
           id: body.teacherId,
         },
-        department: { id: +body.departmentId }, //
         year: +body.year,
-        semester_type: body.type,
-        semester: +body.semester,
+        semester_type: body.semester_type,
       },
       relations: ["answers", "teacher", "subject"],
     });
@@ -93,6 +88,7 @@ export class ReportService {
     if (evlForm.length === 0) {
       return res.status(404).json({ data: null, n: "no data" });
     }
+
     const departmentModel = getMyRepository(DepartmentEntity);
     const department = await departmentModel.findOne({
       where: { id: body.departmentId },
@@ -104,11 +100,12 @@ export class ReportService {
     const purifyTeachers = reportOfEachTeacherForDep(purifySubject);
     return res.status(200).json({
       nodata: "teacherReport",
-      total: purifyTeachers,
-      purify: purifySubject,
+      purifyTeachers,
+      purifySubject,
       answers: evlForm,
       department,
-      semester: body.semester,
+      year: body.year,
+      semester_type: body.semester_type,
     });
   }
 
@@ -129,10 +126,6 @@ export class ReportService {
         department: { id: +body.departmentId }, //
         year: +body.year,
         semester_type: body.type,
-        semester: +body.semester,
-        subject: {
-          id: +body.subjectId,
-        },
       },
       relations: ["answers", "teacher", "subject"],
     });
@@ -184,6 +177,7 @@ function getPureData(forms: any[]) {
   });
   return all;
 }
+
 function reportOfEachSubjectForTeacher(forms: any[]) {
   const all = [];
   forms.map((form) => {
@@ -204,9 +198,12 @@ function reportOfEachSubjectForTeacher(forms: any[]) {
       tempPercent += fromPercent;
     });
     let subs = form.answers?.length;
+
     if (subs > 0) {
       all.push({
+        teacher: form.teacher,
         teacherId: form.teacher.id,
+        subject: form.subject,
         subjectId: form.subject.id,
         sum: tempSum,
         subscribers: subs,
@@ -257,9 +254,16 @@ function totalReport(data: any[]) {
 }
 
 function reportOfEachTeacherForDep(data: any[]) {
-  const temp = { average: 0, percent: 0, subscribers: 0, teacherId: 0 };
+  const temp = {
+    average: 0,
+    percent: 0,
+    subscribers: 0,
+    teacherId: 0,
+    teacher: {},
+  };
 
   data.map((item) => {
+    temp["teacher"] = item.teacher;
     temp["teacherId"] = item.teacherId;
     temp["average"] += +(item.average / data.length);
     temp["percent"] += +(item.percent / data.length);

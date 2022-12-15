@@ -58,7 +58,7 @@ export class EvaluationForm {
     }
     const formModel = getMyRepository(EvaluationFormEntity);
     const find = await formModel.find({
-      relations: ["teacher", "subject", "department", "department.faculty"],
+      relations: ["teacher", "subject", "department", "faculty"],
     });
     if (!find) {
       return res.status(404).json({ msg: "Not found any Evaluation form " });
@@ -113,4 +113,5 @@ interface formInputDto {
   teacher: string | number;
   subject: string | number;
   department: string | number;
+  faculty: string | number;
 }

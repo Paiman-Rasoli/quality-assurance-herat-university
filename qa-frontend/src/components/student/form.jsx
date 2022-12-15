@@ -10,7 +10,7 @@ import FormBorder from "../form/formBorder";
 // });
 
 const Form = ({ formData }) => {
-  // console.log("formData", formData);
+  console.log("formData", formData);
 
   return (
     <div className="grid justify-center font-vazirBold text-gray-700">

@@ -3,26 +3,25 @@ import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js/auto";
 ChartJS.register(...registerables);
 
-export const BarChart = ({ chartData, label }) => {
-  // console.log("barChart", chartData);
+export const BarChart = ({ chartData, label, title, y_label, x_label }) => {
+  console.log("barChart", chartData);
   return (
     <div className="chart-container">
-      <h2 style={{ textAlign: "center" }}>{label}</h2>
       <Bar
         options={{
           scales: {
             y: {
-              title: { display: true, text: "درصدی" },
+              title: { display: true, text: y_label },
               max: 100,
             },
             x: {
-              title: { display: true, text: "آیدی" },
+              title: { display: true, text: x_label },
             },
           },
           plugins: {
             title: {
               display: true,
-              text: " چارت نشان دهنده فیصدی نمرات همه اساتید دیپارتمنت است.",
+              text: title,
             },
             tooltip: { titleFont: { size: "20px" } },
           },
@@ -32,7 +31,7 @@ export const BarChart = ({ chartData, label }) => {
           datasets: [
             {
               axis: "y",
-              label: "نمودار فیصدی اساتید",
+              label: label,
               data: [...chartData?.map((item) => item.percent)],
               fill: true,
               backgroundColor: [

@@ -13,7 +13,6 @@ import { semester_type } from "../../services/list";
 import { httpPostForm } from "../../services/evalution-form";
 import { toast } from "react-toastify";
 import { ToastMsg } from "../TaostMsg";
-import InputDate from "../form/InputDate";
 import InputYear from "../form/inputYear";
 
 const schema = yup.object({
@@ -31,7 +30,7 @@ const schema = yup.object({
     .nullable()
     .required("لطفا سمستر مورد نظرتان را انتخاب نمایید ")
     .min(1),
-  year: yup.number().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
+  year: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
   start_date: yup.number().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
   end_date: yup.number().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
@@ -87,22 +86,29 @@ const AddFrom = ({ faculties, refetch, setAddNew }) => {
       end_date: new Date(data.end_date),
       year: new Date(data.year).getFullYear(),
     });
-    // const res = await httpPostForm({
-    //   ...data,
-    //   start_date: new Date(data.start_date),
-    //   end_date: new Date(data.end_date),
-    //   year: new Date(data.year).getFullYear(),
-    // });
-    // console.log("res-form", res, await res.json());
-    // if (res) {
-    //   res.ok
-    //     ? toast.success(<ToastMsg text={"فورم جدید ایجاد شد"} />)
-    //     : toast.warning(<ToastMsg text={"فورم ایجاد نشد"} />);
-    //   refetch();
-    //   setLoading(false);
-    //   setAddNew(false);
-    // }
+    try {
+      const res = await httpPostForm({
+        ...data,
+        start_date: new Date(data.start_date),
+        end_date: new Date(data.end_date),
+        year: new Date(data.year).getFullYear(),
+      });
+      console.log("res-form", res, await res.json());
+      if (res) {
+        res.ok
+          ? toast.success(<ToastMsg text={"فورم جدید ایجاد شد"} />)
+          : toast.warning(<ToastMsg text={"فورم ایجاد نشد"} />);
+        refetch();
+        setLoading(false);
+        setAddNew(false);
+      }
+    } catch (error) {
+      console.log("add-form", error);
+      toast.warning(<ToastMsg text="خطا هنگام ایجاد فورم" />);
+    }
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div>
@@ -128,7 +134,6 @@ const AddFrom = ({ faculties, refetch, setAddNew }) => {
           />
           {departments && (
             <>
-              {" "}
               <SelectDep
                 name="department"
                 Type={"string"}
@@ -236,7 +241,6 @@ const AddFrom = ({ faculties, refetch, setAddNew }) => {
             >
               تایید
             </button>
-            {loading && <Loading />}
           </div>
         </form>
       </FormBorder>
