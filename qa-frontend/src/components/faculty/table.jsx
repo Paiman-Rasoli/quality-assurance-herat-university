@@ -7,7 +7,7 @@ const FacultyTable = ({ setIsOpenModal, faculties, deleteF, updateF }) => {
   const [items, setItems] = useState(faculties);
   const [itemOffset, setItemOffset] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
 
   return (
     <>
@@ -38,13 +38,7 @@ const FacultyTable = ({ setIsOpenModal, faculties, deleteF, updateF }) => {
                   scope="col"
                   className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
                 >
-                  نام فارسی
-                </th>
-                <th
-                  scope="col"
-                  className="p-2 lg:p-4 text-right font-semibold text-gray-900 lg:block hidden"
-                >
-                  نام انگلیسی
+                  نام
                 </th>
                 <th
                   scope="col"
@@ -71,8 +65,7 @@ const FacultyTable = ({ setIsOpenModal, faculties, deleteF, updateF }) => {
                   </td>
                   <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
                     {item.fa_name}
-                  </td>
-                  <td className="whitespace-nowrapp-2 p-2 lg:p-4  text-gray-700 lg:block hidden">
+                    {" - "}
                     {item.en_name}
                   </td>
                   <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
@@ -101,16 +94,16 @@ const FacultyTable = ({ setIsOpenModal, faculties, deleteF, updateF }) => {
             </tbody>
           </table>
         </div>
-      </div>
-      <div>
-        <Paginate
-          setCurrentPage={setCurrentPage}
-          itemsPerPage={itemsPerPage}
-          items={faculties}
-          setItems={setItems}
-          itemOffset={itemOffset}
-          setItemOffset={setItemOffset}
-        />
+        <div>
+          <Paginate
+            setCurrentPage={setCurrentPage}
+            itemsPerPage={itemsPerPage}
+            items={faculties}
+            setItems={setItems}
+            itemOffset={itemOffset}
+            setItemOffset={setItemOffset}
+          />
+        </div>
       </div>
     </>
   );

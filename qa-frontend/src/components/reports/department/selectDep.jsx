@@ -130,6 +130,7 @@ const DepartmentReportSelection = () => {
         </div>
       ) : (
         <DepartmentReportChart
+          setSelected={setSelected}
           departmentId={+selected.departmentId}
           year={selected.year}
           semester_type={selected.semester_type}

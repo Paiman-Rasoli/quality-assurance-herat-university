@@ -75,6 +75,7 @@ const TotalReportSelection = () => {
         </div>
       ) : (
         <TotalReport
+          setSelected={setSelected}
           year={selected.year}
           semester_type={selected.semester_type}
         />

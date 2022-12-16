@@ -5,7 +5,7 @@ import { BarChart } from "../barChart";
 import { ToastMsg } from "../../TaostMsg";
 import { toast } from "react-toastify";
 
-const TeacherReport = ({ teacherId, year, semester_type }) => {
+const TeacherReport = ({ teacherId, year, semester_type, setSelected }) => {
   const [loading, setLoading] = useState(false);
   const [teacherReport, setTeacherReport] = useState([]);
   const [chartData, setChartData] = useState([]);
@@ -47,10 +47,31 @@ const TeacherReport = ({ teacherId, year, semester_type }) => {
 
   if (loading) return <Loading />;
 
-  if (response?.status === 404) return <section>اطلاعاتی یافت نشد</section>;
+  if (response?.status === 404)
+    return (
+      <section className="w-full grid">
+        <div className="mb-10 flex flex-wrap w-full justify-end gap-5">
+          <button
+            className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            onClick={() => setSelected(null)}
+          >
+            گزارش جدید
+          </button>
+        </div>
+        <div className="grid place-content-center">اطلاعاتی یافت نشد</div>
+      </section>
+    );
 
   return (
-    <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
+    <section className="w-full">
+      <div className="mb-10 flex flex-wrap w-full justify-end gap-5">
+        <button
+          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          onClick={() => setSelected(null)}
+        >
+          گزارش جدید
+        </button>
+      </div>
       <ul className="grid grid-cols-2 bg-cyan-200 rounded py-5 px-10 gap-x-10">
         <li className="flex gap-3">
           <span>نام و تخلص:</span>
