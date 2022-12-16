@@ -82,8 +82,18 @@ export class UserService {
 
   async users(req: Request, res: Response) {
     const userModel = getMyRepository(UserEntity);
-    const all = userModel.find({
-      relations: ["department", "department.faculty"],
+    const all = await userModel.find({
+      relations: ["faculty"],
+      select: [
+        "id",
+        "name",
+        "userName",
+        "is_super_admin",
+        "phone",
+        "status",
+        "gender",
+        "createdAt",
+      ],
     });
     return res.status(200).json(all);
   }
