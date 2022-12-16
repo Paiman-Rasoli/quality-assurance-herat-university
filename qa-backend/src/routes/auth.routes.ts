@@ -35,4 +35,11 @@ routes.put(
   userService.updateUser
 );
 
+routes.delete(
+  "/delete",
+  [body("id").notEmpty().withMessage("User id is required")],
+  authGuard,
+  userService.deleteUser
+);
+
 export { routes };

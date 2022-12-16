@@ -131,6 +131,31 @@ export class UserService {
       return res.status(500).json({ msg: "Error while updating user" });
     }
   }
+
+  async deleteUser(req: RequestWithUser, res: Response) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const isSuperAdmin = req.user?.user?.level;
+    const body = req.body;
+    if (!isSuperAdmin) {
+      return res.status(401).json({ msg: "A super admin can update a user." });
+    }
+    if (+req?.body?.id === req?.user?.user?.id) {
+      return res.status(401).json({ msg: "You can not delete yourself." });
+    }
+    const userModel = getMyRepository(UserEntity);
+    try {
+      const result = await userModel.delete({
+        id: +req.body?.id,
+      });
+      return res.status(200).json({ deleted: result.affected > 0 });
+    } catch (err) {
+      console.error("Error while deleting user", err);
+      return res.status(500).json({ msg: "Error while deleting user" });
+    }
+  }
   async get(req: Request, res: Response) {}
 }
 
