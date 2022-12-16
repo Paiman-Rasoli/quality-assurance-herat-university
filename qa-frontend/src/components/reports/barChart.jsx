@@ -7,7 +7,7 @@ export const BarChart = ({ chartData, label, title, y_label, x_label }) => {
   // console.log("barChart", chartData);
   return (
     <div className="my-10 border-2 p-5 rounded border-red-200 shadow-lg">
-      {/* <h6 className="text-gray-700">{label}</h6> */}
+      <h6 className="text-gray-700">{label}</h6>
       <Bar
         options={{
           scales: {
@@ -20,7 +20,14 @@ export const BarChart = ({ chartData, label, title, y_label, x_label }) => {
             },
           },
           plugins: {
-            tooltip: { titleFont: { size: "20px" } },
+            tooltip: {
+              callbacks: {
+                title: function (context) {
+                  return `${x_label + " " + context[0].label}`;
+                },
+              },
+              titleFont: { size: "20px" },
+            },
           },
         }}
         data={{
