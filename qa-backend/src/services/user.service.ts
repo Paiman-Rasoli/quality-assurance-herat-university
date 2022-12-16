@@ -80,5 +80,13 @@ export class UserService {
     }
   }
 
+  async users(req: Request, res: Response) {
+    const userModel = getMyRepository(UserEntity);
+    const all = userModel.find({
+      relations: ["department", "department.faculty"],
+    });
+    return res.status(200).json(all);
+  }
+
   async get(req: Request, res: Response) {}
 }

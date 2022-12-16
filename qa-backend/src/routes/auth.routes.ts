@@ -26,4 +26,9 @@ routes.post(
   userService.register
 );
 
+routes.get('/users',
+authGuard,
+userService.users
+)
+
 export { routes };
