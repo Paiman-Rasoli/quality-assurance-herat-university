@@ -5,6 +5,7 @@ import { BarChart } from "../barChart";
 import { ToastMsg } from "../../TaostMsg";
 import { toast } from "react-toastify";
 import Table from "./table";
+import useFetch from "../../../hooks/useFetch";
 
 const SubjectReport = ({
   teacherId,
@@ -18,6 +19,8 @@ const SubjectReport = ({
   const [reports, setReport] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [response, setResponse] = useState(null);
+
+  const { loading: laodingdata, data: questions, error } = useFetch("question");
 
   useEffect(() => {
     (async function () {
@@ -55,11 +58,35 @@ const SubjectReport = ({
       }
     })();
   }, [semester, semester_type, subjectId, teacherId, year]);
-  if (loading) return <Loading />;
 
+  const filterdQuestions = questions
+    ?.filter((item) => item.status)
+    ?.map(
+      (item) =>
+        chartData
+          .map(
+            (q) =>
+              item.id === +q.label && {
+                question: item,
+                percent: q.percent,
+                subs: q.subs,
+              }
+          )
+          .filter((item) => item)[0]
+    );
+
+  if (loading || laodingdata) return <Loading />;
+
+  if (error)
+    return (
+      <div className="grid place-content-center">
+        somthing went wrong with connection to database
+      </div>
+    );
+  console.log(filterdQuestions, chartData);
   if (response?.status === 404)
     return (
-      <section className="w-full grid">
+      <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
         <div className="mb-10 flex flex-wrap w-full justify-end gap-5">
           <button
             className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
@@ -73,7 +100,7 @@ const SubjectReport = ({
     );
 
   return (
-    <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
+    <section>
       <div className="mb-10 flex flex-wrap w-full justify-end gap-5">
         <button
           className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
@@ -108,20 +135,26 @@ const SubjectReport = ({
           </span>
         </li>
       </ul>
-      <article>
-        <Table points={chartData} />
-      </article>
-      <div>
-        {chartData?.length > 0 && (
-          <BarChart
-            chartData={chartData}
-            label="نمودار فیصدی سوالات"
-            y_label="درصدی"
-            x_label="آیدی سوال"
-            title=" چارت نشان دهنده فیصدی نمرات همه سوالات تایید شده است."
-          />
-        )}
-      </div>
+
+      {filterdQuestions?.length > 0 && (
+        <div>
+          <article>
+            <Table filterdQuestions={filterdQuestions} />
+          </article>
+          <div>
+            <BarChart
+              chartData={filterdQuestions.map((item) => ({
+                label: item.question.id,
+                percent: item.percent,
+              }))}
+              label="نمودار فیصدی سوالات"
+              y_label="درصدی"
+              x_label="آیدی سوال"
+              title=" چارت نشان دهنده فیصدی نمرات همه سوالات تایید شده است."
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 };

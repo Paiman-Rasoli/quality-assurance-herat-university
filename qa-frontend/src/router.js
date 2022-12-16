@@ -22,7 +22,7 @@ import TotalReportSelection from "./components/reports/general/selectYear";
 import NotFound from "./pages/notFound";
 import SubjectReportSelection from "./components/reports/subject/selectSubject";
 
-function App() {
+function Router() {
   return (
     <FacultyContext.Provider value={null}>
       <BrowserRouter>
@@ -71,4 +71,4 @@ function App() {
   );
 }
 
-export default App;
+export default Router;

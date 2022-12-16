@@ -1,35 +1,5 @@
-import useFetch from "../../../hooks/useFetch";
-import Loading from "../../loading";
-
-const Table = ({ points }) => {
-  const { loading: laodingdata, data: questions, error } = useFetch("question");
-
-  if (laodingdata) return <Loading />;
-
-  if (error)
-    return (
-      <div className="grid place-content-center">
-        somthing went wrong with connection to database
-      </div>
-    );
-
-  const filterdQuestions = questions
-    ?.filter((item) => item.status)
-    ?.map(
-      (item) =>
-        points
-          .map(
-            (q) =>
-              item.id === +q.label && {
-                question: item,
-                percent: q.percent,
-                subs: q.subs,
-              }
-          )
-          .filter((item) => item)[0]
-    );
-
-  // console.log(filterdQuestions);
+const Table = ({ filterdQuestions }) => {
+  console.log(filterdQuestions);
   return (
     <section className="my-5">
       <div className="p-5 rounded-xl bg-gray-100">
