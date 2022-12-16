@@ -5,7 +5,6 @@ import { EvaluationFormEntity, RESPONSES } from "../../entities";
 
 export class Report {
   async Report(req: Request, res: Response) {
-    console.log("report", req.body);
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

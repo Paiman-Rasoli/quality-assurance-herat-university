@@ -58,7 +58,7 @@ const navigation = [
 
 const userNavigation = [
   { name: "پروفایل", href: "/profile" },
-  { name: "ایجاد حساب جدید", href: "add-users", isPrivate: true },
+  { name: "ایجاد حساب جدید", href: "user/add-users", isPrivate: true },
   { name: "خروج", href: "/" },
 ];
 

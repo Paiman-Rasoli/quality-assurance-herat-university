@@ -20,6 +20,7 @@ import DepartmentReportSelection from "./components/reports/department/selectDep
 import TeacherReportSelection from "./components/reports/teacher/selectTeacher";
 import FacultyReport from "./components/reports/faculty/facultyReport";
 import TotalReportSelection from "./components/reports/general/selectYear";
+import NotFound from "./pages/notFound";
 
 function App() {
   return (
@@ -34,15 +35,15 @@ function App() {
           <Route element={<PrivateRoutes />}>
             <Route element={<Layout />}>
               <Route element={<ProtectedRoutes />}>
-                <Route path="dashboard">
-                  <Route path="faculty" element={<Faculty />} />
-                </Route>
                 <Route path="user">
                   <Route path="add-users" element={<AddUser />} />
                   <Route path="users" element={<Users />} />
                 </Route>
               </Route>
               <Route path="dashboard">
+                <Route element={<ProtectedRoutes />}>
+                  <Route path="faculty" element={<Faculty />} />
+                </Route>
                 <Route path="form" element={<Form />} />
                 <Route path="department" element={<Department />} />
                 <Route path="teacher" element={<Teachers />} />
@@ -63,6 +64,7 @@ function App() {
               </Route>
             </Route>
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </FacultyContext.Provider>

@@ -1,8 +1,13 @@
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import moment from "jalali-moment";
-import React from "react";
+import React, { useState } from "react";
+import Paginate from "../teacher/paginate";
 
 const SubjectTable = ({ setIsOpenModal, subjects, updateF, deleteF }) => {
+  const [items, setItems] = useState(subjects);
+  const [itemOffset, setItemOffset] = useState(0);
+
+  const itemsPerPage = 5;
   return (
     <div>
       {" "}
@@ -69,7 +74,7 @@ const SubjectTable = ({ setIsOpenModal, subjects, updateF, deleteF }) => {
               dir="rtl"
               className="divide-y divide-gray-200 bg-white font-vazir"
             >
-              {subjects?.map((item, ndx) => (
+              {items?.map((item, ndx) => (
                 <tr
                   key={item.id}
                   className="divide-x divide-x-reverse divide-gray-200"
@@ -111,6 +116,15 @@ const SubjectTable = ({ setIsOpenModal, subjects, updateF, deleteF }) => {
               ))}
             </tbody>
           </table>
+        </div>
+        <div>
+          <Paginate
+            itemsPerPage={itemsPerPage}
+            items={subjects}
+            setItems={setItems}
+            itemOffset={itemOffset}
+            setItemOffset={setItemOffset}
+          />
         </div>
       </div>
     </div>

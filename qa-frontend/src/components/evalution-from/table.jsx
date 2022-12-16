@@ -7,7 +7,7 @@ const EvaluationFromTable = ({ setIsOpenModal, forms, deleteF, updateF }) => {
   const [items, setItems] = useState(forms);
   const [itemOffset, setItemOffset] = useState(0);
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
 
   return (
     <>
@@ -136,15 +136,15 @@ const EvaluationFromTable = ({ setIsOpenModal, forms, deleteF, updateF }) => {
             </tbody>
           </table>
         </div>
-      </div>
-      <div>
-        <Paginate
-          itemsPerPage={itemsPerPage}
-          items={forms}
-          setItems={setItems}
-          itemOffset={itemOffset}
-          setItemOffset={setItemOffset}
-        />
+        <div>
+          <Paginate
+            itemsPerPage={itemsPerPage}
+            items={forms}
+            setItems={setItems}
+            itemOffset={itemOffset}
+            setItemOffset={setItemOffset}
+          />
+        </div>
       </div>
     </>
   );

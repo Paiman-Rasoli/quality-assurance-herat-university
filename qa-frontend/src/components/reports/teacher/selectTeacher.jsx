@@ -164,6 +164,7 @@ const TeacherReportSelection = () => {
           semester_type={selected.semester_type}
           teacherId={+selected?.teacherId}
           year={selected.year}
+          setSelected={setSelected}
         />
       )}
     </section>
