@@ -1,5 +1,5 @@
 import { Response, Request } from "express";
-import { validationResult } from "express-validator";
+import { body, validationResult } from "express-validator";
 import { getMyRepository } from "../data-source";
 import { EvaluationFormEntity } from "../entities";
 
@@ -14,12 +14,26 @@ export class EvaluationForm {
     const bodyData = req.body as formInputDto;
     // console.log(bodyData, "body");
 
-    try {
-      const save = await formModel.upsert(bodyData, ["id"]);
-      return res.status(200).json({ formId: save.identifiers[0]?.id });
-    } catch (err) {
-      console.error("Error while creating form.", err);
-      return res.status(500).json({ msg: "Internal server error" });
+    // check if form exist before
+    const duplicate = await formModel.find({
+      where: {
+        semester: +bodyData.semester,
+        year: +bodyData.year,
+        teacher: { id: +bodyData.teacher },
+        subject: { id: +bodyData.subject },
+        semester_type: bodyData.semester_type,
+      },
+    });
+    if (duplicate.length > 0)
+      return res.status(409).json({ message: "form exist" });
+    else {
+      try {
+        const save = await formModel.upsert(bodyData, ["id"]);
+        return res.status(200).json({ formId: save.identifiers[0]?.id });
+      } catch (err) {
+        console.error("Error while creating form.", err);
+        return res.status(500).json({ msg: "Internal server error" });
+      }
     }
   }
   async find(req: Request, res: Response) {

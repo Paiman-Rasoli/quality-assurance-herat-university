@@ -4,9 +4,10 @@ import { Chart as ChartJS, registerables } from "chart.js/auto";
 ChartJS.register(...registerables);
 
 export const BarChart = ({ chartData, label, title, y_label, x_label }) => {
-  console.log("barChart", chartData);
+  // console.log("barChart", chartData);
   return (
-    <div className="chart-container">
+    <div className="my-10">
+      <h6 className="text-gray-700">{label}</h6>
       <Bar
         options={{
           scales: {
@@ -19,10 +20,6 @@ export const BarChart = ({ chartData, label, title, y_label, x_label }) => {
             },
           },
           plugins: {
-            title: {
-              display: true,
-              text: title,
-            },
             tooltip: { titleFont: { size: "20px" } },
           },
         }}

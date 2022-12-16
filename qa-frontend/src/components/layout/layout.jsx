@@ -51,7 +51,7 @@ const navigation = [
       { name: "فاکولته ها", href: "total", isPrivate: true },
       { name: "دیپارتمنت", href: "department", isPrivate: false },
       { name: "استاد", href: "teacher", isPrivate: false },
-      { name: "مضمون", href: "faculty", isPrivate: false },
+      { name: "مضمون", href: "subject", isPrivate: false },
     ],
   },
 ];

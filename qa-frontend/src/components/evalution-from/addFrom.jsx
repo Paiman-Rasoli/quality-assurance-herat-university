@@ -96,8 +96,14 @@ const AddFrom = ({ faculties, refetch, setAddNew }) => {
       console.log("res-form", res, await res.json());
       if (res) {
         res.ok
-          ? toast.success(<ToastMsg text={"فورم جدید ایجاد شد"} />)
-          : toast.warning(<ToastMsg text={"فورم ایجاد نشد"} />);
+          ? toast.success(<ToastMsg text="فورم جدید ایجاد شد" />, {
+              position: "top-center",
+            })
+          : res.status === 409
+          ? toast.warning(<ToastMsg text="فورم از قبل وجود دارد" />)
+          : toast.warning(<ToastMsg text="فورم ایجاد نشد" />, {
+              position: "top-center",
+            });
         refetch();
         setLoading(false);
         setAddNew(false);

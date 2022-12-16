@@ -18,9 +18,9 @@ import Layout from "./components/layout/layout";
 import AddUser from "./components/users/add-user";
 import DepartmentReportSelection from "./components/reports/department/selectDep";
 import TeacherReportSelection from "./components/reports/teacher/selectTeacher";
-import FacultyReport from "./components/reports/faculty/facultyReport";
 import TotalReportSelection from "./components/reports/general/selectYear";
 import NotFound from "./pages/notFound";
+import SubjectReportSelection from "./components/reports/subject/selectSubject";
 
 function App() {
   return (
@@ -60,7 +60,7 @@ function App() {
                   element={<DepartmentReportSelection />}
                 />
                 <Route path="teacher" element={<TeacherReportSelection />} />
-                <Route path="faculty" element={<FacultyReport />} />
+                <Route path="subject" element={<SubjectReportSelection />} />
               </Route>
             </Route>
           </Route>
