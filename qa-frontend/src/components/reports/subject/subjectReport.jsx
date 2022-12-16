@@ -84,7 +84,7 @@ const SubjectReport = ({
       </div>
       <ul className="grid grid-cols-2 bg-cyan-200 rounded py-5 px-10">
         <li className="flex gap-3">
-          <span>فورم آیدی:</span>
+          <span>آیدی فورم:</span>
           <span>{reports?.formId}</span>
         </li>
         <li className="flex gap-3">
@@ -102,9 +102,9 @@ const SubjectReport = ({
         <li className="flex gap-3">
           <span>سمستر:</span>
           <span>
-            {reports?.semester_type}
-            {" - "}
             {reports?.semester}
+            {" - "}
+            {reports?.semester_type}
           </span>
         </li>
       </ul>

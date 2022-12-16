@@ -4,6 +4,15 @@ import Loading from "../../loading";
 const Table = ({ points }) => {
   const { loading: laodingdata, data: questions, error } = useFetch("question");
 
+  if (laodingdata) return <Loading />;
+
+  if (error)
+    return (
+      <div className="grid place-content-center">
+        somthing went wrong with connection to database
+      </div>
+    );
+
   const filterdQuestions = questions
     ?.filter((item) => item.status)
     ?.map(
@@ -20,15 +29,7 @@ const Table = ({ points }) => {
           .filter((item) => item)[0]
     );
 
-  if (laodingdata) return <Loading />;
-
-  if (error)
-    return (
-      <div className="grid place-content-center">
-        somthing went wrong with connection to database
-      </div>
-    );
-
+  // console.log(filterdQuestions);
   return (
     <section className="my-5">
       <div className="p-5 rounded-xl bg-gray-100">
@@ -71,27 +72,30 @@ const Table = ({ points }) => {
               </tr>
             </thead>
             <tbody dir="rtl" className="divide-y divide-gray-200 bg-white">
-              {filterdQuestions?.map((item) => (
-                <tr
-                  key={item.question.id}
-                  className="divide-x divide-x-reverse divide-gray-200"
-                >
-                  <td className="whitespace-nowrap p-2 lg:p-4  font-medium text-gray-900">
-                    {item.question.id}
-                  </td>
+              {filterdQuestions?.map(
+                (item, ndx) =>
+                  item && (
+                    <tr
+                      key={ndx}
+                      className="divide-x divide-x-reverse divide-gray-200"
+                    >
+                      <td className="whitespace-nowrap p-2 lg:p-4  font-medium text-gray-900">
+                        {item?.question?.id}
+                      </td>
 
-                  <td className="max-w-[40rem] p-2 lg:p-4  text-gray-700">
-                    <p>{item.question.text}</p>
-                  </td>
+                      <td className="max-w-[40rem] p-2 lg:p-4  text-gray-700">
+                        <p>{item?.question?.text}</p>
+                      </td>
 
-                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
-                    % {(+item.percent).toFixed(1)}
-                  </td>
-                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
-                    {item.subs}
-                  </td>
-                </tr>
-              ))}
+                      <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                        % {(+item?.percent).toFixed(1)}
+                      </td>
+                      <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                        {item?.subs}
+                      </td>
+                    </tr>
+                  )
+              )}
             </tbody>
           </table>
         </div>

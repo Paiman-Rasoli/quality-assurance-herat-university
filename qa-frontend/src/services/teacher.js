@@ -21,7 +21,7 @@ export async function httpPostTeacher(data) {
   }
 }
 
-export const httpPutTeacher = async function (id) {
+export const httpPutTeacher = async function (data) {
   let response;
   try {
     response = await fetch(`${API_URL}/teacher`, {
@@ -30,7 +30,7 @@ export const httpPutTeacher = async function (id) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
-      body: JSON.stringify(id),
+      body: JSON.stringify(data),
     });
     console.log("delete", response);
   } catch (error) {
