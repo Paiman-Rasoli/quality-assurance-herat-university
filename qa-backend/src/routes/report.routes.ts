@@ -2,11 +2,11 @@ import { Router } from "express";
 import { ReportService } from "../services";
 import { body } from "express-validator";
 import { authGuard } from "../middlewares/passport";
-import { FacultyReport } from "../services/reports/faculty.report..service";
+import { SubjectReportService } from "../services/reports/subject.report..service";
 import { Report } from "../services/reports/genral.report.service";
 
 const reportService = new ReportService();
-const facultyReportService = new FacultyReport();
+const subjectReportService = new SubjectReportService();
 const report = new Report();
 
 const routes = Router();
@@ -19,14 +19,16 @@ routes.post(
 );
 
 routes.post(
-  "/faculty",
+  "/subject",
   [
-    body("facultyId").notEmpty(),
+    body("semester").notEmpty(),
+    body("teacherId").notEmpty(),
+    body("subjectId").notEmpty(),
     body("year").notEmpty(),
     body("semester_type").notEmpty(),
   ],
   authGuard,
-  facultyReportService.facultyReport
+  subjectReportService.subjectReport
 );
 
 routes.post(

@@ -41,13 +41,13 @@ const EvaluationFromTable = ({ setIsOpenModal, forms, deleteF, updateF }) => {
                   scope="col"
                   className="p-2 lg:p-4 text-right font-semibold text-gray-900"
                 >
-                  آی دی استاد
+                  استاد
                 </th>
                 <th
                   scope="col"
                   className="p-2 lg:p-4 text-right font-semibold text-gray-900"
                 >
-                  آی دی مضمون
+                  مضمون
                 </th>
                 <th
                   scope="col"
@@ -65,13 +65,9 @@ const EvaluationFromTable = ({ setIsOpenModal, forms, deleteF, updateF }) => {
                   scope="col"
                   className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
                 >
-                  تاریخ شروع
-                </th>
-                <th
-                  scope="col"
-                  className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
-                >
-                  تاریخ ختم
+                  تایم شروع
+                  <br />
+                  تایم ختم
                 </th>
                 <th
                   scope="col"
@@ -94,23 +90,26 @@ const EvaluationFromTable = ({ setIsOpenModal, forms, deleteF, updateF }) => {
                     {item.department.fa_name}
                   </td>
                   <td className="whitespace-nowrapp-2 p-2 lg:p-4  text-gray-700">
-                    {item.teacher.id}
+                    {item.teacher.fa_name}
                   </td>
                   <td className="whitespace-nowrapp-2 p-2 lg:p-4  text-gray-700">
-                    {item.subject.id}
+                    <p className="truncate max-w-[8rem] xl:max-w-sm">
+                      {item.subject.name}
+                    </p>
                   </td>
                   <td className="whitespace-nowrapp-2 p-2 lg:p-4  text-gray-700">
                     {item.year}
                   </td>
                   <td className="whitespace-nowrapp-2 p-2 lg:p-4  text-gray-700">
+                    {item.semester}
+                    {" - "}
                     {item.semester_type}
                   </td>
                   <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
                     {moment(item.start_date, "YYYY/MM/DD h:mm")
                       .locale("fa")
                       .format("hh:mm a YYYY/MM/DD")}
-                  </td>
-                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                    <br />
                     {moment(item.end_date, "YYYY/MM/DD hh:mm")
                       .locale("fa")
                       .format("hh:mm a YYYY/MM/DD")}
