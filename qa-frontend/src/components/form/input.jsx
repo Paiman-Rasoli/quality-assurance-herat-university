@@ -15,7 +15,7 @@ const Input = ({
       <div className="w-full">
         <input
           {...register(name)}
-          type={type}
+          type={`${type}`}
           {...props}
           defaultValue={defaultValue}
           className="w-full border-2 border-[#1E408E] p-1 rounded"

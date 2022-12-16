@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
-
 import { yupResolver } from "@hookform/resolvers/yup";
-import useFetch from "../../hooks/useFetch";
+import { useNavigate } from "react-router-dom";
 
-import { registerUser } from "../../services/auth";
+import useFetch from "../../hooks/useFetch";
 import SelectInput from "../faculty/select";
 import FormBorder from "../form/formBorder";
 import Input from "../form/input";
 import { toast } from "react-toastify";
-import Loading from "../loading";
 import { ToastMsg } from "../TaostMsg";
+import Loading from "../loading";
+import { registerUser } from "../../services/auth";
 
 const schema = yup.object({
   name: yup.string().required("نام تان را بنویسید"),
@@ -29,6 +29,7 @@ const schema = yup.object({
 const AddUser = () => {
   const [loading, setLoading] = useState(false);
   const { data: faculties } = useFetch("faculty");
+  const navigate = useNavigate();
 
   const {
     register,
@@ -53,11 +54,7 @@ const AddUser = () => {
         toast.success(<ToastMsg text={"حساب کاربری موفقانه ایجاد شد"} />, {
           position: "bottom-left",
         });
-        const data = await res.json();
-        sessionStorage.setItem("token", data.accessToken);
-        sessionStorage.setItem("username", data.name);
-        sessionStorage.setItem("data", data);
-        // navigate("/dashboard");
+        navigate("/user/users");
       } else {
         // const data = await res.json();
         console.log("data", data);
@@ -106,7 +103,7 @@ const AddUser = () => {
               errors={errors}
               label="رمز عبور"
               name="password"
-              type="passwrod"
+              type="password"
               dir="ltr"
             />
             <Input
@@ -114,7 +111,7 @@ const AddUser = () => {
               errors={errors}
               label="تایید رمز عبور"
               name="passwordConfirmation"
-              type="passwrod"
+              type="password"
               dir="ltr"
             />
             <SelectInput
