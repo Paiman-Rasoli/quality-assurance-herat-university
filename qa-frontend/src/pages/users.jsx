@@ -1,29 +1,22 @@
 import moment from "jalali-moment";
 import React, { useState } from "react";
+import { useEffect } from "react";
+import Loading from "../components/loading";
+import { GetUsers } from "../services/auth";
 
 const Users = () => {
-  const [users, setUsers] = useState([
-    {
-      teacherId: 1,
-      firstName: "زهرا",
-      lastName: "حمیدی",
-      gender: "خانم",
-      faculty: "اقتصاد",
-      department: "منجمنت",
-      edudationLevel: "دکترا",
-      date: new Date(),
-    },
-    {
-      teacherId: 2,
-      firstName: "احمد",
-      lastName: "کریمی",
-      gender: "آقا",
-      faculty: "طب",
-      department: "معالجوی",
-      edudationLevel: "ماستر",
-      date: new Date(),
-    },
-  ]);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    (async function () {
+      const res = await GetUsers();
+      const result = await res.json();
+      console.log(result, "users");
+      setUsers(result);
+    })();
+  }, []);
+
+  if (users.length < 1) return <Loading />;
 
   return (
     <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
@@ -32,10 +25,10 @@ const Users = () => {
           <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
             <tr className="divide-x-2 divide-y-2 bg-stone-300">
               <th className="font-normal text-center">آی دی</th>
-              <th className="font-normal text-center">اسم</th>
-              <th className="font-normal text-center">تخلص</th>
+              <th className="font-normal text-center">نام</th>
+              <th className="font-normal text-center">نام کاربری</th>
               <th className="font-normal text-center">فاکولته</th>
-              <th className="font-normal text-center">دیپارتمنت</th>
+              <th className="font-normal text-center">تاریخ</th>
             </tr>
           </thead>
           <tbody className="font-vazirBold text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
@@ -46,11 +39,15 @@ const Users = () => {
                   ndx % 2 === 0 ? "bg-stone-100" : "bg-zinc-200"
                 }`}
               >
-                <td className="text-center">{item.teacherId}</td>
-                <td className="text-center">{item.firstName}</td>
-                <td className="text-center">{item.lastName}</td>
-                <td className="text-center">{item.faculty}</td>
-                <td className="text-center">{item.department}</td>
+                <td className="text-center">{item.id}</td>
+                <td className="text-center">{item.name}</td>
+                <td className="text-center">{item.userName}</td>
+                <td className="text-center">{item?.faculty?.fa_name}</td>
+                <td className="text-center">
+                  {moment(item?.createdAt, "YYYY/MM/DD")
+                    .locale("fa")
+                    .format("YYYY/MM/DD")}
+                </td>
               </tr>
             ))}
           </tbody>

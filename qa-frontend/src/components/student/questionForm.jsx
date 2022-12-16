@@ -37,7 +37,7 @@ const QuestionForm = ({ formId }) => {
         ? toast.success(
             <ToastMsg text="تشکر از اشتراک شما در این همه پرسی" />,
             {
-              position: "bottom-center",
+              position: "top-center",
             }
           ) && navigate("/")
         : toast.warning(
@@ -45,7 +45,7 @@ const QuestionForm = ({ formId }) => {
               text={"متاسفانه پاسخ های شما ثبت نشد. لطفا دوباره تلاش نمایید"}
             />,
             {
-              position: "bottom-center",
+              position: "top-center",
             }
           );
       setLoading(false);
