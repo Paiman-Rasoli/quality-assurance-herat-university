@@ -52,62 +52,109 @@ const Users = () => {
 
   return (
     <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
-      <div className="py-10">
-        <table className="border rounded w-full border-separate md:border-spacing-5 border-spacing-1">
-          <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
-            <tr className={`divide-x-2 divide-y-2 bg-stone-300`}>
-              <th className="font-normal text-center">آی دی</th>
-              <th className="font-normal text-center">نام</th>
-              <th className="font-normal text-center">نام کاربری</th>
-              <th className="font-normal text-center">فاکولته</th>
-              <th className="font-normal text-center">حالت</th>
-              <th className="font-normal text-center">تاریخ</th>
-              <th
-                scope="col"
-                className="p-2 lg:p-4 text-right font-semibold text-gray-900 sm:pl-6"
-              >
-                ویرایش/حذف
-              </th>
-            </tr>
-          </thead>
-          <tbody className="font-vazirBold text-base text-black divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse">
-            {users?.map((item, ndx) => (
-              <tr
-                key={ndx}
-                className={`divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse ${
-                  ndx % 2 === 0 ? "bg-stone-100" : "bg-zinc-200"
-                }  ${item.is_super_admin && "bg-green-300"}`}
-              >
-                <td className="text-center">{item?.id}</td>
-                <td className="text-center">{item?.name}</td>
-                <td className="text-center">{item?.userName}</td>
-                <td className="text-center">{item?.faculty?.fa_name}</td>
-                <td className="text-center">{item?.status}</td>
-                <td className="text-center">
-                  {moment(item?.createdAt, "YYYY/MM/DD")
-                    .locale("fa")
-                    .format("YYYY/MM/DD")}
-                </td>
-                <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
-                  <div className="flex justify-around">
-                    <button
-                      onClick={() => updateUser(item)}
-                      className="h-full flex items-center hover:text-black hover:scale-105"
-                    >
-                      <PencilSquareIcon className="h-6 w-6" />
-                    </button>
-                    <button
-                      onClick={() => deleteUser(item)}
-                      className="h-full flex items-center hover:text-black group"
-                    >
-                      <TrashIcon className="h-6 w-6  group-hover:scale-105" />
-                    </button>
-                  </div>
-                </td>{" "}
+      <div className="p-5 rounded-xl bg-gray-100">
+        <h4 className="font-vazirBlack text-3xl">لیست کاربران</h4>
+
+        <div className="mt-5 shadow-sm ring-1 ring-black ring-opacity-5 text">
+          <table
+            className="min-w-full divide-y divide-gray-300 font-vazir"
+            dir="rtl"
+          >
+            <thead dir="rtl" className="font-vazirBold text-base">
+              <tr className="divide-x divide-x-reverse divide-gray-200">
+                <th
+                  scope="col"
+                  className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                >
+                  آی دی
+                </th>
+                <th
+                  scope="col"
+                  className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                >
+                  نام
+                </th>
+                <th
+                  scope="col"
+                  className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                >
+                  نام کاربری
+                </th>
+                <th
+                  scope="col"
+                  className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                >
+                  فاکولته
+                </th>
+                <th
+                  scope="col"
+                  className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                >
+                  حالت
+                </th>
+                <th
+                  scope="col"
+                  className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                >
+                  تاریخ
+                </th>
+                <th
+                  scope="col"
+                  className="p-2 lg:p-4 text-right font-semibold text-gray-900 sm:pl-6"
+                >
+                  ویرایش/حذف
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody dir="rtl" className="divide-y divide-gray-200 bg-white">
+              {users?.map((item, ndx) => (
+                <tr
+                  key={ndx}
+                  className={`divide-x divide-x-reverse divide-gray-200 ${
+                    item.is_super_admin && "bg-green-100"
+                  }`}
+                >
+                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                    {item?.id}
+                  </td>
+                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                    {item?.name}
+                  </td>
+                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                    {item?.userName}
+                  </td>
+                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                    {item?.faculty?.fa_name}
+                  </td>
+                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                    {item?.status}
+                  </td>
+                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                    {moment(item?.createdAt, "YYYY/MM/DD")
+                      .locale("fa")
+                      .format("YYYY/MM/DD")}
+                  </td>
+                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                    <div className="flex justify-around">
+                      <button
+                        onClick={() => updateUser(item)}
+                        className="h-full flex items-center hover:text-black hover:scale-105"
+                      >
+                        <PencilSquareIcon className="h-6 w-6" />
+                      </button>
+                      <button
+                        onClick={() => deleteUser(item)}
+                        className="h-full flex items-center hover:text-black group"
+                      >
+                        <TrashIcon className="h-6 w-6  group-hover:scale-105" />
+                      </button>
+                    </div>
+                  </td>{" "}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       <Modal isOpen={isOpenUpdateModal} setIsOpen={setIsOpenUpdateModal}>
         <UpdateUser

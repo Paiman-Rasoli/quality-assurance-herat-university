@@ -6,8 +6,8 @@ ChartJS.register(...registerables);
 export const BarChart = ({ chartData, label, title, y_label, x_label }) => {
   // console.log("barChart", chartData);
   return (
-    <div className="my-10">
-      <h6 className="text-gray-700">{label}</h6>
+    <div className="my-10 border-2 p-5 rounded border-red-200 shadow-lg">
+      {/* <h6 className="text-gray-700">{label}</h6> */}
       <Bar
         options={{
           scales: {
