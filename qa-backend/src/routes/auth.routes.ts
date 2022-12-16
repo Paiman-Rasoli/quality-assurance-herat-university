@@ -26,9 +26,13 @@ routes.post(
   userService.register
 );
 
-routes.get('/users',
-authGuard,
-userService.users
-)
+routes.get("/users", authGuard, userService.users);
+
+routes.put(
+  "/update-user",
+  [body("id").notEmpty().withMessage("User id is required")],
+  authGuard,
+  userService.updateUser
+);
 
 export { routes };

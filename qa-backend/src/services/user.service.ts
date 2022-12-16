@@ -30,6 +30,12 @@ export class UserService {
     if (!passwordCompared) {
       return res.status(400).json({ msg: "Wrong Email or Password!" });
     }
+
+    // if user is block
+
+    if (findUser.status === "block") {
+      return res.status(400).json({ msg: "This user has been blocked!" });
+    }
     const token = generateToken({
       id: findUser.id,
       level: findUser.is_super_admin,
@@ -98,5 +104,36 @@ export class UserService {
     return res.status(200).json(all);
   }
 
+  async updateUser(req: RequestWithUser, res: Response) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const isSuperAdmin = req.user?.user?.level;
+    const body = req.body;
+    if (!isSuperAdmin) {
+      return res.status(401).json({ msg: "A super admin can update a user." });
+    }
+    delete body?.password; // if password has been included
+    const userModel = getMyRepository(UserEntity);
+    try {
+      const result = await userModel.update(
+        {
+          id: +body.id,
+        },
+        {
+          ...body,
+        }
+      );
+      return res.status(200).json({ updated: result.affected > 0 });
+    } catch (err) {
+      console.error("Error while updating user", err);
+      return res.status(500).json({ msg: "Error while updating user" });
+    }
+  }
   async get(req: Request, res: Response) {}
+}
+
+interface RequestWithUser extends Request {
+  user?: Record<string, any>;
 }
