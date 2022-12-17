@@ -1,14 +1,13 @@
 import React from "react";
-import { Transition } from "@headlessui/react";
 import { Helmet } from "react-helmet";
 
 const Home = () => {
   return (
-    <section>
+    <section className="relative min-h-[90vh] h-full">
       <Helmet>
         <title>دانشگاه هرات</title>
       </Helmet>
-      <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
+      <section className="relative font-vazirBold p-2 md:p-5 lg:p-10 w-full">
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl text-center">
           <div className="block xl:inline">دانشگاه هرات </div>
           <span className="block text-cyan-600 xl:inline">
@@ -29,7 +28,7 @@ const Home = () => {
           </p>
         </article>
       </section>
-      <footer className="absolute bottom-5">
+      <footer className="absolute bottom-5 bg-white">
         <div className="border-t-2 p-3">
           <h6 className="text-xs">
             نسخه اول این سیستم توسط آقای نذیر احمد پارسا در سال ۱۳۹۷ شمسی ساخته
