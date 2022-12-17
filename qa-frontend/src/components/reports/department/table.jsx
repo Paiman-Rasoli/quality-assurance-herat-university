@@ -1,22 +1,18 @@
-const Table = ({ filterdQuestions, reports }) => {
-  console.log(filterdQuestions);
+const Table = ({ teachers, reports }) => {
+  // console.log(teachers);
   return (
-    <section dir="rtl" className="m-5">
+    <section dir="rtl" className="font-vazirBold">
       <ul
         dir="rtl"
-        className="grid grid-cols-2 bg-cyan-200 rounded py-5 px-10 mb-5 font-vazirBold"
+        className="grid grid-cols-2 bg-cyan-200 rounded py-5 px-10 mb-5"
       >
         <li className="flex gap-3">
-          <span>آیدی فورم:</span>
-          <span>{reports?.formId}</span>
+          <span>فاکولته:</span>
+          <span>{reports?.department?.faculty?.fa_name}</span>
         </li>
         <li className="flex gap-3">
-          <span>استاد:</span>
-          <span>{reports?.teacher?.fa_name}</span>
-        </li>
-        <li className="flex gap-3">
-          <span>مضمون:</span>
-          <span>{reports?.subject?.name}</span>
+          <span>دیپارتمنت:</span>
+          <span>{reports?.department?.fa_name}</span>
         </li>
         <li className="flex gap-3">
           <span>سال:</span>
@@ -24,17 +20,31 @@ const Table = ({ filterdQuestions, reports }) => {
         </li>
         <li className="flex gap-3">
           <span>سمستر:</span>
-          <span>
-            {reports?.semester}
-            {" - "}
-            {reports?.semester_type}
-          </span>
+          <span>{reports?.semester_type}</span>
         </li>
       </ul>
+      <article className="flex gap-2 flex-wrap justify-around bg-orange-300 mb-5">
+        <div className="flex gap-3 rounded p-3">
+          <span>فیصدی امتیازات دیپارتمنت:</span>
+          <span>{Number(reports?.total?.percent).toFixed(1).toString()}%</span>
+        </div>
+        <div className="flex gap-3 rounded p-3">
+          <span>تعداد اساتید شامل این گزارش:</span>
+          <span>{reports?.teachersRep?.length}</span>
+        </div>
+        <div className="flex gap-3 rounded p-3">
+          <span>تعداد مضامین شامل این گزارش:</span>
+          <span>{reports?.totalSubject}</span>
+        </div>
+        <div className="flex gap-3 rounded p-3">
+          <span>تعداد اشتراک کننده:</span>
+          <span>{reports?.total?.subscribers}</span>
+        </div>
+      </article>
       <div className="p-5 rounded-xl bg-gray-100">
         <h4 className="font-vazir text-xl">
           {" "}
-          لیست سوالات ، امتیازات و تعداد پاسخ های مربوطه آنها
+          لیست اساتید، امتیازات و تعداد پاسخ های مربوطه آنها
         </h4>
         <div className="mt-5 shadow-sm ring-1 ring-black ring-opacity-5 text">
           <table
@@ -47,13 +57,13 @@ const Table = ({ filterdQuestions, reports }) => {
                   scope="col"
                   className="w-[3rem] py-3.5 pr-4 pl-4 text-right font-semibold text-gray-900 sm:pr-6"
                 >
-                  شماره (Id)
+                  ID
                 </th>
                 <th
                   scope="col"
                   className="max-w-[40rem] px-4 py-3.5 text-right font-semibold text-gray-900"
                 >
-                  متن سوال
+                  نام و تخلص
                 </th>
 
                 <th
@@ -66,12 +76,12 @@ const Table = ({ filterdQuestions, reports }) => {
                   scope="col"
                   className="px-4 py-3.5 text-right font-semibold text-gray-900"
                 >
-                  تعداد پاسخ ها
+                  تعداد اشتراک کننده
                 </th>
               </tr>
             </thead>
             <tbody dir="rtl" className="divide-y divide-gray-200 bg-white">
-              {filterdQuestions?.map(
+              {reports.teachersRep?.map(
                 (item, ndx) =>
                   item && (
                     <tr
@@ -79,18 +89,17 @@ const Table = ({ filterdQuestions, reports }) => {
                       className="divide-x divide-x-reverse divide-gray-200"
                     >
                       <td className="whitespace-nowrap p-2 lg:p-4  font-medium text-gray-900">
-                        {item?.question?.id}
+                        {item?.teacher?.id}
                       </td>
 
                       <td className="max-w-[40rem] p-2 lg:p-4  text-gray-700">
-                        <p>{item?.question?.text}</p>
+                        <p>{item?.teacher?.fa_name}</p>
                       </td>
-
                       <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
                         % {(+item?.percent).toFixed(1)}
                       </td>
                       <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
-                        {item?.subs}
+                        {item?.subscribers}
                       </td>
                     </tr>
                   )

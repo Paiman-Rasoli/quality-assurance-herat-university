@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Loading from "../../loading";
 import { httpGetReport } from "../../../services/report";
 import { BarChart } from "../barChart";
 import { toast } from "react-toastify";
 import { ToastMsg } from "../../TaostMsg";
+import Table from "./table";
+import { useReactToPrint } from "react-to-print";
+import { PrinterIcon } from "@heroicons/react/24/outline";
 
 const DepartmentReportChart = ({
   setSelected,
@@ -12,9 +15,20 @@ const DepartmentReportChart = ({
   semester_type,
 }) => {
   const [loading, setLoading] = useState(false);
-  const [depReport, setDepReport] = useState([]);
+  const [reports, setReport] = useState([]);
   const [chartData, setChartData] = useState([]);
   const [response, setResponse] = useState(null);
+
+  const componentRef = useRef();
+  const chartRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+  const printChart = useReactToPrint({
+    content: () => chartRef.current,
+  });
+
+  console.log("reports", reports);
 
   useEffect(() => {
     (async function () {
@@ -30,7 +44,7 @@ const DepartmentReportChart = ({
         );
         setResponse(res);
         const reports = await res.json();
-        setDepReport(reports);
+        setReport(reports);
         setChartData(
           reports?.teachersRep?.map((item) => ({
             percent: item?.percent,
@@ -64,66 +78,60 @@ const DepartmentReportChart = ({
 
   return (
     <section className="w-full">
-      <div className="mb-10 flex flex-wrap w-full justify-end gap-5">
+      <div className="flex flex-wrap w-full justify-end gap-5">
         <button
           className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           onClick={() => setSelected(null)}
         >
           گزارش جدید
         </button>
+        <button
+          type="button"
+          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          onClick={handlePrint}
+        >
+          <span>پرینت</span>
+          <span>
+            <PrinterIcon className="h-6 w-6" />
+          </span>
+        </button>
       </div>
-      <ul className="grid grid-cols-2 bg-cyan-200 rounded py-5 px-10">
-        <li className="flex gap-3">
-          <span>فاکولته:</span>
-          <span>{depReport?.department?.faculty?.fa_name}</span>
-        </li>
-        <li className="flex gap-3">
-          <span>دیپارتمنت:</span>
-          <span>{depReport?.department?.fa_name}</span>
-        </li>
-        <li className="flex gap-3">
-          <span>سال:</span>
-          <span>{depReport?.year}</span>
-        </li>
-        <li className="flex gap-3">
-          <span>سمستر:</span>
-          <span>{depReport?.semester_type}</span>
-        </li>
-      </ul>
 
-      {depReport?.total?.subscribers === 0 ? (
+      {reports?.total?.subscribers === 0 ? (
         <div>هنوز کسی اشتراک نکرده</div>
       ) : (
         <>
-          <article className="flex gap-2 flex-wrap justify-around m-5">
-            <div className="flex gap-3 bg-orange-300 rounded p-3">
-              <span>فیصدی امتیازات دیپارتمنت</span>
-              <span>
-                {Number(depReport?.total?.percent).toFixed(1).toString()}%
-              </span>
-            </div>
-            <div className="flex gap-3 bg-orange-300 rounded p-3">
-              <span>تعداد اساتید شامل این گزارش</span>
-              <span>{depReport?.teachersRep?.length}</span>
-            </div>
-            <div className="flex gap-3 bg-orange-300 rounded p-3">
-              <span>تعداد مضامین شامل این گزارش</span>
-              <span>{depReport?.totalSubject}</span>
-            </div>
-            <div className="flex gap-3 bg-orange-300 rounded p-3">
-              <span>تعداد اشتراک کننده</span>
-              <span>{depReport?.total?.subscribers}</span>
-            </div>
-          </article>
           <div>
             {chartData?.length > 0 && (
-              <BarChart
-                chartData={chartData}
-                label="نمودار فیصدی اساتید"
-                y_label="درصدی"
-                x_label="استاد"
-                title=" چارت نشان دهنده فیصدی نمرات همه اساتید دیپارتمنت است."
-              />
+              <article>
+                <article ref={componentRef} className="p-3">
+                  <Table
+                    componentRef={componentRef}
+                    teachers={chartData}
+                    reports={reports}
+                  />
+                </article>
+
+                <div ref={chartRef} className="p-10">
+                  <BarChart
+                    chartData={chartData}
+                    label="نمودار سطح کیفی اساتید"
+                    y_label="درصدی"
+                    x_label="استاد"
+                    title=" چارت نشان دهنده فیصدی نمرات همه اساتید دیپارتمنت است."
+                  />
+                </div>
+                <button
+                  type="button"
+                  className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                  onClick={printChart}
+                >
+                  <span>پرینت</span>
+                  <span>
+                    <PrinterIcon className="h-6 w-6" />
+                  </span>
+                </button>
+              </article>
             )}
           </div>
         </>
