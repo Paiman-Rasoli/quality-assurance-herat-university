@@ -5,8 +5,6 @@ import { EvaluationFormEntity, RESPONSES } from "../../entities";
 
 export class SubjectReportService {
   async subjectReport(req: Request, res: Response) {
-    console.log("subject", req.body);
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -26,8 +24,6 @@ export class SubjectReportService {
       },
       relations: ["answers", "department", "teacher", "faculty", "subject"],
     });
-
-    console.log("eval form", evlForms);
 
     if (!evlForms) {
       return res.status(404).json({ data: null, message: "no form" });
@@ -50,7 +46,6 @@ function sumResponse(answers: any[]) {
   const temp = {};
 
   answers.map((form) => {
-    // console.log("🤣🤣🤣", form.response);
     for (const [key, value] of Object.entries(form.response)) {
       temp[key]
         ? ((temp[key]["points"] += +value),

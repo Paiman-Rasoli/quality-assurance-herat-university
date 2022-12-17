@@ -18,7 +18,7 @@ const Form = () => {
   const [loading, setLoading] = useState(false);
 
   let { data: faculties } = useFetch("faculty");
-  let { laodingdata, data: forms, error, refetch } = useFetch("form");
+  let { loading: laodingdata, data: forms, error, refetch } = useFetch("form");
 
   faculties = faculty
     ? faculties?.filter((fc) => fc.id === faculty.id)

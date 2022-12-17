@@ -58,7 +58,6 @@ const Department = () => {
       ...data,
       date: data.date.toJSON().slice(0, 10),
     });
-    console.log(res);
     if (res) {
       refetch();
       setAddNewDep(false);
@@ -67,7 +66,6 @@ const Department = () => {
   };
 
   const deleteF = async (data) => {
-    console.log("delete f", data);
     setSelectedDepartment(data);
     setIsOpenDeleteModal(!isOpenDeleteModal);
   };
