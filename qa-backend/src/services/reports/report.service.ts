@@ -242,14 +242,10 @@ function totalReport(data: any[]) {
   const temp = { average: 0, percent: 0, subscribers: 0 };
 
   data.map((item) => {
-    // console.log(item, "itemssssssss");
     temp["average"] += +(item.average / data.length);
     temp["percent"] += +(item.percent / data.length);
     temp["subscribers"] += +item.subscribers;
   });
-
-  // console.log("temp🎉🎉", temp);
-
   return temp;
 }
 
@@ -269,8 +265,6 @@ function reportOfEachTeacherForDep(data: any[]) {
     temp["percent"] += +(item.percent / data.length);
     temp["subscribers"] += +item.subscribers;
   });
-
-  // console.log("temp🎉🎉", temp);
 
   return temp;
 }

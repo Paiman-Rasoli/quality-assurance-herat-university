@@ -5,7 +5,6 @@ import { EvaluationFormEntity, RESPONSES } from "../../entities";
 
 export class Report {
   async Report(req: Request, res: Response) {
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -14,11 +13,6 @@ export class Report {
 
     const formModel = getMyRepository(EvaluationFormEntity);
     let evlForms: string | any[];
-
-    // console.log({
-    //   year: +body.year,
-    //   semester_type: body.semester_type,
-    // });
 
     evlForms = await formModel.find({
       where: {
@@ -39,14 +33,6 @@ export class Report {
       reportOfEachDep(dep as any[])
     );
     const toalReports = totalReport(purifyFaculty);
-    // console.log(
-    //   "subscirbers",
-    //   reportsByForm,
-    //   "subscirbers",
-    //   groupedDeps,
-    //   "subscirbers",
-    //   purifyFaculty
-    // );
     return res.status(200).json({
       total: toalReports,
       purifyFaculty,
@@ -58,7 +44,6 @@ export class Report {
 }
 // Group Departments by faculty
 function groupByFaculty(forms: any[]) {
-  //   console.log(forms);
   const groupedDeps = forms.reduce((acc, current) => {
     acc[current.faculty.id] = acc[current.faculty.id] ?? [];
     acc[current.faculty.id].push(current);
@@ -118,8 +103,6 @@ function reportOfEachDep(data: any[]) {
     temp["subscribers"] += +item.subscribers;
   });
 
-  // console.log("temp🎉🎉", temp);
-
   return temp;
 }
 
@@ -127,13 +110,10 @@ function totalReport(data: any[]) {
   const temp = { average: 0, percent: 0, subscribers: 0 };
 
   data.map((item) => {
-    // console.log(item, "itemssssssss");
     temp["average"] += +(item.average / data.length);
     temp["percent"] += +(item.percent / data.length);
     temp["subscribers"] += +item.subscribers;
   });
-
-  // console.log("temp🎉🎉", temp);
 
   return temp;
 }
