@@ -9,7 +9,7 @@ const Teacher = ({
   setIsOpenDeleteModal,
   setIsOpenUpdateModal,
 }) => {
-  console.log("teacher", teacher);
+  // console.log("teacher", teacher);
   if (!teacher) return <Loading />;
   return (
     <article className="w-full transform overflow-hidden rounded-xl bg-white text-right align-middle shadow-xl transition-all">

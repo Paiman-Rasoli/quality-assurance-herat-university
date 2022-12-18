@@ -59,7 +59,7 @@ export default function UpdateModal({
       state: data.state,
       type: data.type,
     });
-    console.log("put", res);
+    // console.log("put", res);
     if (res) {
       refetch();
       setLoading(false);

@@ -38,7 +38,7 @@ const Select = ({
     // console.log("useEffect", selectedItem);
   }, [defaultValue, placeholder, reset]);
 
-  console.log("select", selectedItem);
+  // console.log("select", selectedItem);
 
   return (
     <Controller
@@ -52,7 +52,7 @@ const Select = ({
           onChange={(e) => {
             // console.log(e, "onchange");
             onChange(e[1]);
-            setSelected(e[1]);
+            setSelected && setSelected(e[1]);
             setSelectedItem(e);
           }}
           as={"div"}
