@@ -72,7 +72,7 @@ const TeacherReport = ({ teacherId, year, semester_type, setSelected }) => {
           گزارش جدید
         </button>
       </div>
-      <ul className="grid grid-cols-2 bg-cyan-200 rounded py-5 px-10 gap-x-10">
+      <ul className="grid grid-cols-2 bg-blue-300 rounded py-5 px-10 gap-x-10">
         <li className="flex gap-3">
           <span>نام و تخلص:</span>
           <span>{teacherReport?.purifyTeachers?.teacher?.fa_name}</span>
@@ -99,16 +99,16 @@ const TeacherReport = ({ teacherId, year, semester_type, setSelected }) => {
         <div>هنوز هیچ کسی اشتراک نکرده</div>
       ) : (
         <>
-          <article className="flex gap-2 flex-wrap justify-around m-5">
-            <div className="flex gap-3 bg-orange-300 rounded p-3">
-              <span>فیصدی امتیازات استاد</span>
+          <article className="flex gap-2 flex-wrap justify-around bg-orange-400 m-3 py-2 rounded">
+            <div className="flex gap-3">
+              <span>فیصدی امتیازات استاد:</span>
               <span>
                 {Number(teacherReport?.purifyTeachers?.percent).toFixed(1)}%
               </span>
             </div>
 
-            <div className="flex gap-3 bg-orange-300 rounded p-3">
-              <span>تعداد اشتراک کننده</span>
+            <div className="flex gap-3">
+              <span>تعداد اشتراک کننده:</span>
               <span>{Number(teacherReport?.purifyTeachers?.subscribers)}</span>
             </div>
           </article>

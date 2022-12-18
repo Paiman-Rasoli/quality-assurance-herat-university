@@ -1,10 +1,17 @@
 const Table = ({ filterdQuestions, reports }) => {
+  const printStylesPage = () => {
+    return `@page { margin: 40px !important; }`;
+  };
+
   console.log(filterdQuestions);
   return (
-    <section dir="rtl" className="m-5">
+    <section dir="rtl">
+      <style type="text/css" media="print">
+        {printStylesPage()}
+      </style>
       <ul
         dir="rtl"
-        className="grid grid-cols-2 bg-cyan-200 rounded py-5 px-10 mb-5 font-vazirBold"
+        className="grid grid-cols-2 bg-blue-300 rounded py-5 px-10 mb-5 font-vazirBold"
       >
         <li className="flex gap-3">
           <span>آیدی فورم:</span>

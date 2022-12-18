@@ -64,7 +64,7 @@ const TotalReport = ({ year, semester_type, setSelected }) => {
           گزارش جدید
         </button>
       </div>
-      <ul className="grid grid-cols-2 bg-cyan-200 rounded py-5 px-10">
+      <ul className="grid grid-cols-2 bg-blue-300 rounded py-5 px-10">
         <li className="flex gap-3">
           <span>سال:</span>
           <span>{reports?.year}</span>
@@ -79,19 +79,19 @@ const TotalReport = ({ year, semester_type, setSelected }) => {
         <div>هنوز کسی اشتراک نکرده</div>
       ) : (
         <>
-          <article className="flex gap-2 flex-wrap justify-around m-5">
-            <div className="flex gap-3 bg-orange-300 rounded p-3">
-              <span>فیصدی امتیازات در سطح کل دانشگاه</span>
+          <article className="flex gap-2 flex-wrap justify-around bg-orange-400 m-3 py-2 rounded">
+            <div className="flex gap-3">
+              <span>فیصدی امتیازات در سطح کل دانشگاه:</span>
               <span>
                 {Number(reports?.total?.percent).toFixed(1).toString()}%
               </span>
             </div>
-            <div className="flex gap-3 bg-orange-300 rounded p-3">
-              <span>تعداد فاکولته های شامل این گزارش</span>
+            <div className="flex gap-3">
+              <span>تعداد فاکولته های شامل این گزارش:</span>
               <span>{reports?.purifyFaculty?.length}</span>
             </div>
-            <div className="flex gap-3 bg-orange-300 rounded p-3">
-              <span>تعداد اشتراک کننده ها</span>
+            <div className="flex gap-3">
+              <span>تعداد اشتراک کننده ها:</span>
               <span>{reports?.total?.subscribers}</span>
             </div>
           </article>

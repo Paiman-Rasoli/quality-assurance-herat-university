@@ -28,7 +28,11 @@ const DepartmentReportChart = ({
     content: () => chartRef.current,
   });
 
-  console.log("reports", reports);
+  const printStylesPage = () => {
+    return `@page { margin: 40px !important; }`;
+  };
+
+  // console.log("reports", reports);
 
   useEffect(() => {
     (async function () {
@@ -104,7 +108,10 @@ const DepartmentReportChart = ({
           <div>
             {chartData?.length > 0 && (
               <article>
-                <article ref={componentRef} className="p-3">
+                <article ref={componentRef} className="pt-3">
+                  <style type="text/css" media="print">
+                    {printStylesPage()}
+                  </style>
                   <Table
                     componentRef={componentRef}
                     teachers={chartData}
@@ -112,7 +119,7 @@ const DepartmentReportChart = ({
                   />
                 </article>
 
-                <div ref={chartRef} className="p-10">
+                <div ref={chartRef}>
                   <BarChart
                     chartData={chartData}
                     label="نمودار سطح کیفی اساتید"

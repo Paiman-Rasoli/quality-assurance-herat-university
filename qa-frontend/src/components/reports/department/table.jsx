@@ -1,10 +1,10 @@
-const Table = ({ teachers, reports }) => {
+const Table = ({ reports }) => {
   // console.log(teachers);
   return (
     <section dir="rtl" className="font-vazirBold">
       <ul
         dir="rtl"
-        className="grid grid-cols-2 bg-cyan-200 rounded py-5 px-10 mb-5"
+        className="grid grid-cols-2 bg-blue-300 rounded py-5 px-10 mb-5"
       >
         <li className="flex gap-3">
           <span>فاکولته:</span>
@@ -23,7 +23,7 @@ const Table = ({ teachers, reports }) => {
           <span>{reports?.semester_type}</span>
         </li>
       </ul>
-      <article className="flex gap-2 flex-wrap justify-around bg-orange-300 mb-5">
+      <article className="flex gap-2 flex-wrap justify-around bg-orange-400 mb-5 rounded">
         <div className="flex gap-3 rounded p-3">
           <span>فیصدی امتیازات دیپارتمنت:</span>
           <span>{Number(reports?.total?.percent).toFixed(1).toString()}%</span>
