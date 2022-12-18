@@ -71,9 +71,18 @@ export class EvaluationForm {
       return res.status(400).json({ errors: errors.array() });
     }
     const formModel = getMyRepository(EvaluationFormEntity);
-    const find = await formModel.find({
-      relations: ["teacher", "subject", "department", "faculty"],
-    });
+    const year = req?.query?.year;
+    let find;
+    if (year) {
+      find = await formModel.find({
+        where: { year: +req?.query?.year },
+        relations: ["teacher", "subject", "department", "faculty"],
+      });
+    } else {
+      find = await formModel.find({
+        relations: ["teacher", "subject", "department", "faculty"],
+      });
+    }
     if (!find) {
       return res.status(404).json({ msg: "Not found any Evaluation form " });
     }
