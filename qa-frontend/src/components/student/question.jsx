@@ -1,11 +1,11 @@
 import { RadioGroup } from "@headlessui/react";
 
 const Options = [
-  { name: "عالی", value: 4 },
-  { name: "خوب", value: 3 },
-  { name: "متوسط", value: 2 },
-  { name: "کم", value: 1 },
-  { name: "خیلی کم", value: 0 },
+  { name: "عالی", value: 4, icon: "😀" },
+  { name: "خوب", value: 3, icon: "🙂" },
+  { name: "متوسط", value: 2, icon: "😐" },
+  { name: "کم", value: 1, icon: "😕" },
+  { name: "خیلی کم", value: 0, icon: "😟" },
 ];
 
 function classNames(...classes) {
@@ -27,7 +27,7 @@ const Question = ({ Controller, control, errors, name, question }) => {
         },
       }}
       render={({ field: { onChange } }) => (
-        <div className="my-1 pt-5 grid w-full">
+        <div className="my-1 grid w-full">
           <RadioGroup
             // value={options}
             onChange={(e) => {
@@ -53,7 +53,10 @@ const Question = ({ Controller, control, errors, name, question }) => {
                     )
                   }
                 >
-                  <RadioGroup.Label as="span">{option.name}</RadioGroup.Label>
+                  <RadioGroup.Label as="span" className="inline-block ">
+                    <span>{option?.name}</span>
+                    {/* <span>{option?.icon}</span> */}
+                  </RadioGroup.Label>
                 </RadioGroup.Option>
               ))}
             </div>
