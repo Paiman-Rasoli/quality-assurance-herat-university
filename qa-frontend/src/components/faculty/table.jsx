@@ -11,9 +11,9 @@ const FacultyTable = ({ setIsOpenModal, faculties, deleteF, updateF }) => {
 
   return (
     <>
-      <div className="fixed left-0 bottom-0 mb-10 p-5 z-10">
+      <div className="mb-10 flex flex-wrap w-full justify-end gap-5">
         <button
-          className="h-16 w-16 grid place-content-center shadow-black shadow-lg justify-center rounded-full border border-transparent bg-blue-200 p-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           onClick={() => setIsOpenModal(true)}
         >
           فاکولته جدید

@@ -32,12 +32,6 @@ const DepartmentTable = ({
   return (
     <div>
       <div className="mb-10 flex flex-wrap w-full justify-between gap-5">
-        <button
-          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-          onClick={() => setAddNewDep(true)}
-        >
-          اضافه کردن دیپارتمنت
-        </button>
         <div>
           <FilterDep
             setSelectedFac={setSelectedFac}
@@ -45,6 +39,12 @@ const DepartmentTable = ({
             faculties={faculties}
           />
         </div>
+        <button
+          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          onClick={() => setAddNewDep(true)}
+        >
+          اضافه کردن دیپارتمنت
+        </button>
       </div>
       <div className="p-5 rounded-xl bg-gray-100">
         <h4 className="font-vazirBlack text-3xl">لیست دیپارتمنت ها</h4>
