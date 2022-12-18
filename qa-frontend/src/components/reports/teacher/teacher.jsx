@@ -11,7 +11,7 @@ const TeacherReport = ({ teacherId, year, semester_type, setSelected }) => {
   const [chartData, setChartData] = useState([]);
   const [response, setResponse] = useState(null);
 
-  console.log("chart", chartData, { teacherId, year, semester_type });
+  // console.log("chart", chartData, { teacherId, year, semester_type });
 
   useEffect(() => {
     (async function () {

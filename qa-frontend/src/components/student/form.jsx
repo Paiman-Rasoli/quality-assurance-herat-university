@@ -20,7 +20,11 @@ const Form = ({ formData }) => {
           با دقت پاسخ دهید.
         </p>
       </div>
-      <FormBorder label={"فورم ارزیابی"} childClassName="px-0 mt-0 py-0">
+      <FormBorder
+        label={"فورم ارزیابی"}
+        className="rounded-sm"
+        childClassName="p-0 mt-0 py-0"
+      >
         <TeacherData formData={formData} />
         <QuestionForm formId={formData.id} />
       </FormBorder>

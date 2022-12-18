@@ -47,7 +47,7 @@ const Table = ({ filterdQuestions, reports }) => {
                   scope="col"
                   className="w-[3rem] py-3.5 pr-4 pl-4 text-right font-semibold text-gray-900 sm:pr-6"
                 >
-                  شماره (Id)
+                  ID
                 </th>
                 <th
                   scope="col"
@@ -71,30 +71,27 @@ const Table = ({ filterdQuestions, reports }) => {
               </tr>
             </thead>
             <tbody dir="rtl" className="divide-y divide-gray-200 bg-white">
-              {filterdQuestions?.map(
-                (item, ndx) =>
-                  item && (
-                    <tr
-                      key={ndx}
-                      className="divide-x divide-x-reverse divide-gray-200"
-                    >
-                      <td className="whitespace-nowrap p-2 lg:p-4  font-medium text-gray-900">
-                        {item?.question?.id}
-                      </td>
+              {filterdQuestions?.map((item, ndx) => (
+                <tr
+                  key={ndx}
+                  className="divide-x divide-x-reverse divide-gray-200"
+                >
+                  <td className="whitespace-nowrap p-2 lg:p-4  font-medium text-gray-900">
+                    {item?.question?.id}
+                  </td>
 
-                      <td className="max-w-[40rem] p-2 lg:p-4  text-gray-700">
-                        <p>{item?.question?.text}</p>
-                      </td>
+                  <td className="max-w-[40rem] p-2 lg:p-4  text-gray-700">
+                    <p>{item?.question?.text}</p>
+                  </td>
 
-                      <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
-                        % {(+item?.percent).toFixed(1)}
-                      </td>
-                      <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
-                        {item?.subs}
-                      </td>
-                    </tr>
-                  )
-              )}
+                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                    % {(+item?.percent).toFixed(1)}
+                  </td>
+                  <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                    {item?.subs}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

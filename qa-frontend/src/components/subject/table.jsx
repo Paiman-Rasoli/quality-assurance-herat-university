@@ -10,10 +10,9 @@ const SubjectTable = ({ setIsOpenModal, subjects, updateF, deleteF }) => {
   const itemsPerPage = 5;
   return (
     <div>
-      {" "}
-      <div className="fixed left-0 bottom-0 mb-10 p-5 z-10 delay-200 duration-300 transition-all">
+      <div className="mb-5 flex flex-wrap w-full justify-end gap-5">
         <button
-          className="h-16 w-16 grid place-content-center shadow-black shadow-lg justify-center rounded-full border border-transparent bg-blue-200 p-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           onClick={() => setIsOpenModal(true)}
         >
           مضمون جدید

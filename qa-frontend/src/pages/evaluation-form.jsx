@@ -18,11 +18,21 @@ const Form = () => {
   const [loading, setLoading] = useState(false);
 
   let { data: faculties } = useFetch("faculty");
-  let { loading: laodingdata, data: forms, error, refetch } = useFetch("form");
+  let {
+    loading: laodingdata,
+    data: forms,
+    error,
+    refetch,
+  } = useFetch(`form?year=${new Date().getFullYear()}`);
+  let { data: departments } = useFetch("department");
 
   faculties = faculty
     ? faculties?.filter((fc) => fc.id === faculty.id)
     : faculties;
+
+  departments = faculty
+    ? departments?.filter((dep) => dep.faculty.id === faculty.id)
+    : departments;
 
   forms = faculty
     ? forms?.filter((fr) => fr.department.facultyId === faculty.id)
@@ -67,12 +77,20 @@ const Form = () => {
           />
         </Modal>
         {!addNew ? (
-          <EvaluationFromTable
-            setIsOpenModal={setAddNew}
-            forms={forms}
-            deleteF={deleteF}
-            updateF={updateF}
-          />
+          forms?.length < 1 ? (
+            <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
+              <div className="grid place-content-center">اطلاعاتی یافت نشد</div>
+            </section>
+          ) : (
+            <EvaluationFromTable
+              faculties={faculties}
+              departments={departments}
+              setIsOpenModal={setAddNew}
+              forms={forms}
+              deleteF={deleteF}
+              updateF={updateF}
+            />
+          )
         ) : (
           <AddFrom
             faculties={faculties}

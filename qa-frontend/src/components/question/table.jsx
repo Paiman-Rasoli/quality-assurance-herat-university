@@ -1,14 +1,32 @@
 import jwtDecoder from "jwt-decode";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
+import FilterQuestion from "./filter";
+import { useEffect, useState } from "react";
 
 const QuestionTable = ({ setIsOpenModal, questions, updateF, deleteF }) => {
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [filteredQuestions, setFilteredQuestions] = useState(questions);
   const token = sessionStorage.getItem("token");
   const { user } = jwtDecoder(token);
   // console.log(questions);
+  useEffect(() => {
+    setFilteredQuestions(
+      selectedStatus
+        ? selectedStatus === 1
+          ? questions.filter((question) => question.status)
+          : questions.filter((question) => !question.status)
+        : questions
+    );
+  }, [questions, selectedStatus]);
   return (
     <div>
-      {" "}
-      <div className="mb-10">
+      <div className="mb-5 flex flex-wrap w-full justify-between gap-5">
+        <div>
+          <FilterQuestion
+            setSelectedStatus={setSelectedStatus}
+            selectedStatus={selectedStatus}
+          />
+        </div>
         <button
           className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           onClick={() => setIsOpenModal(true)}
@@ -29,7 +47,7 @@ const QuestionTable = ({ setIsOpenModal, questions, updateF, deleteF }) => {
                   scope="col"
                   className="w-[3rem] py-3.5 pr-4 pl-4 text-right font-semibold text-gray-900 sm:pr-6"
                 >
-                  شماره (Id)
+                  شماره (ID)
                 </th>
                 <th
                   scope="col"
@@ -55,7 +73,7 @@ const QuestionTable = ({ setIsOpenModal, questions, updateF, deleteF }) => {
               </tr>
             </thead>
             <tbody dir="rtl" className="divide-y divide-gray-200 bg-white">
-              {questions?.map((item) => (
+              {filteredQuestions?.map((item) => (
                 <tr
                   key={item.id}
                   className="divide-x divide-x-reverse divide-gray-200"
@@ -69,11 +87,7 @@ const QuestionTable = ({ setIsOpenModal, questions, updateF, deleteF }) => {
                   </td>
 
                   <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
-                    {item.status ? (
-                      <span>تایید شده 🚀</span>
-                    ) : (
-                      <span>پیش نویس ✍</span>
-                    )}
+                    {item.status ? <span>فعال 🚀</span> : <span>متوقف ✍</span>}
                   </td>
                   {user.level && (
                     <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">

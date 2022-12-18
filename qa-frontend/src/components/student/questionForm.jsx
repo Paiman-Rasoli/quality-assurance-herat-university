@@ -72,7 +72,7 @@ const QuestionForm = ({ formId }) => {
     );
 
   return (
-    <section className="px-5">
+    <section>
       {confirmModal && (
         <Modal isOpen={confirmModal} setIsOpen={setConfirmModal}>
           <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all">
@@ -102,14 +102,18 @@ const QuestionForm = ({ formId }) => {
       )}
       <form onSubmit={handleSubmit(submtHandler)} className="grid font-vazir">
         {questions?.map((question, ndx) => (
-          <Question
-            Controller={Controller}
-            control={control}
-            name={`${question.id}`}
-            key={ndx}
-            question={question.text}
-            errors={errors}
-          />
+          <div
+            className={`p-3 ${ndx % 2 === 0 ? "bg-gray-50" : "bg-gray-100"}`}
+          >
+            <Question
+              Controller={Controller}
+              control={control}
+              name={`${question.id}`}
+              key={ndx}
+              question={question.text}
+              errors={errors}
+            />
+          </div>
         ))}
 
         <div className="flex justify-end p-10 w-full">

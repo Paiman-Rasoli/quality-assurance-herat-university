@@ -10,7 +10,7 @@ const FormBorder = ({ children, label, className, childClassName }) => {
           {label}
         </h1>
       </div>
-      <div className={`${childClassName} mt-5 p-5`}>{children}</div>
+      <div className={`mt-5 p-5 ${childClassName}`}>{children}</div>
     </div>
   );
 };

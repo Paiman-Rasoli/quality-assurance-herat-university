@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
+
 import Select from "../SelectForFilter";
 
 const schema = yup.object({
@@ -11,10 +12,9 @@ const schema = yup.object({
     .number()
     .nullable()
     .required("لطفا این قسمت را تکمیل نمایید"),
-  //   date: yup.date().required("لطفا تاریخ مورد نظرتان را وارد نمایید"),
 });
 
-const FilterTeacher = ({
+const FilterForms = ({
   selectedFac,
   setSelectedFac,
   setSelectedDep,
@@ -38,6 +38,8 @@ const FilterTeacher = ({
     setSelectedDep(null);
     setSelectedFac(null);
   }, [cancelFilter]);
+
+  console.log("filter forms", selectedFac);
 
   return (
     <div className="flex flex-wrap gap-5 w-full px-5">
@@ -88,4 +90,4 @@ const FilterTeacher = ({
   );
 };
 
-export default FilterTeacher;
+export default FilterForms;

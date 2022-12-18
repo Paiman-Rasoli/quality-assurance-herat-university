@@ -66,7 +66,7 @@ const SubjectReport = ({
   }, [semester, semester_type, subjectId, teacherId, year]);
 
   const filterdQuestions = questions
-    ?.filter((item) => item.status)
+    ?.filter((item) => item)
     ?.map(
       (item) =>
         chartData
@@ -79,7 +79,8 @@ const SubjectReport = ({
               }
           )
           .filter((item) => item)[0]
-    );
+    )
+    .filter((item) => item);
 
   if (loading || laodingdata) return <Loading />;
 
@@ -134,10 +135,12 @@ const SubjectReport = ({
           </article>
           <div>
             <BarChart
-              chartData={filterdQuestions.map((item) => ({
-                label: item?.question?.id,
-                percent: item?.percent,
-              }))}
+              chartData={filterdQuestions?.map((item) => {
+                return {
+                  label: item?.question?.id,
+                  percent: item?.percent,
+                };
+              })}
               label="نمودار فیصدی سوالات"
               y_label="درصدی"
               x_label="آیدی سوال"

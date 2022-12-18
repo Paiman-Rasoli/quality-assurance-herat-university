@@ -55,21 +55,20 @@ const TeachersTable = ({
       <div className={isOpenTeacherModal ? `hidden` : ""}>
         <article className="flex flex-wrap w-full justify-between gap-5">
           <div className="mb-5 flex flex-wrap w-full justify-between gap-5">
+            <div>
+              <FilterTeacher
+                faculties={faculties}
+                selectedFac={selectedFac}
+                setSelectedDep={setSelectedDep}
+                setSelectedFac={setSelectedFac}
+              />
+            </div>
             <button
               className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
               onClick={() => setAddNewTeacher(true)}
             >
               استاد جدید
             </button>
-            <div>
-              <FilterTeacher
-                faculties={faculties}
-                departments={departments}
-                selectedFac={selectedFac}
-                setSelectedDep={setSelectedDep}
-                setSelectedFac={setSelectedFac}
-              />
-            </div>
           </div>
         </article>
         <div className="mt-5 p-5 rounded-xl bg-gray-100">
