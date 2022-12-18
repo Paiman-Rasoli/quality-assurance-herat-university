@@ -17,7 +17,11 @@ const EvaluationFromTable = ({
 }) => {
   const [selectedDep, setSelectedDep] = useState(null);
   const [selectedFac, setSelectedFac] = useState(null);
-  const [filteredForms, setFilteredForms] = useState(forms);
+  const [selectedYear, setSelectedYear] = useState(null);
+  const [selectedSmstrType, setSelectedSmstrType] = useState(null);
+  const [filteredYear, setFilterYear] = useState(forms);
+  const [filteredSmstr, setFilteredSmstr] = useState(filteredYear);
+  const [filteredForms, setFilteredForms] = useState(filteredSmstr);
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -29,20 +33,41 @@ const EvaluationFromTable = ({
   };
 
   useEffect(() => {
+    selectedYear
+      ? setFilterYear(forms?.filter((form) => +selectedYear === form.year))
+      : setFilterYear(forms);
+    setSelectedFac(null);
+    setSelectedDep(null);
+    setSelectedSmstrType(null);
+  }, [forms, selectedYear]);
+
+  useEffect(() => {
+    selectedSmstrType
+      ? setFilteredSmstr(
+          filteredYear?.filter(
+            (form) => selectedSmstrType === form.semester_type
+          )
+        )
+      : setFilteredSmstr(filteredYear);
+  }, [filteredYear, selectedSmstrType]);
+
+  useEffect(() => {
     setFilteredForms(
       selectedFac
-        ? forms?.filter((form) =>
+        ? filteredSmstr?.filter((form) =>
             selectedDep
               ? form.department.id === selectedDep
               : form.faculty.id === selectedFac
           )
-        : forms
+        : filteredSmstr
     );
-  }, [selectedDep, selectedFac, forms]);
+  }, [selectedDep, selectedFac, filteredSmstr]);
 
   useMemo(() => {
     setSelectedDep(null);
   }, [selectedFac]);
+
+  // console.log(selectedYear);
 
   return (
     <section>
@@ -56,9 +81,14 @@ const EvaluationFromTable = ({
             <div className="inline-flex">
               <FilterForms
                 faculties={faculties}
+                selectedSmstrType={selectedSmstrType}
+                selectedYear={selectedYear}
+                selectedDep={selectedDep}
                 selectedFac={selectedFac}
                 setSelectedDep={setSelectedDep}
                 setSelectedFac={setSelectedFac}
+                setSelectedYear={setSelectedYear}
+                setSelectedSmstrType={setSelectedSmstrType}
               />
             </div>
             <div className="inline-flex gap-3">
