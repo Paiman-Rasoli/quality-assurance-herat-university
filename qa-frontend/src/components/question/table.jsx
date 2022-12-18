@@ -69,11 +69,7 @@ const QuestionTable = ({ setIsOpenModal, questions, updateF, deleteF }) => {
                   </td>
 
                   <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
-                    {item.status ? (
-                      <span>تایید شده 🚀</span>
-                    ) : (
-                      <span>پیش نویس ✍</span>
-                    )}
+                    {item.status ? <span>فعال 🚀</span> : <span>متوقف ✍</span>}
                   </td>
                   {user.level && (
                     <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
