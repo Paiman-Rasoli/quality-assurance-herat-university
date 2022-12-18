@@ -19,10 +19,15 @@ const Form = () => {
 
   let { data: faculties } = useFetch("faculty");
   let { loading: laodingdata, data: forms, error, refetch } = useFetch("form");
+  let { data: departments } = useFetch("department");
 
   faculties = faculty
     ? faculties?.filter((fc) => fc.id === faculty.id)
     : faculties;
+
+  departments = faculty
+    ? departments?.filter((dep) => dep.faculty.id === faculty.id)
+    : departments;
 
   forms = faculty
     ? forms?.filter((fr) => fr.department.facultyId === faculty.id)
@@ -68,6 +73,8 @@ const Form = () => {
         </Modal>
         {!addNew ? (
           <EvaluationFromTable
+            faculties={faculties}
+            departments={departments}
             setIsOpenModal={setAddNew}
             forms={forms}
             deleteF={deleteF}

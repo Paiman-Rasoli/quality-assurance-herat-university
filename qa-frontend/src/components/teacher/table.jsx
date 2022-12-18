@@ -64,7 +64,6 @@ const TeachersTable = ({
             <div>
               <FilterTeacher
                 faculties={faculties}
-                departments={departments}
                 selectedFac={selectedFac}
                 setSelectedDep={setSelectedDep}
                 setSelectedFac={setSelectedFac}
