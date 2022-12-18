@@ -18,12 +18,7 @@ const Form = () => {
   const [loading, setLoading] = useState(false);
 
   let { data: faculties } = useFetch("faculty");
-  let {
-    loading: laodingdata,
-    data: forms,
-    error,
-    refetch,
-  } = useFetch(`form?year=${new Date().getFullYear()}`);
+  let { loading: laodingdata, data: forms, error, refetch } = useFetch(`form`);
   let { data: departments } = useFetch("department");
 
   faculties = faculty

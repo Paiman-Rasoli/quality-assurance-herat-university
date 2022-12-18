@@ -1,28 +1,26 @@
 // components/BarChart.js
-import { Bar } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js/auto";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 ChartJS.register(...registerables);
-
-export const BarChart = ({ chartData, label, title, y_label, x_label }) => {
+export const PieChart = ({ chartData, label, x_label }) => {
   // console.log("barChart", chartData);
   return (
     <div
       dir="rtl"
-      className="my-10 border-2 p-5 rounded border-red-200 shadow-lg font-vazirBold"
+      className="m-5 border-2 p-2 rounded border-red-200 shadow-lg font-vazirBold"
     >
       <h6 className="text-gray-700">{label}</h6>
-      <Bar
+      <Pie
+        plugins={[ChartDataLabels]}
         options={{
-          scales: {
-            y: {
-              title: { display: true, text: y_label },
-              max: 100,
-            },
-            x: {
-              title: { font: "vazir;", display: true, text: x_label },
-            },
-          },
+          layout: { padding: 15 },
           plugins: {
+            datalabels: {
+              formatter: (val) => {
+                return (+val).toFixed(0);
+              },
+            },
             tooltip: {
               callbacks: {
                 title: function (context) {
@@ -50,6 +48,7 @@ export const BarChart = ({ chartData, label, title, y_label, x_label }) => {
                 "#e11d48",
                 "#db2777",
               ],
+              hoverOffset: 20,
             },
           ],
         }}

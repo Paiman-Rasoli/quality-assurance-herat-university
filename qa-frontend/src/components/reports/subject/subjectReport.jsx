@@ -90,7 +90,7 @@ const SubjectReport = ({
         somthing went wrong with connection to database
       </div>
     );
-  console.log(filterdQuestions, chartData);
+  // console.log(filterdQuestions, chartData);
   if (response?.status === 404)
     return (
       <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
@@ -108,14 +108,13 @@ const SubjectReport = ({
 
   return (
     <section>
-      <div className="mb-10 flex flex-wrap w-full justify-end gap-5">
+      <div className="mb-3 flex flex-wrap w-full justify-end gap-5">
         <button
           className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           onClick={() => setSelected(null)}
         >
           گزارش جدید
         </button>
-
         <button
           type="button"
           className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
