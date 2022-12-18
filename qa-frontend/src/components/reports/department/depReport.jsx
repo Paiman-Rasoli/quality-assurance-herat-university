@@ -7,6 +7,7 @@ import { ToastMsg } from "../../TaostMsg";
 import Table from "./table";
 import { useReactToPrint } from "react-to-print";
 import { PrinterIcon } from "@heroicons/react/24/outline";
+import { PieChart } from "../pie";
 
 const DepartmentReportChart = ({
   setSelected,
@@ -17,6 +18,7 @@ const DepartmentReportChart = ({
   const [loading, setLoading] = useState(false);
   const [reports, setReport] = useState([]);
   const [chartData, setChartData] = useState([]);
+  const [subsData, setSubsData] = useState([]);
   const [response, setResponse] = useState(null);
 
   const componentRef = useRef();
@@ -32,7 +34,7 @@ const DepartmentReportChart = ({
     return `@page { margin: 40px !important; }`;
   };
 
-  // console.log("reports", reports);
+  console.log("reports", reports);
 
   useEffect(() => {
     (async function () {
@@ -52,6 +54,12 @@ const DepartmentReportChart = ({
         setChartData(
           reports?.teachersRep?.map((item) => ({
             percent: item?.percent,
+            label: item?.teacher.fa_name,
+          }))
+        );
+        setSubsData(
+          reports?.teachersRep?.map((item) => ({
+            percent: item?.subscribers,
             label: item?.teacher.fa_name,
           }))
         );
@@ -118,26 +126,26 @@ const DepartmentReportChart = ({
                     reports={reports}
                   />
                 </article>
-
-                <div ref={chartRef}>
-                  <BarChart
-                    chartData={chartData}
-                    label="نمودار سطح کیفی اساتید"
-                    y_label="درصدی"
-                    x_label="استاد"
-                    title=" چارت نشان دهنده فیصدی نمرات همه اساتید دیپارتمنت است."
-                  />
-                </div>
-                <button
-                  type="button"
-                  className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                  onClick={printChart}
-                >
-                  <span>پرینت</span>
-                  <span>
-                    <PrinterIcon className="h-6 w-6" />
-                  </span>
-                </button>
+                <article className="flex flex-wrap justify-center gap-3">
+                  <div ref={chartRef} className="w-fit xl:w-[30rem]">
+                    <BarChart
+                      chartData={chartData}
+                      label="نمودار سطح کیفی اساتید"
+                      y_label="درصدی"
+                      x_label="استاد"
+                      title=" چارت نشان دهنده فیصدی نمرات همه اساتید دیپارتمنت است."
+                    />
+                  </div>
+                  <div ref={chartRef} className="w-fit xl:w-[30rem]">
+                    <PieChart
+                      chartData={subsData}
+                      label="نمودار تعداد اشتراک کننده برای هر استاد"
+                      y_label="درصدی"
+                      x_label="استاد"
+                      title=" چارت نشان دهنده فیصدی نمرات همه اساتید دیپارتمنت است."
+                    />
+                  </div>
+                </article>
               </article>
             )}
           </div>
