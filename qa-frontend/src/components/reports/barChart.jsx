@@ -40,8 +40,8 @@ export const BarChart = ({ chartData, label, title, y_label, x_label }) => {
               type: "line",
               label,
               data: [...chartData?.map((item) => item.percent)],
-              borderWidth: 2,
-              borderColor: ["#f87171"],
+              borderColor: ["#6366f1"],
+              tension: 0.4,
             },
             {
               axis: "y",
