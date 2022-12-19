@@ -75,7 +75,7 @@ const QuestionForm = ({ formId }) => {
     <section>
       {confirmModal && (
         <Modal isOpen={confirmModal} setIsOpen={setConfirmModal}>
-          <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-right align-middle shadow-xl transition-all">
+          <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-cyan-100 p-6 text-right align-middle shadow-xl transition-all">
             <div className="mt-2">
               <p className="text-sm text-gray-500">
                 آیا از پاسخ های تان اطمینان دارید؟

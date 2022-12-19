@@ -18,10 +18,10 @@ export class EvaluationForm {
     // check if form exist before
     const duplicate = await formModel.find({
       where: {
-        semester: +bodyData.semester,
-        year: +bodyData.year,
-        teacher: { id: +bodyData.teacher },
-        subject: { id: +bodyData.subject },
+        semester: bodyData.semester,
+        year: bodyData.year,
+        teacher: { id: bodyData.teacher },
+        subject: { id: bodyData.subject },
         semester_type: bodyData.semester_type,
       },
     });
@@ -48,8 +48,10 @@ export class EvaluationForm {
       return res.status(400).json({ errors: errors.array() });
     }
     const formModel = getMyRepository(EvaluationFormEntity);
+    console.log("query", req.query);
+
     const find = await formModel.findOne({
-      where: { id: +req?.query?.formId },
+      where: { id: req?.query?.formId },
       relations: ["teacher", "subject", "department", "department.faculty"],
     });
     if (!find) {
@@ -106,7 +108,7 @@ export class EvaluationForm {
     const formModel = getMyRepository(EvaluationFormEntity);
     const findOne = await formModel.update(
       {
-        id: +req.body.id,
+        id: req.body.id,
       },
       {
         ...req.body,
@@ -124,7 +126,7 @@ export class EvaluationForm {
     }
     const formModel = getMyRepository(EvaluationFormEntity);
     const deleteOne = await formModel.delete({
-      id: +req?.query?.id,
+      id: req?.query?.id,
     });
 
     return res

@@ -72,20 +72,14 @@ const Form = () => {
           />
         </Modal>
         {!addNew ? (
-          forms?.length < 1 ? (
-            <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
-              <div className="grid place-content-center">اطلاعاتی یافت نشد</div>
-            </section>
-          ) : (
-            <EvaluationFromTable
-              faculties={faculties}
-              departments={departments}
-              setIsOpenModal={setAddNew}
-              forms={forms}
-              deleteF={deleteF}
-              updateF={updateF}
-            />
-          )
+          <EvaluationFromTable
+            faculties={faculties}
+            departments={departments}
+            setIsOpenModal={setAddNew}
+            forms={forms}
+            deleteF={deleteF}
+            updateF={updateF}
+          />
         ) : (
           <AddFrom
             faculties={faculties}
