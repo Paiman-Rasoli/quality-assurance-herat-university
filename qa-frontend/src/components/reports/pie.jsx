@@ -8,7 +8,7 @@ export const PieChart = ({ chartData, label, x_label }) => {
   return (
     <div
       dir="rtl"
-      className="m-5 border-2 p-2 rounded border-red-200 shadow-lg font-vazirBold"
+      className="m-5 border-2 p-2 rounded-2xl border-red-200 shadow-lg font-vazirBold"
     >
       <h6 className="text-gray-700">{label}</h6>
       <Pie
