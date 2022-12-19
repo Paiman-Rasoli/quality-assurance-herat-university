@@ -31,7 +31,7 @@ const DepartmentTable = ({
 
   return (
     <div>
-      <div className="mb-10 flex flex-wrap w-full justify-between gap-5">
+      <div className="mb-5 flex flex-wrap w-full justify-between gap-5">
         <div>
           <FilterDep
             setSelectedFac={setSelectedFac}
