@@ -2,6 +2,7 @@ import { Response, Request } from "express";
 import { body, validationResult } from "express-validator";
 import { getMyRepository } from "../data-source";
 import { EvaluationFormEntity } from "../entities";
+import { customUUID } from "../helpers";
 
 export class EvaluationForm {
   async addForm(req: Request, res: Response) {
@@ -28,7 +29,12 @@ export class EvaluationForm {
       return res.status(409).json({ message: "form exist" });
     else {
       try {
-        const save = await formModel.upsert(bodyData, ["id"]);
+        const totalForm = await formModel.count();
+        const getCustomUUID = customUUID(totalForm);
+        const save = await formModel.upsert(
+          { ...bodyData, id: getCustomUUID },
+          ["id"]
+        );
         return res.status(200).json({ formId: save.identifiers[0]?.id });
       } catch (err) {
         console.error("Error while creating form.", err);
