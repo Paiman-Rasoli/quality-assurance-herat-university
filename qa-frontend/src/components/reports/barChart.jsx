@@ -50,6 +50,9 @@ export const BarChart = ({ chartData, label, title, y_label, x_label }) => {
                 "#e11d48",
                 "#db2777",
               ],
+              minBarLength: 1,
+              barThickness: 50,
+              maxBarThickness: 50,
             },
           ],
         }}
