@@ -44,8 +44,7 @@ const Table = ({ reports }) => {
       </article>
       <div className="p-5 rounded-xl bg-gray-100">
         <h4 className="font-vazir text-xl">
-          {" "}
-          لیست سوالات ، امتیازات و تعداد پاسخ های مربوطه آنها
+          جدول گزارش مضامین استاد {reports.purifyTeachers?.teacher?.fa_name}{" "}
         </h4>
         <div className="mt-5 shadow-sm ring-1 ring-black ring-opacity-5 text">
           <table
@@ -64,7 +63,7 @@ const Table = ({ reports }) => {
                   scope="col"
                   className="max-w-[40rem] px-4 py-3.5 text-right font-semibold text-gray-900"
                 >
-                  مضمون
+                  نام مضمون
                 </th>
 
                 <th

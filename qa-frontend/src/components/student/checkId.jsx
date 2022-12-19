@@ -55,7 +55,7 @@ const CheckId = ({ setData }) => {
           </label>
           <div>
             <input
-              type="number"
+              type="text"
               dir="ltr"
               autoFocus
               {...register("id")}

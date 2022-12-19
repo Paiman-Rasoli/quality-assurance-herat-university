@@ -72,9 +72,19 @@ const EvaluationFromTable = ({
   return (
     <section>
       {forms?.length < 1 ? (
-        <section className="font-vazirBold p-2 md:p-5 lg:p-10 w-full">
-          <div className="grid place-content-center">اطلاعاتی یافت نشد</div>
-        </section>
+        <article className="w-full grid">
+          <div className="mb-10 flex flex-wrap w-full justify-end gap-5">
+            <button
+              className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              onClick={() => setIsOpenModal(true)}
+            >
+              فورم جدید
+            </button>
+          </div>
+          <div className="grid place-content-center">
+            <p className="grid place-content-center">اطلاعاتی یافت نشد</p>
+          </div>
+        </article>
       ) : (
         <>
           <div className="mb-10 flex flex-wrap w-full justify-between gap-5">
@@ -181,7 +191,10 @@ const EvaluationFromTable = ({
                       key={item.id}
                       className="divide-x divide-x-reverse divide-gray-200"
                     >
-                      <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
+                      <td
+                        className="font-sans font-bold whitespace-nowrap p-2 lg:p-4 text-gray-700"
+                        lang="en"
+                      >
                         {item.id}
                       </td>
                       <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
