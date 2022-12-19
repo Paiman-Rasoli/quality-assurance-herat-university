@@ -34,51 +34,54 @@ const QuestionTable = ({ setIsOpenModal, questions, updateF, deleteF }) => {
           اضافه کردن سوال{" "}
         </button>
       </div>
-      <div className="p-5 rounded-xl bg-gray-100">
+      <div className="p-5 rounded-xl bg-blue-100">
         <h4 className="font-vazirBlack text-3xl">لیست سوالات</h4>
-        <div className="mt-5 shadow-sm ring-1 ring-black ring-opacity-5 text">
+        <div className="mt-5 shadow-sm ring-1 ring-black ring-opacity-50 text">
           <table
-            className="min-w-full divide-y divide-gray-300 font-vazir"
+            className="min-w-full divide-y divide-gray-700 font-vazir"
             dir="rtl"
           >
             <thead dir="rtl" className="text-base">
-              <tr className="divide-x divide-x-reverse divide-gray-200">
+              <tr className="divide-x divide-x-reverse text-blue-900 divide-gray-700">
                 <th
                   scope="col"
-                  className="w-[3rem] py-3.5 pr-4 pl-4 text-right font-semibold text-gray-900 sm:pr-6"
+                  className="w-[3rem] py-3.5 pr-4 pl-4 text-right font-semibold sm:pr-6"
                 >
-                  شماره (ID)
+                  ID
                 </th>
                 <th
                   scope="col"
-                  className="max-w-[40rem] px-4 py-3.5 text-right font-semibold text-gray-900"
+                  className="max-w-[40rem] px-4 py-3.5 text-right font-semibold"
                 >
                   متن سوال
                 </th>
 
                 <th
                   scope="col"
-                  className="px-4 py-3.5 text-right font-semibold text-gray-900"
+                  className="px-4 py-3.5 text-right font-semibold"
                 >
                   حالت
                 </th>
                 {user.level && (
                   <th
                     scope="col"
-                    className="py-3.5 p-4 pr-4 text-right font-semibold text-gray-900 sm:pl-6"
+                    className="py-3.5 p-4 pr-4 text-right font-semibold sm:pl-6"
                   >
                     ویرایش/حذف
                   </th>
                 )}
               </tr>
             </thead>
-            <tbody dir="rtl" className="divide-y divide-gray-200 bg-white">
+            <tbody
+              dir="rtl"
+              className="divide-y divide-gray-700 bg-blue-50 text-gray-900"
+            >
               {filteredQuestions?.map((item) => (
                 <tr
                   key={item.id}
-                  className="divide-x divide-x-reverse divide-gray-200"
+                  className="divide-x divide-x-reverse divide-gray-700"
                 >
-                  <td className="whitespace-nowrap p-2 lg:p-4  font-medium text-gray-900">
+                  <td className="whitespace-nowrap p-2 lg:p-4  font-medium">
                     {item.id}
                   </td>
 

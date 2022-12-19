@@ -87,7 +87,7 @@ const EvaluationFromTable = ({
         </article>
       ) : (
         <>
-          <div className="mb-10 flex flex-wrap w-full justify-between gap-5">
+          <div className="mb-5 flex flex-wrap w-full justify-between gap-5">
             <div className="inline-flex">
               <FilterForms
                 faculties={faculties}
@@ -123,73 +123,78 @@ const EvaluationFromTable = ({
           <div
             ref={componentRef}
             dir="rtl"
-            className="font-vazir p-5 rounded-xl bg-gray-100"
+            className="p-5 rounded-xl bg-blue-100"
           >
             <style type="text/css" media="print">
               {printStylesPage()}
             </style>
             <h4 className="font-vazirBlack text-3xl">لیست فورم های ارزیابی</h4>
-            <div className="mt-5 shadow-sm ring-1 ring-black ring-opacity-5 text">
-              <table className="min-w-full divide-y divide-gray-300" dir="rtl">
+            <div className="mt-5 shadow-sm ring-1 ring-black ring-opacity-50">
+              <table
+                className="min-w-full divide-y divide-gray-700 font-vazir"
+                dir="rtl"
+              >
                 <thead dir="rtl" className="font-vazirBold text-base">
-                  <tr className="divide-x divide-x-reverse divide-gray-200">
+                  <tr className="divide-x divide-x-reverse text-blue-900 divide-gray-700">
                     <th
                       scope="col"
-                      className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                      className="px-2 lg:px-4 py-3.5 text-right font-semibold"
                     >
                       ID
                     </th>
                     <th
                       scope="col"
-                      className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                      className="px-2 lg:px-4 py-3.5 text-right font-semibold"
                     >
                       دیپارتمنت
                     </th>
                     <th
                       scope="col"
-                      className="p-2 lg:p-4 text-right font-semibold text-gray-900"
+                      className="p-2 lg:p-4 text-right font-semibold"
                     >
                       استاد
                     </th>
                     <th
                       scope="col"
-                      className="p-2 lg:p-4 text-right font-semibold text-gray-900"
+                      className="p-2 lg:p-4 text-right font-semibold"
                     >
                       مضمون
                     </th>
                     <th
                       scope="col"
-                      className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                      className="px-2 lg:px-4 py-3.5 text-right font-semibold"
                     >
                       سمستر
                     </th>
                     <th
                       scope="col"
-                      className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                      className="px-2 lg:px-4 py-3.5 text-right font-semibold"
                     >
                       سال
                     </th>
                     <th
                       scope="col"
-                      className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                      className="px-2 lg:px-4 py-3.5 text-right font-semibold"
                     >
                       تایم شروع
-                      <br />
-                      تایم ختم
+                      {" - "} تایم ختم
                     </th>
                     <th
                       scope="col"
-                      className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                      className="px-2 lg:px-4 py-3.5 text-right font-semibold"
                     >
                       ویرایش/حذف
                     </th>
                   </tr>
                 </thead>
-                <tbody dir="rtl" className="divide-y divide-gray-200 bg-white">
+                <tbody
+                  dir="rtl"
+                  className="divide-y divide-gray-700 bg-blue-50 text-gray-900"
+                >
                   {filteredForms?.map((item) => (
                     <tr
                       key={item.id}
-                      className="divide-x divide-x-reverse divide-gray-200"
+                      className="divide-x divide-x-reverse divide-gray-700"
                     >
                       <td
                         className="font-sans font-bold whitespace-nowrap p-2 lg:p-4 text-gray-700"
