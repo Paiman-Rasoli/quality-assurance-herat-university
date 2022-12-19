@@ -71,53 +71,56 @@ const TeachersTable = ({
             </button>
           </div>
         </article>
-        <div className="mt-5 p-5 rounded-xl bg-gray-100">
+        <div className="p-5 rounded-xl bg-blue-100">
           <h4 className="font-vazirBlack text-3xl">لیست اساتید</h4>
-          <div className="mt-5 shadow-sm ring-1 ring-black ring-opacity-5 text">
+          <div className="mt-5 shadow-sm ring-1 ring-black ring-opacity-50 text">
             {" "}
             <table
-              className="min-w-full divide-y divide-gray-300 font-vazir"
+              className="min-w-full divide-y divide-gray-700 font-vazir"
               dir="rtl"
             >
               <thead className="divide-x-2 divide-y-2 divide-x-reverse divide-y-reverse font-vazirBold text-base">
-                <tr className="divide-x divide-x-reverse divide-gray-200">
+                <tr className="divide-x divide-x-reverse text-blue-900 divide-gray-700">
                   <th
                     scope="col"
-                    className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                    className="px-2 lg:px-4 py-3.5 text-right font-semibold"
                   >
                     آیدی
                   </th>
                   <th
                     scope="col"
-                    className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                    className="px-2 lg:px-4 py-3.5 text-right font-semibold"
                   >
                     نام و تخلص
                   </th>
                   <th
                     scope="col"
-                    className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                    className="px-2 lg:px-4 py-3.5 text-right font-semibold"
                   >
                     فاکولته
                   </th>
                   <th
                     scope="col"
-                    className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900"
+                    className="px-2 lg:px-4 py-3.5 text-right font-semibold"
                   >
                     دیپارتمنت
                   </th>
                   <th
                     scope="col"
-                    className="px-2 lg:px-4 py-3.5 text-right font-semibold text-gray-900 hidden lg:grid"
+                    className="px-2 lg:px-4 py-3.5 text-right font-semibold hidden lg:grid"
                   >
                     تاریخ ثبت
                   </th>
                 </tr>
               </thead>
-              <tbody dir="rtl" className="divide-y divide-gray-200 bg-white">
+              <tbody
+                dir="rtl"
+                className="divide-y divide-gray-700 bg-blue-50 text-gray-900"
+              >
                 {items.map((item, ndx) => (
                   <tr
                     key={ndx}
-                    className="divide-x divide-x-reverse divide-gray-200"
+                    className="divide-x divide-x-reverse divide-gray-700"
                   >
                     <td className="whitespace-nowrap p-2 lg:p-4  text-gray-700">
                       {item.id}

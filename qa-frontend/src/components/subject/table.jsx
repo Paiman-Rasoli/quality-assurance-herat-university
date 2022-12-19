@@ -18,52 +18,43 @@ const SubjectTable = ({ setIsOpenModal, subjects, updateF, deleteF }) => {
           مضمون جدید
         </button>
       </div>
-      <div className="p-5 rounded-xl bg-gray-100">
+      <div className="p-5 rounded-xl bg-blue-100">
         <h4 className="font-vazirBlack text-3xl">لیست مضامین</h4>
-        <div className="mt-5 shadow-sm ring-1 ring-black ring-opacity-5 text">
-          <table className="min-w-full divide-y divide-gray-300" dir="rtl">
+        <div className="mt-5 shadow-sm ring-1 ring-black ring-opacity-50 text">
+          <table
+            className="min-w-full divide-y divide-gray-700 font-vazir"
+            dir="rtl"
+          >
             <thead dir="rtl" className="font-vazirBold text-base">
-              <tr className="divide-x divide-x-reverse divide-gray-200">
+              <tr className="divide-x divide-x-reverse text-blue-900 divide-gray-700">
                 <th
                   scope="col"
-                  className="p-2 lg:p-4 text-right font-semibold text-gray-900 sm:pr-6"
+                  className="p-2 lg:p-4 text-right font-semibold sm:pr-6"
                 >
                   شماره
                 </th>
-                <th
-                  scope="col"
-                  className="p-2 lg:p-4 text-right font-semibold text-gray-900"
-                >
+                <th scope="col" className="p-2 lg:p-4 text-right font-semibold">
                   آیدی
                 </th>
-                <th
-                  scope="col"
-                  className="p-2 lg:p-4 text-right font-semibold text-gray-900"
-                >
+                <th scope="col" className="p-2 lg:p-4 text-right font-semibold">
                   نام
                 </th>
-                <th
-                  scope="col"
-                  className="p-2 lg:p-4 text-right font-semibold text-gray-900"
-                >
+                <th scope="col" className="p-2 lg:p-4 text-right font-semibold">
                   فاکولته
                 </th>
-                <th
-                  scope="col"
-                  className="p-2 lg:p-4 text-right font-semibold text-gray-900"
-                >
+                <th scope="col" className="p-2 lg:p-4 text-right font-semibold">
                   دیپارتمنت
                 </th>
 
                 <th
                   scope="col"
-                  className="p-2 lg:p-4 text-right font-semibold text-gray-900 hidden lg:block"
+                  className="p-2 lg:p-4 text-right font-semibold hidden lg:block"
                 >
                   تاریخ ثبت
                 </th>
                 <th
                   scope="col"
-                  className="p-2 lg:p-4 text-right font-semibold text-gray-900 sm:pl-6"
+                  className="p-2 lg:p-4 text-right font-semibold sm:pl-6"
                 >
                   ویرایش/حذف
                 </th>
@@ -71,14 +62,14 @@ const SubjectTable = ({ setIsOpenModal, subjects, updateF, deleteF }) => {
             </thead>
             <tbody
               dir="rtl"
-              className="divide-y divide-gray-200 bg-white font-vazir"
+              className="divide-y divide-gray-700 bg-blue-50 text-gray-900"
             >
               {items?.map((item, ndx) => (
                 <tr
                   key={item.id}
-                  className="divide-x divide-x-reverse divide-gray-200"
+                  className="divide-x divide-x-reverse divide-gray-700"
                 >
-                  <td className="whitespace-nowrap p-2 lg:p-4  font-medium text-gray-900">
+                  <td className="whitespace-nowrap p-2 lg:p-4  font-medium">
                     {ndx + 1}
                   </td>
                   <td className="p-2 lg:p-4  text-gray-700">{item.id}</td>
