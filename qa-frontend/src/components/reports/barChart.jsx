@@ -37,6 +37,13 @@ export const BarChart = ({ chartData, label, title, y_label, x_label }) => {
           labels: [...chartData?.map((item) => item.label)],
           datasets: [
             {
+              type: "line",
+              label,
+              data: [...chartData?.map((item) => item.percent)],
+              borderWidth: 2,
+              borderColor: ["#f87171"],
+            },
+            {
               axis: "y",
               label: label,
               data: [...chartData?.map((item) => item.percent)],
