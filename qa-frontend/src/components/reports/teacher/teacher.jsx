@@ -115,7 +115,7 @@ const TeacherReport = ({ teacherId, year, semester_type, setSelected }) => {
                 <PieChart
                   chartData={chartData}
                   label="نمودار امتیازات مضامین"
-                  title="چارت نشان دهنده امتیازات مضامین است"
+                  title="چارت نشان دهنده امتیازات مضامین میباشد"
                   x_label="مضمون"
                   y_label="درصدی"
                 />
@@ -126,7 +126,7 @@ const TeacherReport = ({ teacherId, year, semester_type, setSelected }) => {
                 <PieChart
                   chartData={subscribersData}
                   label="نمودار تعداد اشتراک کننده مضامین"
-                  title="چارت نشان دهنده تعداد اشتراک برای هر مضمون است"
+                  title="چارت نشان دهنده تعداد اشتراک برای هر مضمون میباشد"
                   x_label="مضمون"
                   y_label="تعداد اشتراک کننده"
                 />
