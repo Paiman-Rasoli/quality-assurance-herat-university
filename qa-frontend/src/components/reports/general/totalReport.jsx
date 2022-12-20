@@ -105,10 +105,10 @@ const TotalReport = ({ year, semester_type, setSelected }) => {
               {chartData?.length > 0 && (
                 <BarChart
                   chartData={chartData}
-                  label="نمودار فیصدی فاکولته ها"
+                  label="نمودار فیصدی امتیازات فاکولته ها"
                   y_label="درصدی"
                   x_label="فاکولته"
-                  title=" چارت نشان دهنده فیصدی نمرات همه فاکولته ها است."
+                  title=" چارت نشان دهنده فیصدی نمرات همه فاکولته ها میباشد."
                 />
               )}
             </div>
@@ -116,10 +116,10 @@ const TotalReport = ({ year, semester_type, setSelected }) => {
               {subsData?.length > 0 && (
                 <PieChart
                   chartData={subsData}
-                  label="نمودار تعداد اشتراک کننده برای هر استاد"
+                  label="نمودار تعداد اشتراک کننده ها"
                   y_label="درصدی"
-                  x_label="استاد"
-                  title=" چارت نشان دهنده فیصدی نمرات همه اساتید دیپارتمنت است."
+                  x_label="فاکولته"
+                  title=" چارت نشان دهنده فیصدی نمرات همه فاکولته هامیباشد."
                 />
               )}
             </div>

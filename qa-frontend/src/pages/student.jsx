@@ -4,6 +4,7 @@ import Form from "../components/student/form";
 
 const Student = () => {
   const [data, setData] = useState();
+  // console.log(data);
   return (
     <main className="min-h-screen font-vazirBold pt-10 px-5 from-slate-100 to-white bg-gradient-to-br">
       <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl text-center mb-5 ">

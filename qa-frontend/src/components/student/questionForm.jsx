@@ -110,6 +110,7 @@ const QuestionForm = ({ formId }) => {
               control={control}
               name={`${question.id}`}
               key={ndx}
+              ndx={ndx}
               question={question.text}
               errors={errors}
             />

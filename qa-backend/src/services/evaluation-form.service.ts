@@ -48,7 +48,7 @@ export class EvaluationForm {
       return res.status(400).json({ errors: errors.array() });
     }
     const formModel = getMyRepository(EvaluationFormEntity);
-    console.log("query", req.query);
+    // console.log("query", req.query);
 
     const find = await formModel.findOne({
       where: { id: req?.query?.formId },

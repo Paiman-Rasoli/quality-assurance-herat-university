@@ -12,7 +12,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Question = ({ Controller, control, errors, name, question }) => {
+const Question = ({ ndx, Controller, control, errors, name, question }) => {
   // const [options, setOptions] = useState(Options[2]);
   // console.log(errors);
   return (
@@ -37,7 +37,10 @@ const Question = ({ Controller, control, errors, name, question }) => {
             }}
             className="mt-2 w-full"
           >
-            <RadioGroup.Label>{question}</RadioGroup.Label>
+            <RadioGroup.Label>
+              <span className="pl-2">{ndx + 1}.</span>
+              {question}
+            </RadioGroup.Label>
             <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-3 md:grid-cols-5">
               {Options.map((option) => (
                 <RadioGroup.Option
