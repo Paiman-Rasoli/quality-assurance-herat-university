@@ -33,21 +33,22 @@ const Form = ({ formData }) => {
           <QuestionForm formId={formData.id} />
         </FormBorder>
         <p className="text-xs px-5">
-          <p className="flex flex-wrap gap-1">
-            <span>حمایت کننده:</span>
-            پوهنیار حامد امیری
-          </p>
           <p>
             <span>توسعه دهنده گان: </span>
             <span>پیمان رسولی و مصطفی زاهدی</span>
           </p>
-          سورس کد فعلی این سیستم در گیت هاب به صورت عمومی و منبع باز به دسترس
-          علاقه مندان و محصلین جهت ارتقا و هر گونه تغییر قرار دارد.
-          <span className="px-2 text-xs text-blue-500 underline">
-            <a href="https://github.com/Mustafa-Zahedi/Quality-Assurance-System-of-Herat-University">
-              آدرس گیت هاب پروژه
-            </a>
-          </span>
+          <p className="flex flex-wrap gap-1">
+            <span>استاد راهنما:</span>
+            پوهنیار حامد امیری
+          </p>
+
+          <a
+            href="https://github.com/Mustafa-Zahedi/Quality-Assurance-System-of-Herat-University"
+            className="text-xs text-blue-500 underline"
+          >
+            سورس کد نسخه فعلی این سیستم در گیت هاب به صورت عمومی و منبع باز به
+            دسترس علاقه مندان و محصلین جهت ارتقا و هر گونه تغییر قرار دارد.
+          </a>
         </p>
       </div>
     </section>

@@ -95,7 +95,7 @@ export default function UpdateModal({
           <Input
             register={register}
             errors={errors}
-            label="حالت"
+            label="حالت مدنی"
             name="state"
             type="text"
             defaultValue={teacher.state}
