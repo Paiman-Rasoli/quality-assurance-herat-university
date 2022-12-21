@@ -14,6 +14,7 @@ const Select = ({
   control,
   options,
   label,
+  itemNumber,
   placeholder,
   errors,
   setSelectedOptions,
@@ -87,7 +88,7 @@ const Select = ({
                   leaveFrom="transform scale-100 opacity-100"
                   leaveTo="transform scale-90 opacity-0"
                 >
-                  <Listbox.Options className="absolute top-10 w-full z-10 mt-1 max-h-60  overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                  <Listbox.Options className="absolute top-10 w-[10rem] z-10 mt-1 max-h-60  overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     {options?.map((opt, ndx) => (
                       <Listbox.Option
                         key={ndx}
@@ -104,10 +105,11 @@ const Select = ({
                             <span
                               className={classNames(
                                 selected ? "font-semibold" : "font-normal",
-                                "block truncate"
+                                "block"
                               )}
                             >
                               {opt[0]}
+                              {opt?.[2] && `(${opt?.[2]})`}
                             </span>
 
                             {selected ? (

@@ -15,13 +15,17 @@ const EvaluationFromTable = ({
   updateF,
   faculties,
 }) => {
+  const [years, setYears] = useState([2022]);
+  const [existingFaculties, setExistingFaculties] = useState([faculties]);
+  const [existingDeps, setExistingDeps] = useState([faculties]);
   const [selectedDep, setSelectedDep] = useState(null);
   const [selectedFac, setSelectedFac] = useState(null);
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedSmstrType, setSelectedSmstrType] = useState(null);
   const [filteredYear, setFilterYear] = useState(forms);
   const [filteredSmstr, setFilteredSmstr] = useState(filteredYear);
-  const [filteredForms, setFilteredForms] = useState(filteredSmstr);
+  const [filteredFaculty, setFilteredFaculty] = useState(filteredSmstr);
+  const [filteredDeps, setFilteredDeps] = useState(filteredSmstr);
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -31,6 +35,35 @@ const EvaluationFromTable = ({
   const printStylesPage = () => {
     return `@page { size: landscape; margin: 20px !important; }`;
   };
+
+  useEffect(() => {
+    const years = forms.reduce((acc, current) => {
+      acc[current.year] = acc[current.year] ?? [];
+      acc[current.year].push(current);
+      return acc;
+    }, {});
+    setYears(years);
+    const fcs = filteredSmstr.reduce((acc, current) => {
+      acc[current.faculty.fa_name] = acc[current.faculty.fa_name] ?? [];
+      acc[current.faculty.fa_name].push(current);
+      return acc;
+    }, {});
+    setExistingFaculties(fcs);
+
+    const deps = faculties
+      ?.filter((fc) => fc.fa_name === selectedFac)[0]
+      ?.departments?.map((department) => [
+        department.fa_name,
+        department.fa_name,
+      ]);
+    setExistingDeps(deps);
+
+    // const groupedDeps = filteredFaculty.reduce((acc, current) => {
+    //   acc[current.department.id] = acc[current.department.id] ?? [];
+    //   acc[current.department.id].push(current);
+    //   return acc;
+    // }, {});
+  }, [faculties, filteredSmstr, forms, selectedFac]);
 
   useEffect(() => {
     selectedYear
@@ -52,16 +85,22 @@ const EvaluationFromTable = ({
   }, [filteredYear, selectedSmstrType]);
 
   useEffect(() => {
-    setFilteredForms(
+    setFilteredFaculty(
       selectedFac
-        ? filteredSmstr?.filter((form) =>
-            selectedDep
-              ? form.department.id === selectedDep
-              : form.faculty.id === selectedFac
-          )
+        ? filteredSmstr?.filter((form) => form.faculty.fa_name === selectedFac)
         : filteredSmstr
     );
-  }, [selectedDep, selectedFac, filteredSmstr]);
+  }, [selectedFac, filteredSmstr]);
+
+  useEffect(() => {
+    setFilteredDeps(
+      selectedDep
+        ? filteredFaculty?.filter(
+            (form) => form.department.fa_name === selectedDep
+          )
+        : filteredFaculty
+    );
+  }, [selectedDep, filteredFaculty]);
 
   useMemo(() => {
     setSelectedDep(null);
@@ -70,7 +109,7 @@ const EvaluationFromTable = ({
   // console.log(selectedYear);
 
   return (
-    <section>
+    <section className="font-vazir" dir="rtl">
       {forms?.length < 1 ? (
         <article className="w-full grid">
           <div className="mb-10 flex flex-wrap w-full justify-end gap-5">
@@ -90,7 +129,10 @@ const EvaluationFromTable = ({
           <div className="mb-5 flex flex-wrap w-full justify-between gap-5">
             <div className="inline-flex">
               <FilterForms
-                faculties={faculties}
+                // faculties={faculties}
+                years={years}
+                existingFaculties={existingFaculties}
+                existingDeps={existingDeps}
                 selectedSmstrType={selectedSmstrType}
                 selectedYear={selectedYear}
                 selectedDep={selectedDep}
@@ -121,14 +163,20 @@ const EvaluationFromTable = ({
             </div>
           </div>
           <div
-            ref={componentRef}
             dir="rtl"
+            ref={componentRef}
             className="p-5 rounded-xl bg-blue-100"
           >
             <style type="text/css" media="print">
               {printStylesPage()}
             </style>
             <h4 className="font-vazirBlack text-3xl">لیست فورم های ارزیابی</h4>
+            <div className="flex flex-wrap gap-5 pt-5 font-vazirBold">
+              {selectedYear && <p> سال {selectedYear}</p>}{" "}
+              {selectedSmstrType && <p>سمستر {selectedSmstrType} </p>}{" "}
+              {selectedFac && <p>فاکولته {selectedFac} </p>}{" "}
+              {selectedDep && <p> دیپارتمنت {selectedDep} </p>}{" "}
+            </div>
             <div className="mt-5 shadow-sm ring-1 ring-black ring-opacity-50">
               <table
                 className="min-w-full divide-y divide-gray-700 font-vazir"
@@ -191,7 +239,7 @@ const EvaluationFromTable = ({
                   dir="rtl"
                   className="divide-y divide-gray-700 bg-blue-50 text-gray-900"
                 >
-                  {filteredForms?.map((item) => (
+                  {filteredDeps?.map((item) => (
                     <tr
                       key={item.id}
                       className="divide-x divide-x-reverse divide-gray-700"

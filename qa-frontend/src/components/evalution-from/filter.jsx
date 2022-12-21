@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
-import { yearsForFiltring } from "../../services/list";
 
 import Select from "../SelectForFilter";
 
@@ -28,7 +27,9 @@ const FilterForms = ({
   setSelectedDep,
   setSelectedYear,
   setSelectedSmstrType,
-  faculties,
+  existingDeps,
+  existingFaculties,
+  years,
 }) => {
   const [selectedFaculty, setSelectedFaculty] = useState([]);
   const [cancelFilter, setCancelFilter] = useState(false);
@@ -61,6 +62,17 @@ const FilterForms = ({
     setSelectedSmstrType(null);
   }, [cancelFilter]);
 
+  console.log(selectedFac);
+
+  // useEffect(() => {
+  //   console.log(Object.entries(faculties)?.filter((fc) => fc));
+  //   // const years = faculties.reduce((acc, current) => {
+  //   //   acc[current.year] = acc[current.year] ?? [];
+  //   //   acc[current.year].push(current);
+  //   //   return acc;
+  //   // }, {});
+  // }, [faculties, selectedFac]);
+
   return (
     <div className="flex flex-wrap gap-2 w-fit px-5">
       <Select
@@ -69,7 +81,11 @@ const FilterForms = ({
         errors={errors}
         Controller={Controller}
         control={control}
-        options={yearsForFiltring}
+        options={Object.entries(years)?.map((year) => [
+          year[0],
+          year[0],
+          year[1].length,
+        ])}
         setSelected={setSelectedYear}
         placeholder="سال"
         label="فیلتر سال"
@@ -96,7 +112,11 @@ const FilterForms = ({
         Controller={Controller}
         control={control}
         errors={errors}
-        options={faculties?.map((faculty) => [faculty.fa_name, faculty.id])}
+        options={Object.entries(existingFaculties)?.map((faculty) => [
+          faculty[0],
+          faculty[0],
+          faculty[1].length,
+        ])}
         placeholder="فاکولته"
         label=" فیلتر فاکولته"
         setSelectedOptions={setSelectedFaculty}
@@ -110,12 +130,7 @@ const FilterForms = ({
         errors={errors}
         Controller={Controller}
         control={control}
-        options={faculties
-          ?.filter((fc) => fc.fa_name === selectedFaculty[0])[0]
-          ?.departments?.map((department) => [
-            department.fa_name,
-            department.id,
-          ])}
+        options={existingDeps}
         setSelected={setSelectedDep}
         placeholder="دیپارتمنت"
         label="فیلتر دیپارتمنت"
