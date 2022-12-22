@@ -75,9 +75,9 @@ const QuestionForm = ({ formId }) => {
     <section>
       {confirmModal && (
         <Modal isOpen={confirmModal} setIsOpen={setConfirmModal}>
-          <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-cyan-100 p-6 text-right align-middle shadow-xl transition-all">
+          <div className="w-full max-w-md transform overflow-hidden rounded-2xl bg-cyan-800 p-6 text-right align-middle shadow-xl transition-all">
             <div className="mt-2">
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-white">
                 آیا از پاسخ های تان اطمینان دارید؟
               </p>
             </div>
@@ -103,7 +103,9 @@ const QuestionForm = ({ formId }) => {
       <form onSubmit={handleSubmit(submtHandler)} className="grid font-vazir">
         {questions?.map((question, ndx) => (
           <div
-            className={`p-3 ${ndx % 2 === 0 ? "bg-gray-50" : "bg-gray-100"}`}
+            className={`p-3 text-white ${
+              ndx % 2 === 0 ? "bg-cyan-800" : "bg-cyan-700"
+            }`}
           >
             <Question
               Controller={Controller}
@@ -117,10 +119,10 @@ const QuestionForm = ({ formId }) => {
           </div>
         ))}
 
-        <div className="flex justify-end p-10 w-full">
+        <div className="flex justify-end p-10 w-full bg-cyan-800">
           <button
             type={"submit"}
-            className="w-full inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            className="w-full inline-flex justify-center rounded-md border border-transparent bg-cyan-300 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             تایید
           </button>

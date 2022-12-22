@@ -34,16 +34,15 @@ const CheckId = ({ setData }) => {
                 "فورم مورد نظر یافت نشد لطفا دقت کرده و آیدی درست را وارد نمایید"
               }
             />,
-            { position: "bottom-center", autoClose: 10000 }
+            { position: "top-center", autoClose: 10000 }
           );
         res.status === 401 &&
           toast.warning(
             <ToastMsg text={"به نظر میرسد فورم مورد نظر شما منقضی شده است"} />,
-            { position: "bottom-center", autoClose: 10000 }
+            { position: "top-center", autoClose: 10000 }
           );
       }
     }
-    // console.log(await res.json(), "🔞🔞");
   };
 
   return (

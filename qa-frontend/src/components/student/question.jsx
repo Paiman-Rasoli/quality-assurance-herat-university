@@ -50,8 +50,8 @@ const Question = ({ ndx, Controller, control, errors, name, question }) => {
                     classNames(
                       active ? "ring-2 ring-offset-2 ring-cyan-500" : "",
                       checked
-                        ? "bg-cyan-600 border-transparent text-white hover:bg-cyan-700"
-                        : "bg-white border-gray-200 text-gray-900 hover:bg-gray-50",
+                        ? "bg-cyan-300 border-transparent text-gray-700 hover:bg-cyan-300 border-gray-100"
+                        : "bg-cyan-800 text-white border-gray-200 hover:bg-cyan-600",
                       "border rounded-md py-3 px-3 flex items-center justify-center text-sm font-medium uppercase sm:flex-1 hover:cursor-pointer"
                     )
                   }
@@ -64,7 +64,7 @@ const Question = ({ ndx, Controller, control, errors, name, question }) => {
               ))}
             </div>
             {errors[name] && (
-              <p className="text-red-500 text-xs">{errors[name]?.message}</p>
+              <p className="text-yellow-500 text-xs">{errors[name]?.message}</p>
             )}
           </RadioGroup>
         </div>
