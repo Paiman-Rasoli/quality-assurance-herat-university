@@ -17,6 +17,7 @@ export class AnswerService {
       const result = await answerModel.save({
         evaluationFormId: body.formId,
         response: body.response,
+        suggestion: body?.suggestion,
       });
       return res.status(200).json({ answerId: result.id });
     } catch (err) {

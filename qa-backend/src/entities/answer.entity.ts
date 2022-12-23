@@ -26,4 +26,7 @@ export class AnswerEntity {
 
   @Column()
   evaluationFormId: string;
+
+  @Column({ nullable: true, type: "varchar" })
+  suggestion: string;
 }
