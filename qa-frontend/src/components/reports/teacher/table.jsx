@@ -115,6 +115,23 @@ const Table = ({ reports }) => {
           </table>
         </div>
       </div>
+      <div className="w-full p-5">
+        <h5 className="font-vazirBold">نظرات و پیشنهادات</h5>
+        {reports?.purifySubject?.map((item) => (
+          <div className="flex flex-col text-sm font-vazir w-full">
+            {item?.suggestions?.map((sugestion, ndx) => (
+              <div className="flex flex-col my-3">
+                <span className="text-xs text-gray-500 mr-5">
+                  {item.subject.name}
+                </span>
+                <p className="">
+                  <span>{ndx + 1}</span>. <span>{sugestion}</span>
+                </p>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>{" "}
     </section>
   );
 };

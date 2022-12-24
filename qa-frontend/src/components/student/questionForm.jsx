@@ -22,6 +22,7 @@ const QuestionForm = ({ formId }) => {
   } = useFetch("question/active");
 
   const {
+    register,
     control,
     handleSubmit,
     formState: { errors },
@@ -29,8 +30,17 @@ const QuestionForm = ({ formId }) => {
 
   const Submit = async (data) => {
     setLoading(true);
-    // console.log(data, "🤔😀");
-    const res = await httpPostAnswres({ formId, response: data });
+    const responses = {};
+    // console.log(data, responses, "🤔😀");
+    Object.entries(data)
+      .filter((item) => item[0] !== "suggestion")
+      .map((item) => (responses[item[0]] = item[1]));
+
+    const res = await httpPostAnswres({
+      formId,
+      response: { ...responses },
+      suggestion: data["suggestion"],
+    });
     // console.log(await res.json(), "✔✔");
     if (res) {
       res.ok
@@ -118,7 +128,21 @@ const QuestionForm = ({ formId }) => {
             />
           </div>
         ))}
-
+        <article className="bg-cyan-700 text-white px-3">
+          <label htmlFor="suggestion">
+            لطفا نظرات و پینشهادات سازنده تانرا جهت بهبود کیفیت تدریس با ما شریک
+            سازید
+          </label>
+          <div className="flex justify-center mb-2">
+            <textarea
+              className="w-full rounded border-2 border-cyan-500 bg-cyan-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              {...register("suggestion")}
+              dir="rtl"
+              id="suggestion"
+              rows="4"
+            ></textarea>
+          </div>
+        </article>
         <div className="flex justify-end p-10 w-full bg-cyan-800">
           <button
             type={"submit"}
