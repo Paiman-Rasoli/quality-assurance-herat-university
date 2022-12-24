@@ -146,46 +146,18 @@ export class ReportService {
   }
 }
 
-function getPureData(forms: any[]) {
-  // const => [{teacherId : 1 , subjectId : 2 , sum : 450 , numberOfSibject : 2} ]
-  const all = [];
-  forms.map((form) => {
-    let tempSum = 0;
-
-    let numberOfQuestions;
-    form.answers.map((response) => {
-      const pure = Object.values(response.response);
-      pure.forEach((score) => {
-        tempSum += Number(score);
-      });
-      numberOfQuestions = pure.length;
-    });
-    let subs = form.answers?.length;
-    if (subs > 0) {
-      all.push({
-        teacherId: form.teacher.id,
-        subjectId: form.subject.id,
-        sum: tempSum,
-        subscribers: subs,
-        // maximu: Object.values(form.answers[0]?.response).length * 5,
-        average: getAverage(tempSum, subs),
-        percent:
-          (getAverage(tempSum, subs) * 100) /
-          (numberOfQuestions * RESPONSES.VERY_HEIGH),
-      });
-    }
-  });
-  return all;
-}
-
 function reportOfEachSubjectForTeacher(forms: any[]) {
   const all = [];
   forms.map((form) => {
+    let suggestions = [];
     let tempSum = 0;
     let tempPercent = 0;
     let numberOfQuestions = 0;
-    form.answers.map((response) => {
-      const pure = Object.values(response.response);
+
+    form.answers.map((answer) => {
+      const pure = Object.values(answer.response);
+      // const pure = Object.values(response.response);
+      answer.suggestion !== null && suggestions.push(answer.suggestion);
       let temp = 0;
       pure.forEach((score) => {
         temp += Number(score);
@@ -209,6 +181,7 @@ function reportOfEachSubjectForTeacher(forms: any[]) {
         subjectId: form.subject.id,
         sum: tempSum,
         subscribers: subs,
+        suggestions,
         average: tempSum / subs,
         percent: tempPercent / subs,
       });
@@ -219,25 +192,6 @@ function reportOfEachSubjectForTeacher(forms: any[]) {
 
 function getAverage(sum: number, numbers: number) {
   return +(sum / numbers).toFixed(2);
-}
-
-function getLastValue(data: any[]) {
-  const temp = {};
-
-  data.map((item) => {
-    if (temp[item.teacherId]) {
-      temp[item.teacherId] = {
-        ...temp[item.teacherId],
-        average: temp[item.teacherId]["average"] + item.average,
-        subscribers: temp[item.teacherId]["subscribers"] + item.subscribers,
-        sum: temp[item.teacherId]["sum"] + item.sum,
-        percent: item.average / (100 / item.subscribers / 5),
-      };
-    } else {
-      temp[item.teacherId] = item;
-    }
-  });
-  return temp;
 }
 
 function totalReport(data: any[]) {
