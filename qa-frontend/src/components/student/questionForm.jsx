@@ -130,7 +130,8 @@ const QuestionForm = ({ formId }) => {
         ))}
         <article className="bg-cyan-700 text-white px-3">
           <label htmlFor="suggestion">
-            نظرات و پینشهادات تانرا جهت بهبود نظام درسی با ما شریک سازید
+            لطفا نظرات و پینشهادات سازنده تانرا جهت بهبود کیفیت تدریس با ما شریک
+            سازید
           </label>
           <div className="flex justify-center mb-2">
             <textarea
