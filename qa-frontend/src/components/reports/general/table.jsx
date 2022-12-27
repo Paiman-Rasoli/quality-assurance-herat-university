@@ -2,16 +2,21 @@ const Table = ({ reports }) => {
   // console.log(reports);
   return (
     <section dir="rtl" className="font-vazirBold">
-      <ul className="grid grid-cols-2 bg-blue-300 rounded py-5 px-10">
-        <li className="flex gap-3">
-          <span>سال:</span>
-          <span>{reports?.year}</span>
-        </li>
-        <li className="flex gap-3">
-          <span>سمستر:</span>
-          <span>{reports?.semester_type}</span>
-        </li>
-      </ul>
+      <div className="bg-blue-300 rounded py-5 px-10">
+        <h1 className="flex text-xl font-vazirBlack mb-5">
+          گزارش کیفیت تدریس فاکولته ها
+        </h1>
+        <ul className="grid grid-cols-2">
+          <li className="flex gap-3">
+            <span>سال:</span>
+            <span>{reports?.year}</span>
+          </li>
+          <li className="flex gap-3">
+            <span>سمستر:</span>
+            <span>{reports?.semester_type}</span>
+          </li>
+        </ul>
+      </div>
       <article className="font-vazir flex gap-2 flex-wrap justify-around bg-orange-400 my-3 py-2 rounded">
         <div className="flex gap-3">
           <span>فیصدی امتیازات در سطح کل دانشگاه:</span>

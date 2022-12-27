@@ -2,27 +2,29 @@ const Table = ({ reports }) => {
   // console.log(teachers);
   return (
     <section dir="rtl" className="font-vazirBold">
-      <ul
-        dir="rtl"
-        className="grid grid-cols-2 bg-blue-300 rounded py-5 px-10 mb-5"
-      >
-        <li className="flex gap-3">
-          <span>فاکولته:</span>
-          <span>{reports?.department?.faculty?.fa_name}</span>
-        </li>
-        <li className="flex gap-3">
-          <span>دیپارتمنت:</span>
-          <span>{reports?.department?.fa_name}</span>
-        </li>
-        <li className="flex gap-3">
-          <span>سال:</span>
-          <span>{reports?.year}</span>
-        </li>
-        <li className="flex gap-3">
-          <span>سمستر:</span>
-          <span>{reports?.semester_type}</span>
-        </li>
-      </ul>
+      <div className="bg-blue-300 rounded py-5 px-10 mb-5">
+        <h1 className="flex text-xl font-vazirBlack mb-5">
+          گزارش کیفیت تدریس دیپارتمنت
+        </h1>
+        <ul dir="rtl" className="grid grid-cols-2">
+          <li className="flex gap-3">
+            <span>فاکولته:</span>
+            <span>{reports?.department?.faculty?.fa_name}</span>
+          </li>
+          <li className="flex gap-3">
+            <span>دیپارتمنت:</span>
+            <span>{reports?.department?.fa_name}</span>
+          </li>
+          <li className="flex gap-3">
+            <span>سال:</span>
+            <span>{reports?.year}</span>
+          </li>
+          <li className="flex gap-3">
+            <span>سمستر:</span>
+            <span>{reports?.semester_type}</span>
+          </li>
+        </ul>
+      </div>
       <article className="flex gap-2 flex-wrap justify-around bg-orange-400 mb-5 rounded">
         <div className="flex gap-3 rounded p-3">
           <span>فیصدی امتیازات دیپارتمنت:</span>

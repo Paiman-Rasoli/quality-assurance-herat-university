@@ -9,6 +9,7 @@ const Table = ({ reports }) => {
       <style type="text/css" media="print">
         {printStylesPage()}
       </style>
+      <h1 className="flex text-xl font-vazirBlack">گزارش کیفیت تدریس استاد</h1>
       <ul className="font-vazirBold grid grid-cols-2 bg-blue-300 rounded py-5 px-10 gap-x-10">
         <li className="flex gap-3">
           <span>نام و تخلص:</span>
@@ -117,16 +118,16 @@ const Table = ({ reports }) => {
       </div>
       <div className="w-full p-5">
         <h5 className="font-vazirBold">نظرات و پیشنهادات</h5>
-        {reports?.purifySubject?.map((item) => (
+        {reports?.purifySubject?.map((item, ndx) => (
           <div className="flex flex-col text-sm font-vazir w-full">
-            {item?.suggestions?.map((sugestion, ndx) => (
+            {item?.suggestions?.map((sugestion, dx) => (
               <div className="flex flex-col my-3">
-                <span className="text-xs text-gray-500 mr-5">
+                <p className="">
+                  <span>{dx + 1}</span>. <span>{sugestion}</span>
+                </p>
+                <span className="w-fit text-xs text-gray-700 mr-5 bg-gray-100 px-2 rounded">
                   {item.subject.name}
                 </span>
-                <p className="">
-                  <span>{ndx + 1}</span>. <span>{sugestion}</span>
-                </p>
               </div>
             ))}
           </div>
