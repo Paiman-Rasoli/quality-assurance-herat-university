@@ -172,10 +172,10 @@ const EvaluationFromTable = ({
             </style>
             <h4 className="font-vazirBlack text-3xl">لیست فورم های ارزیابی</h4>
             <div className="flex flex-wrap gap-5 pt-5 font-vazirBold">
-              {selectedYear && <p> سال {selectedYear}</p>}{" "}
-              {selectedSmstrType && <p>سمستر {selectedSmstrType} </p>}{" "}
-              {selectedFac && <p>فاکولته {selectedFac} </p>}{" "}
-              {selectedDep && <p> دیپارتمنت {selectedDep} </p>}{" "}
+              {selectedYear && <p> سال: {selectedYear}</p>}{" "}
+              {selectedSmstrType && <p>سمستر: {selectedSmstrType} </p>}{" "}
+              {selectedFac && <p>فاکولته: {selectedFac} </p>}{" "}
+              {selectedDep && <p> دیپارتمنت: {selectedDep} </p>}{" "}
             </div>
             <div className="mt-5 shadow-sm ring-1 ring-black ring-opacity-50">
               <table
