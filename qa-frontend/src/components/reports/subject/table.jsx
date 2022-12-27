@@ -9,6 +9,7 @@ const Table = ({ filterdQuestions, reports }) => {
       <style type="text/css" media="print">
         {printStylesPage()}
       </style>
+      <h1 className="flex text-xl font-vazirBlack">گزارش کیفیت تدریس مضمون</h1>
       <ul
         dir="rtl"
         className="grid grid-cols-2 bg-blue-300 rounded py-5 px-10 mb-5 font-vazirBold"
