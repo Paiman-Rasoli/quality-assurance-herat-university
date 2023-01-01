@@ -44,6 +44,7 @@ const SubjectReport = ({
         );
         setResponse(res);
         const reports = await res.json();
+        console.log(reports);
         setReport(reports);
         const temp = [];
         for (const [key, value] of Object.entries(reports.result)) {
@@ -63,6 +64,7 @@ const SubjectReport = ({
         setLoading(false);
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [semester, semester_type, subjectId, teacherId, year]);
 
   const filterdQuestions = questions
@@ -127,11 +129,11 @@ const SubjectReport = ({
         </button>
       </div>
 
-      {filterdQuestions?.length > 0 && (
-        <div>
-          <article ref={componentRef} dir="rtl">
-            <Table filterdQuestions={filterdQuestions} reports={reports} />
-          </article>
+      <div>
+        <article ref={componentRef} dir="rtl">
+          <Table filterdQuestions={filterdQuestions} reports={reports} />
+        </article>
+        {filterdQuestions?.length > 0 && (
           <div>
             <BarChart
               chartData={filterdQuestions?.map((item) => {
@@ -146,8 +148,8 @@ const SubjectReport = ({
               title=" چارت نشان دهنده فیصدی نمرات همه سوالات تایید شده است."
             />
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </section>
   );
 };
