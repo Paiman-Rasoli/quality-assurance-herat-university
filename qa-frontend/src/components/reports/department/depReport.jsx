@@ -126,7 +126,7 @@ const DepartmentReportChart = ({
                     reports={reports}
                   />
                 </article>
-                <article className="flex flex-wrap lg:grid justify-center gap-3">
+                <article className="flex flex-wrap lg:grid justify-center gap-1">
                   <div ref={chartRef} className="w-full min-w-[40rem]">
                     <BarChart
                       chartData={chartData}
@@ -136,7 +136,7 @@ const DepartmentReportChart = ({
                       title=" چارت نشان دهنده فیصدی نمرات همه اساتید دیپارتمنت است."
                     />
                   </div>
-                  <div ref={chartRef} className="w-full min-w-[30rem] p-10">
+                  <div ref={chartRef} className="w-full min-w-[30rem] p-5">
                     <PieChart
                       chartData={subsData}
                       label="نمودار تعداد اشتراک کننده برای هر استاد"

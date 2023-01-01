@@ -8,7 +8,7 @@ export const BarChart = ({ chartData, label, title, y_label, x_label }) => {
   return (
     <div
       dir="rtl"
-      className="my-10 border-2 p-5 rounded border-red-200 shadow-lg font-vazirBold"
+      className="my-5 border-2 p-5 rounded border-red-200 shadow-lg font-vazirBold"
     >
       <h6 className="text-gray-700">{label}</h6>
       <Bar
@@ -49,13 +49,26 @@ export const BarChart = ({ chartData, label, title, y_label, x_label }) => {
               data: [...chartData?.map((item) => item.percent)],
               fill: true,
               backgroundColor: [
+                "#eab308",
                 "#f87171",
+                "#06b6d4",
+                "#f59e0b",
+                "#10b981",
+                "#8b5cf6",
                 "#facc15",
-                "#65a30d",
-                "#2563eb",
                 "#fb923c",
+                "#ec4899",
+                "#6366f1",
+                "#2563eb",
+                "#3b82f6",
                 "#e11d48",
+                "#f43f5e",
+                "#84cc16",
+                "#a855f7",
                 "#db2777",
+                "#0ea5e9",
+                "#22c55e",
+                "#14b8a6",
               ],
               minBarLength: 1,
               barThickness: 50,
