@@ -120,16 +120,22 @@ const Table = ({ reports }) => {
         <h5 className="font-vazirBold">نظرات و پیشنهادات</h5>
         {reports?.purifySubject?.map((item, ndx) => (
           <div className="flex flex-col text-sm font-vazir w-full">
-            {item?.suggestions?.map((sugestion, dx) => (
-              <div className="flex flex-col my-3">
-                <p className="">
-                  <span>{dx + 1}</span>. <span>{sugestion}</span>
-                </p>
-                <span className="w-fit text-xs text-gray-700 mr-5 bg-gray-100 px-2 rounded">
-                  {item.subject.name}
-                </span>
-              </div>
-            ))}
+            {item?.suggestions?.filter((sugestion) => sugestion).length > 0 ? (
+              item?.suggestions
+                ?.filter((sugestion) => sugestion)
+                .map((sugestion, dx) => (
+                  <div className="flex flex-col my-3">
+                    <p className="">
+                      <span>{dx + 1}</span>. <span>{sugestion}</span>
+                    </p>
+                    <span className="w-fit text-xs text-gray-700 mr-5 bg-gray-100 px-2 rounded">
+                      {item.subject.name}
+                    </span>
+                  </div>
+                ))
+            ) : (
+              <p>نظری ثبت نشده است.</p>
+            )}
           </div>
         ))}
       </div>{" "}
