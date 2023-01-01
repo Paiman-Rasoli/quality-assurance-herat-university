@@ -33,14 +33,15 @@ function Router() {
           </Route>
           <Route path="login" element={<Login />} />
           <Route element={<PrivateRoutes />}>
-            <Route element={<Layout />}>
+            <Route path="dashboard" element={<Layout />}>
               <Route element={<ProtectedRoutes />}>
                 <Route path="user">
                   <Route path="add-users" element={<AddUser />} />
                   <Route path="users" element={<Users />} />
                 </Route>
               </Route>
-              <Route path="dashboard">
+              <Route index element={<Dashboard />} />
+              <Route path="database">
                 <Route element={<ProtectedRoutes />}>
                   <Route path="faculty" element={<Faculty />} />
                 </Route>
@@ -49,7 +50,6 @@ function Router() {
                 <Route path="teacher" element={<Teachers />} />
                 <Route path="subject" element={<Subject />} />
                 <Route path="question" element={<Question />} />
-                <Route index element={<Dashboard />} />
               </Route>
               <Route path="report">
                 <Route element={<ProtectedRoutes />}>

@@ -14,7 +14,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "خانه", href: "dashboard", icon: HomeIcon, current: true },
+  { name: "خانه", href: "", icon: HomeIcon, current: true },
   {
     name: "کاربران",
     href: "user",
@@ -22,23 +22,28 @@ const navigation = [
     current: false,
     isPrivate: true,
     children: [
-      { name: "لیست کاربران", href: "users" },
-      { name: "افزودن کاربر جدید", href: "add-users" },
+      { name: "لیست کاربران", href: "users", current: false },
+      { name: "افزودن کاربر جدید", href: "add-users", current: false },
     ],
   },
   {
     name: "ثبت و تعریف",
-    href: "dashboard",
+    href: "database",
     icon: FolderIcon,
     isPrivate: false,
     current: false,
     children: [
-      { name: "فاکولته", href: "faculty", isPrivate: true },
-      { name: "دیپارتمنت", href: "department", isPrivate: false },
-      { name: "استاد", href: "teacher", isPrivate: false },
-      { name: "مضمون", href: "subject", isPrivate: false },
-      { name: "فورم", href: "form", isPrivate: false },
-      { name: "سوال", href: "question", isPrivate: false },
+      { name: "فاکولته", href: "faculty", isPrivate: true, current: true },
+      {
+        name: "دیپارتمنت",
+        href: "department",
+        isPrivate: false,
+        current: false,
+      },
+      { name: "استاد", href: "teacher", isPrivate: false, current: false },
+      { name: "مضمون", href: "subject", isPrivate: false, current: false },
+      { name: "فورم", href: "form", isPrivate: false, current: false },
+      { name: "سوال", href: "question", isPrivate: false, current: false },
     ],
   },
   {
@@ -48,10 +53,15 @@ const navigation = [
     current: false,
     isPrivate: false,
     children: [
-      { name: "فاکولته ها", href: "total", isPrivate: true },
-      { name: "دیپارتمنت", href: "department", isPrivate: false },
-      { name: "استاد", href: "teacher", isPrivate: false },
-      { name: "مضمون", href: "subject", isPrivate: false },
+      { name: "فاکولته ها", href: "total", isPrivate: true, current: false },
+      {
+        name: "دیپارتمنت",
+        href: "department",
+        isPrivate: false,
+        current: false,
+      },
+      { name: "استاد", href: "teacher", isPrivate: false, current: false },
+      { name: "مضمون", href: "subject", isPrivate: false, current: false },
     ],
   },
 ];
@@ -67,6 +77,7 @@ function classNames(...classes) {
 }
 
 export default function Layout() {
+  const [currentRoute, setCurrentRoute] = useState("/");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const token = sessionStorage.getItem("token");
   const { user } = jwtDecoder(token);
@@ -144,15 +155,15 @@ export default function Layout() {
                               to={item.href}
                               className={classNames(
                                 item?.isPrivate && !user.level && "hidden",
-                                item.current
+                                item.href === currentRoute
                                   ? "bg-gray-100 text-gray-900"
                                   : "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                                "group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md"
+                                "group w-full flex items-center pr-2 py-2 text-sm font-medium rounded-md"
                               )}
                             >
                               <item.icon
                                 className={classNames(
-                                  item.current
+                                  item.href === currentRoute
                                     ? "text-gray-500"
                                     : "text-gray-400 group-hover:text-gray-500",
                                   "ml-3 flex-shrink-0 h-6 w-6"
@@ -173,7 +184,7 @@ export default function Layout() {
                                 <Disclosure.Button
                                   className={classNames(
                                     item?.isPrivate && !user.level && "hidden",
-                                    item.current
+                                    item.href === currentRoute
                                       ? "bg-gray-100 text-gray-900"
                                       : "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900",
                                     "group w-full flex items-center pr-2 pl-1 py-2 text-right text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
@@ -248,17 +259,17 @@ export default function Layout() {
                         to={item.href}
                         className={classNames(
                           item?.isPrivate && !user.level && "hidden",
-                          item.current
+                          item.href === currentRoute
                             ? "bg-gray-100 text-gray-900"
-                            : "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900",
-                          "group w-full flex items-center pl-2 py-2 text-sm font-medium rounded-md"
+                            : "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 hover:scale-y-105 hover:scale-x-95",
+                          "group w-full flex items-center pr-2 py-2 text-sm font-medium rounded-md"
                         )}
                       >
                         <item.icon
                           className={classNames(
-                            item.current
+                            item.href === currentRoute
                               ? "text-gray-500"
-                              : "text-gray-400 group-hover:text-gray-500",
+                              : "text-gray-400 group-hover:text-gray-500 hover:scale-y-105 hover:scale-x-95",
                             "ml-3 flex-shrink-0 h-6 w-6"
                           )}
                           aria-hidden="true"
@@ -273,14 +284,14 @@ export default function Layout() {
                           <Disclosure.Button
                             className={classNames(
                               item.isPrivate && !user.level && "hidden",
-                              item.current
+                              item.href === currentRoute
                                 ? "bg-gray-100 text-gray-900"
-                                : "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+                                : "bg-white text-gray-600 hover:bg-gray-50 hover:text-gray-900 hover:scale-y-105 hover:scale-x-95",
                               "group w-full flex items-center pr-2 pl-1 py-2 text-right text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500"
                             )}
                           >
                             <item.icon
-                              className="ml-3 h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                              className="ml-3 h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500 hover:scale-y-105 hover:scale-x-95"
                               aria-hidden="true"
                             />
                             <span className="flex-1">{item.name}</span>

@@ -15,12 +15,12 @@ const EvaluationFromTable = ({
   updateF,
   faculties,
 }) => {
-  const [years, setYears] = useState([2022]);
+  const [years, setYears] = useState([new Date().getFullYear()]);
   const [existingFaculties, setExistingFaculties] = useState([faculties]);
   const [existingDeps, setExistingDeps] = useState([faculties]);
   const [selectedDep, setSelectedDep] = useState(null);
   const [selectedFac, setSelectedFac] = useState(null);
-  const [selectedYear, setSelectedYear] = useState(null);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedSmstrType, setSelectedSmstrType] = useState(null);
   const [filteredYear, setFilterYear] = useState(forms);
   const [filteredSmstr, setFilteredSmstr] = useState(filteredYear);
@@ -68,7 +68,10 @@ const EvaluationFromTable = ({
   useEffect(() => {
     selectedYear
       ? setFilterYear(forms?.filter((form) => +selectedYear === form.year))
-      : setFilterYear(forms);
+      : setFilterYear(
+          forms?.filter((form) => form.year === new Date().getFullYear())
+        );
+
     setSelectedFac(null);
     setSelectedDep(null);
     setSelectedSmstrType(null);
@@ -172,7 +175,7 @@ const EvaluationFromTable = ({
             </style>
             <h4 className="font-vazirBlack text-3xl">لیست فورم های ارزیابی</h4>
             <div className="flex flex-wrap gap-5 pt-5 font-vazirBold">
-              {selectedYear && <p> سال: {selectedYear}</p>}{" "}
+              {<p> سال: {selectedYear || new Date().getFullYear()}</p>}{" "}
               {selectedSmstrType && <p>سمستر: {selectedSmstrType} </p>}{" "}
               {selectedFac && <p>فاکولته: {selectedFac} </p>}{" "}
               {selectedDep && <p> دیپارتمنت: {selectedDep} </p>}{" "}

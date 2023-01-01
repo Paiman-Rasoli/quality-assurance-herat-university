@@ -27,12 +27,14 @@ const QuestionTable = ({ setIsOpenModal, questions, updateF, deleteF }) => {
             selectedStatus={selectedStatus}
           />
         </div>
-        <button
-          className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-          onClick={() => setIsOpenModal(true)}
-        >
-          اضافه کردن سوال{" "}
-        </button>
+        {user.level && (
+          <button
+            className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+            onClick={() => setIsOpenModal(true)}
+          >
+            اضافه کردن سوال{" "}
+          </button>
+        )}
       </div>
       <div className="p-5 rounded-xl bg-blue-100">
         <h4 className="font-vazirBlack text-3xl">لیست سوالات</h4>

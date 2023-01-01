@@ -62,16 +62,7 @@ const FilterForms = ({
     setSelectedSmstrType(null);
   }, [cancelFilter]);
 
-  console.log(selectedFac);
-
-  // useEffect(() => {
-  //   console.log(Object.entries(faculties)?.filter((fc) => fc));
-  //   // const years = faculties.reduce((acc, current) => {
-  //   //   acc[current.year] = acc[current.year] ?? [];
-  //   //   acc[current.year].push(current);
-  //   //   return acc;
-  //   // }, {});
-  // }, [faculties, selectedFac]);
+  // console.log(selectedFac);
 
   return (
     <div className="flex flex-wrap gap-2 w-fit px-5">
@@ -84,7 +75,7 @@ const FilterForms = ({
         options={Object.entries(years)?.map((year) => [
           year[0],
           year[0],
-          year[1].length,
+          year[1]?.length,
         ])}
         setSelected={setSelectedYear}
         placeholder="سال"
@@ -115,7 +106,7 @@ const FilterForms = ({
         options={Object.entries(existingFaculties)?.map((faculty) => [
           faculty[0],
           faculty[0],
-          faculty[1].length,
+          faculty[1]?.length,
         ])}
         placeholder="فاکولته"
         label=" فیلتر فاکولته"
