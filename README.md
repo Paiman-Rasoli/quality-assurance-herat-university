@@ -1,15 +1,9 @@
-<h2> Quality Assurance System </h2>
+<h2> Quality Assurance of Herat university System </h2>
 <br />
-<h3>Server Configuration:</h3>
-<p>1. For running backend navigate to qa-backend and install dependencies using <code>yarn install --frozen-lockfile</code></p>
-<p style="margin-top : 4px;">1.1 For starting server <code>yarn start</code></p>
-
-<p style="margin-top : 4px;">1.2 For running in dev mode <code>yarn dev</code></p>
-<br />
-<hr />
-<h3>Frontend Configuration:</h3>
-<p style="margin-top : 4px;">1. For running frontend navigate to qa-frontend and install dependencies using the command <code>npm install</code></p>
-
-<br />
-<h3>Previous Database </h3>
-<img src="https://user-images.githubusercontent.com/83835010/194774740-e36cf9ed-61fd-486e-91e4-27332d6e3485.PNG" alt="dbText" />
+<h3>How to run the application:</h3>
+<p>1. clone the repository</p>
+<p>2. then navigate to `qa-frontend` and run <code>yarn install --frozen-lockfile</code> to install the libraries which used in frontend. </p>
+<p>3. create a file named <code>.env.local</code> and put this value <code>`REACT_APP_API_URL=http://localhost:1111/api</code></p>
+<p>4. run <code>yarn build</code> to build the react application to pure <code>HTML, CSS and JavaScript</code>.</p>
+<p>5. Next navigate to `qa-backend` and run <code>yarn install --frozen-lockfile</code>  to install all libraries which used in backend.</p>
+<p></p>
