@@ -9,5 +9,6 @@
 <p>6. create a file named <code>.env</code> and put all values which is in <code>.env.example</code> you should add the database connection configuration in <code>.env</code> file.</p>
 <p>7. make sure you have run the MySQL server,finally run <code>yarn start</code> for production purpose or <code>yarn dev</code> for development purpose.</p>
 <p>after starting the application will create necessary tables and you should see the below Log. </p>
-<img src="https://user-images.githubusercontent.com/83835010/210947097-018fc964-83ed-4eae-90e5-6affb205590e.png" />
+<img src="https://user-images.githubusercontent.com/83835010/210947097-018fc964-83ed-4eae-90e5-6affb205590e.png" alt="loggerImage"/>
 <p>Then from your browser go to localhost:1111 you will see the index page of the application.</p>
+<img src="https://user-images.githubusercontent.com/83835010/210948079-01f57aa5-68ea-4502-9dc4-442c8fa7460b.png" alt="indexPage" />
